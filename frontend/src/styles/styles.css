@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
 @import url("animations.css");
+
 html,
 body {
 	margin: 0;
@@ -11,8 +12,32 @@ body {
 	overflow-x: hidden;
 	font-family: "Montserrat", sans-serif;
 }
+
 #root {
 	min-width: 100%;
 	min-height: 100vh;
 	margin: 0 auto;
+}
+
+/* Estilos para la barra de navegación */
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	display: center; /* Alinea los elementos horizontalmente */
+}
+
+nav ul li {
+	margin: 0 15px; /* Espaciado entre los elementos */
+}
+
+nav ul li a {
+	color: #FFFFFF; /* Cambiado a blanco */
+	text-decoration: none; /* Sin subrayado */
+	transition: color 0.3s ease; /* Transición suave para el color */
+}
+
+/* Cambiar el color del enlace al pasar el mouse */
+nav ul li a:hover {
+	color: #54ff6a; /* Color dorado para el hover */
 }

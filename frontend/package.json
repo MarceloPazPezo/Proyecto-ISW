@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port=443"
+    "preview": "vite preview --port=443",
+    "start:pm2": "pm2 start npm --name frontend -- run dev"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.2",
