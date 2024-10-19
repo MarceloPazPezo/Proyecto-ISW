@@ -12,7 +12,7 @@ Repositorio el cual contiene el software desarrollado para la asignatura de Inge
 
 ## Descripción General
 
-El proyecto consiste en el desarrollo de un software que ayude en la gestión de funcionarios y recursos de una empresa tipo "LICEO".
+El proyecto consiste en el desarrollo de un software que llamaremos **"PGadminE"**, nuestro principal objetivo es que ayude en la gestión de funcionarios y recursos de una empresa tipo "LICEO".
 
 ## Recursos
 
