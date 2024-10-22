@@ -28,12 +28,26 @@ const Users = () => {
   const { handleDelete } = useDeleteUser(fetchUsers, setDataUser);
 
   const handleRutFilterChange = (e) => {
-    setFilterRut(e.target.value);
+    const formattedRut = formatRut(e.target.value);
+    setFilterRut(formattedRut);
   };
 
   const handleSelectionChange = useCallback((selectedUsers) => {
     setDataUser(selectedUsers);
   }, [setDataUser]);
+
+  const formatRut = (rut) => {
+    // Elimina cualquier punto o guión existente
+    const cleanRut = rut.replace(/[.-]/g, '');
+    // Extrae el dígito verificador
+    const dv = cleanRut.slice(-1);
+    // Extrae el número sin el dígito verificador
+    const number = cleanRut.slice(0, -1);
+    // Formatea el número con puntos
+    const formattedNumber = number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // Retorna el RUT formateado
+    return `${formattedNumber}-${dv}`;
+  };
 
   const columns = [
     { title: "Nombre", field: "nombreCompleto", width: 350, responsive: 0 },

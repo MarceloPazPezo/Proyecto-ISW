@@ -1,0 +1,66 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Altura total de la ventana */
+    width: 100%;
+}
+
+.content{
+    padding-top: 85vh; /* Ajusta esto según la altura de tu navbar */
+    width: 100%; /* Asegúrate de que el contenido use el ancho completo */
+}
+
+.reservation-container {
+    padding: 20px; /* Resto del padding */
+    padding-top: 80px; /* Aumenta el padding superior para separar de la navbar */
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reservation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.reservation-table th,
+.reservation-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.reservation-table th {
+    background-color: #003366; /* Color de fondo para el encabezado */
+    color: white;
+}
+
+.reservation-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo alternado */
+}
+
+.reservation-table tr:hover {
+    background-color: #ddd; /* Color de fondo al pasar el mouse */
+}
+
+.reservation-table button {
+    padding: 5px 10px;
+    background-color: #28a745; /* Color del botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reservation-table button:disabled {
+    background-color: #ccc; /* Color del botón deshabilitado */
+    cursor: not-allowed;
+}

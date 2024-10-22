@@ -1,17 +1,19 @@
 .search-input-table {
     padding: 8px 16px;
     border-radius: 4px;
-    padding-left: 40px;
+    padding-left: 50px; /* Aumenta el espacio para que el texto no se superponga al ícono */
     background-image: url('../assets/SearchIcon.svg');
     background-repeat: no-repeat;
-    background-position: 10px center;
+    background-position: 1px center; /* Ajusta la posición del ícono */
     border: 1px solid #003366;
     font-size: 16px;
-    width: 200px;
+    width: 300px; /* Aumenta el ancho del campo de búsqueda */
     background-color: rgba(255, 255, 255, 0.87);
     color: black;
 }
+
 .search-input-table::placeholder {
     color: black;
     font-family: "Montserrat", sans-serif;
+    text-indent: 10px; /* Mueve el placeholder un poco a la derecha */
 }

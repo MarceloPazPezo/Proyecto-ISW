@@ -1,12 +1,12 @@
 .main-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Altura total de la ventana */
+    height: 15vh; /* Altura total de la ventana */
     width: 100%;
 }
 
 .content {
-    padding-top: 9vh; /* Ajusta esto según la altura de tu navbar */
+    padding-top: 25vh; /* Ajusta esto según la altura de tu navbar */
     width: 100%; /* Asegúrate de que el contenido use el ancho completo */
 }
 
