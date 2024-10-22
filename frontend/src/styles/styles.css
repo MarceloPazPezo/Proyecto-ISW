@@ -35,9 +35,19 @@ nav ul li a {
 	color: #FFFFFF; /* Cambiado a blanco */
 	text-decoration: none; /* Sin subrayado */
 	transition: color 0.3s ease; /* Transición suave para el color */
+	font-weight: bold;
 }
 
-/* Cambiar el color del enlace al pasar el mouse */
 nav ul li a:hover {
-	color: #54ff6a; /* Color dorado para el hover */
+	color: #aff5b8; /* Color dorado para el hover */
+}
+
+/* Estilo personalizado para "Cerrar sesión" */
+.cerrar-sesion a {
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.cerrar-sesion a:hover {
+    color: #e4795e; /* Color rojo cuando se hace hover */
 }

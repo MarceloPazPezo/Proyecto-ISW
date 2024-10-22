@@ -1,10 +1,14 @@
 // @pages/Home.jsx
 import '../styles/home.css'; // Asegúrate de tener estilos si es necesario
 
+
 const Home = () => {
   return (
-    <>
+      <>
       <main className="main-content">
+      <div className="title-box">
+        <h1 className="title">Bienvenidos a PGadminE: Programa gestor administrativo Educacional.</h1>
+      </div>
         <section id="about" className="about-section">
           <h2>Sobre Nosotros</h2>
           <p>
@@ -30,7 +34,7 @@ const Home = () => {
             </div>
             <div>
               <label htmlFor="email">Correo Electrónico:</label>
-              <input type="email" id="email" name="email" required />
+              <input type="text" id="email" name="email" required />
             </div>
             <div>
               <label htmlFor="message">Mensaje:</label>

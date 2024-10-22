@@ -1,17 +1,21 @@
 .main-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    height: 100vh; /* Altura total de la ventana */
     width: 100%;
+}
+
+.content {
+    padding-top: 9vh; /* Ajusta esto según la altura de tu navbar */
+    width: 100%; /* Asegúrate de que el contenido use el ancho completo */
 }
 
 .table-container {
     width: 90%;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0 auto; /* Centrar el contenedor */
 }
+
 
 .top-table {
     display: flex;

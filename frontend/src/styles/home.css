@@ -16,34 +16,29 @@ body {
     text-align: center;
   }
   
+  .title-box {
+      background-color: #0b305a; /* Color de fondo de la caja */
+      color: #fff; /* Color del texto */
+      padding: 20px; /* Espaciado interno */
+      border-radius: 8px; /* Bordes redondeados */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+      text-align: center; /* Centrar el texto */
+      margin: 20px 0; /* Margen superior e inferior */
+  }
+
+  .title {
+    font-size: 2em !important; /* Tamaño de fuente más grande */
+      margin: 0; /* Eliminar margen predeterminado */
+  }
+
   .header h1 {
     margin: 0;
     font-size: 2.5em;
   }
   
-  nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline;
-    margin: 0 15px;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
   /* Estilos del contenido principal */
   .main-content {
-    padding: 20px;
+    padding: 80px;
     max-width: 800px;
     margin: auto;
   }
@@ -107,5 +102,10 @@ body {
     position: relative;
     bottom: 0;
     width: 100%;
+  }
+
+  .content{
+    padding-top: 25vh; /* Ajusta esto según la altura de tu navbar */
+    width: 100%; /* Asegúrate de que el contenido use el ancho completo */
   }
   

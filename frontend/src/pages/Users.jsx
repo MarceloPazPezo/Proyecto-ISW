@@ -10,6 +10,7 @@ import { useCallback, useState } from 'react';
 import '@styles/users.css';
 import useEditUser from '@hooks/users/useEditUser';
 import useDeleteUser from '@hooks/users/useDeleteUser';
+import Navbar from '@components/Navbar'; // Asegúrate de importar tu Navbar
 
 const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
@@ -44,37 +45,40 @@ const Users = () => {
 
   return (
     <div className='main-container'>
-      <div className='table-container'>
-        <div className='top-table'>
-          <h1 className='title-table'>Usuarios</h1>
-          <div className='filter-actions'>
-            <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'Filtrar por rut'} />
-            <button onClick={handleClickUpdate} disabled={dataUser.length === 0}>
-              {dataUser.length === 0 ? (
-                <img src={UpdateIconDisable} alt="edit-disabled" />
-              ) : (
-                <img src={UpdateIcon} alt="edit" />
-              )}
-            </button>
-            <button className='delete-user-button' disabled={dataUser.length === 0} onClick={() => handleDelete(dataUser)}>
-              {dataUser.length === 0 ? (
-                <img src={DeleteIconDisable} alt="delete-disabled" />
-              ) : (
-                <img src={DeleteIcon} alt="delete" />
-              )}
-            </button>
+      <Navbar /> {/* Asegúrate de que el Navbar esté aquí */}
+      <div className='content'> {/* Añade una clase de contenido */}
+        <div className='table-container'>
+          <div className='top-table'>
+            <h1 className='title-table'>Usuarios</h1>
+            <div className='filter-actions'>
+              <Search value={filterRut} onChange={handleRutFilterChange} placeholder={'Filtrar por rut'} />
+              <button onClick={handleClickUpdate} disabled={dataUser.length === 0}>
+                {dataUser.length === 0 ? (
+                  <img src={UpdateIconDisable} alt="edit-disabled" />
+                ) : (
+                  <img src={UpdateIcon} alt="edit" />
+                )}
+              </button>
+              <button className='delete-user-button' disabled={dataUser.length === 0} onClick={() => handleDelete(dataUser)}>
+                {dataUser.length === 0 ? (
+                  <img src={DeleteIconDisable} alt="delete-disabled" />
+                ) : (
+                  <img src={DeleteIcon} alt="delete" />
+                )}
+              </button>
+            </div>
           </div>
+          <Table
+            data={users}
+            columns={columns}
+            filter={filterRut}
+            dataToFilter={'rut'}
+            initialSortName={'nombreCompleto'}
+            onSelectionChange={handleSelectionChange}
+          />
         </div>
-        <Table
-          data={users}
-          columns={columns}
-          filter={filterRut}
-          dataToFilter={'rut'}
-          initialSortName={'nombreCompleto'}
-          onSelectionChange={handleSelectionChange}
-        />
+        <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
       </div>
-      <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
     </div>
   );
 };
