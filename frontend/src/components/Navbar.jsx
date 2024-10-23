@@ -3,7 +3,7 @@ import { logout } from '@services/auth.service.js';
 import '@styles/navbar.css';
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUsers, faClipboardList, faInfoCircle, faSignOutAlt, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUsers, faClipboardList, faInfoCircle, faSignOutAlt, faCalendar, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 const Navbar = () => {
@@ -87,6 +87,7 @@ const Navbar = () => {
                             <FontAwesomeIcon icon={faClipboardList} /> Reserva
                         </NavLink>
                     </li>
+                    {userRole !== 'administrador' && (
                     <li>
                         <NavLink 
                             to="/schedule" 
@@ -97,6 +98,19 @@ const Navbar = () => {
                             activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faCalendar} /> Horario
+                        </NavLink>
+                    </li>
+                    )}
+                    <li>
+                        <NavLink 
+                            to="/permisos" 
+                            onClick={() => { 
+                                setMenuOpen(false); 
+                                addActiveClass();
+                            }} 
+                            activeClassName="active"
+                        >
+                            <FontAwesomeIcon icon={faFileAlt} /> Permisos
                         </NavLink>
                     </li>
                     <li>

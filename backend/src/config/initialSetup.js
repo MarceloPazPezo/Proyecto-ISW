@@ -29,6 +29,15 @@ async function createUsers() {
           rol: "usuario",
         })
       ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Nicolas Gomez Morgado",
+          rut: "21.279.536-4",
+          email: "profe.2024@gmail.cl",
+          password: await encryptPassword("profe1234"),
+          rol: "docente",
+        })
+      ),
         userRepository.save(
           userRepository.create({
             nombreCompleto: "Alexander Benjamín Marcelo Carrasco Fuentes",
