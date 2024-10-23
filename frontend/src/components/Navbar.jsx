@@ -2,6 +2,9 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logout } from '@services/auth.service.js';
 import '@styles/navbar.css';
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faUsers, faClipboardList, faInfoCircle, faSignOutAlt, faCalendar } from '@fortawesome/free-solid-svg-icons';
+
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -55,7 +58,7 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Inicio
+                            <FontAwesomeIcon icon={faHome} /> Inicio
                         </NavLink>
                     </li>
                     {userRole === 'administrador' && (
@@ -68,11 +71,47 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Usuarios
+                            <FontAwesomeIcon icon={faUsers} /> Usuarios
                         </NavLink>
                     </li>
                     )}
                     <li>
+                        <NavLink 
+                            to="/reservation" 
+                            onClick={() => { 
+                                setMenuOpen(false); 
+                                addActiveClass();
+                            }} 
+                            activeClassName="active"
+                        >
+                            <FontAwesomeIcon icon={faClipboardList} /> Reserva
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to="/schedule" 
+                            onClick={() => { 
+                                setMenuOpen(false); 
+                                addActiveClass();
+                            }} 
+                            activeClassName="active"
+                        >
+                            <FontAwesomeIcon icon={faCalendar} /> Horario
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to="/about" 
+                            onClick={() => { 
+                                setMenuOpen(false); 
+                                addActiveClass();
+                            }} 
+                            activeClassName="active"
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
+                        </NavLink>
+                    </li>
+                    <li className="cerrar-sesion">
                         <NavLink 
                             to="/auth" 
                             onClick={() => { 
@@ -81,7 +120,7 @@ const Navbar = () => {
                             }} 
                             activeClassName="active"
                         >
-                            Cerrar sesión
+                            <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar sesión
                         </NavLink>
                     </li>
                 </ul>
@@ -92,7 +131,7 @@ const Navbar = () => {
                 <span className="bar"></span>
             </div>
         </nav>
-    );
+    );    
 };
 
 export default Navbar;

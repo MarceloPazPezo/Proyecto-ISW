@@ -6,6 +6,8 @@ import Users from '@pages/Users';
 import Register from '@pages/Register';
 import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
+import Reservation from '@pages/Reservation';
+import About from '@pages/About';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 
@@ -26,7 +28,15 @@ const router = createBrowserRouter([
           <Users />
         </ProtectedRoute>
         ),
-    }
+      },
+      {
+        path: '/reservation', // Nueva ruta para Reservación
+        element: <Reservation /> // Componente que se renderizará en esta ruta
+      },
+      {
+        path: '/about',
+        element: <About/>
+      }
     ]
   },
   {
