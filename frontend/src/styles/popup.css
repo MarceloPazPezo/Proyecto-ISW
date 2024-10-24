@@ -18,13 +18,14 @@
     border-radius: 12px;
 }
 .close{
-    position: absolute;
+    position: center;
     margin-top: 20px;
     margin-right: 10px;
     right: 10px;
     cursor: pointer;
     background-color: white;
     border: white;
+    padding-top :50px;
 
 }
 .title{
@@ -32,7 +33,7 @@
     font-weight: 700;
 }
 .popup .form {
-    padding: 35px;
+    padding-top: 5px;
     h1 {
         margin-bottom: 30px;
     }

@@ -3,12 +3,13 @@
     flex-direction: column;
     height: 15vh; /* Altura total de la ventana */
     width: 100%;
+    
 }
 
-.content {
-    padding-top: 25vh; /* Ajusta esto según la altura de tu navbar */
-    width: 100%; /* Asegúrate de que el contenido use el ancho completo */
-}
+/* .content {
+    padding-top: 25vh; 
+    width: 100%; 
+} */
 
 .table-container {
     width: 90%;
@@ -16,8 +17,8 @@
     margin: 0 auto;
 }
 
-
 .top-table {
+    padding-top: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,14 +32,23 @@
 
 .filter-actions {
     display: flex;
+    align-items: center; /* Alinear verticalmente */
     gap: 10px;
-    button {
-        background: rgba(255, 255, 255, 0.87);
-        border: #fff;
-        cursor: pointer;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        
-    }
+}
+
+.filter-actions button {
+    width: 30px; /* Ancho del botón */
+    height: 30px; /* Alto del botón */
+    padding: 0; /* Eliminar padding adicional */
+    border: none; /* Quitar bordes */
+    background: rgba(255, 255, 255, 0.87); /* Fondo del botón */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; /* Sombra opcional */
+}
+
+.filter-actions button img {
+    width: 20px; /* Ancho de la imagen del icono */
+    height: 20px; /* Alto de la imagen del icono */
 }
 
 .delete-user-button {

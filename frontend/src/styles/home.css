@@ -10,15 +10,15 @@ body {
   
   /* Estilos del encabezado */
   .header {
-    background-color: #4A90E2;
+    background-color: #4A90E2 ;
     color: #fff;
     padding: 20px;
     text-align: center;
   }
   
   .title-box {
-      background-color: #0b305a; /* Color de fondo de la caja */
-      color: #fff; /* Color del texto */
+      background-color: #136F63 !important; /* Color de fondo de la caja */
+      color: #fff !important; /* Color del texto */
       padding: 20px; /* Espaciado interno */
       border-radius: 8px; /* Bordes redondeados */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
@@ -27,7 +27,7 @@ body {
   }
 
   .title {
-    font-size: 2em !important; /* Tamaño de fuente más grande */
+    font-size: 2em ; /* Tamaño de fuente más grande */
       margin: 0; /* Eliminar margen predeterminado */
   }
 
@@ -97,7 +97,7 @@ body {
   .footer {
     text-align: center;
     padding: 20px;
-    background-color: #4A90E2;
+    background-color: #4CE0D2 !important;
     color: #fff;
     position: relative;
     bottom: 0;

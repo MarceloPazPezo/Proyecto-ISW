@@ -1,7 +1,7 @@
 {
-  "name": "pgadmine",
+  "name": "plantillaisw2024",
   "version": "1.0.0",
-  "description": "Proyecto de gestion de recursos y docentes para Liceos",
+  "description": "Plantilla de proyecto para Ingenieria de Software 2024-2",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
-  "author": "Grupo 9 ISW-2",
+  "author": "Diego Salazar Jara",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

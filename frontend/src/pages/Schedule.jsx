@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '@styles/Schedule.css';
 
 const Horario = () => {
     const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];

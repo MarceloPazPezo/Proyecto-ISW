@@ -32,16 +32,16 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/reservation', // Nueva ruta para Reservación
-        element: <Reservation /> // Componente que se renderizará en esta ruta
+        path: '/reservation', 
+        element: <Reservation />       
       },
       {
-        path: '/schedule', // Nueva ruta para Reservación
-        element: <Schedule /> // Componente que se renderizará en esta ruta
+        path: '/schedule', 
+        element: <Schedule />       
       },
       {
-        path: '/permisos', // Nueva ruta para Reservación
-        element: <Permisos /> // Componente que se renderizará en esta ruta
+        path: '/permisos', 
+        element: <Permisos /> 
       },
       {
         path: '/about',

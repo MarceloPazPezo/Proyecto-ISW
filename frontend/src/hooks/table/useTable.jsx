@@ -30,14 +30,14 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                 pagination: true,
                 paginationSize: 6,
                 selectableRows: 1,
-                rowHeight: 46,
+                rowHeight: 50,
                 langs: {
                     "default": {
                         "pagination": {
-                            "first": "Primero",
-                            "prev": "Anterior",
-                            "next": "Siguiente",
-                            "last": "Último",
+                            "first": "<< Primero",
+                            "prev": "< Anterior",
+                            "next": "Siguiente >",
+                            "last": "Último >>",
                         }
                     }
                 },
