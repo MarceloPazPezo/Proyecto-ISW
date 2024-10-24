@@ -10,6 +10,7 @@ const Register = () => {
 	const {
         errorEmail,
         errorRut,
+        errorTelefono,
         errorData,
         handleInputChange
     } = useRegister();
@@ -78,6 +79,18 @@ const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d
 						required: true,
                         errorMessageData: errorRut,
                         onChange: (e) => handleInputChange('rut', e.target.value)
+                    },
+                    {
+                        label: "Teléfono",
+                        name: "telefono",
+                        placeholder: "987654321",
+                        fieldType: 'input',
+                        type: "tel",
+                        required: true,
+                        minLength: 9,
+                        maxLength: 9,
+                        pattern: /^\d{9}$/,
+                        patternMessage: "Debe contener solo números",
                     },
                     {
                         label: "Contraseña",

@@ -11,7 +11,9 @@ const useUsers = () => {
                 nombreCompleto: user.nombreCompleto,
                 rut: user.rut,
                 email: user.email,
+                telefono: user.telefono,
                 rol: user.rol,
+                estado: user.estado,
                 createdAt: user.createdAt
             }));
             dataLogged(formattedData);

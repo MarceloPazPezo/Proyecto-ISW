@@ -63,11 +63,11 @@ const Login = () => {
                 ]}
                 buttonText="Iniciar sesión"
                 onSubmit={loginSubmit}
-                footerContent={
-                    <p>
-                        ¿No tienes cuenta?, <a href="/register">¡Regístrate aquí!</a>
-                    </p>
-                }
+                // footerContent={
+                //     <p>
+                //         <a href="/reset-password">¿Olvidaste tu contraseña?</a>
+                //     </p>
+                // }
             />
         </main>
     );
