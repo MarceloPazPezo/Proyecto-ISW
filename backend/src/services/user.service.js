@@ -5,12 +5,12 @@ import { comparePassword, encryptPassword } from "../helpers/bcrypt.helper.js";
 
 export async function getUserService(query) {
   try {
-    const { rut, id, email } = query;
+    const { rut, id, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }], 
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];
@@ -43,22 +43,22 @@ export async function getUsersService() {
 
 export async function updateUserService(query, body) {
   try {
-    const { id, rut, email } = query;
+    const { id, rut, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }],
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];
 
     const existingUser = await userRepository.findOne({
-      where: [{ rut: body.rut }, { email: body.email }],
+      where: [{ rut: body.rut }, { email: body.email }, { telefono: body.telefono }],
     });
 
     if (existingUser && existingUser.id !== userFound.id) {
-      return [null, "Ya existe un usuario con el mismo rut o email"];
+      return [null, "Ya existe un usuario con el mismo rut o email o teléfono"];
     }
 
     if (body.password) {
@@ -74,7 +74,9 @@ export async function updateUserService(query, body) {
       nombreCompleto: body.nombreCompleto,
       rut: body.rut,
       email: body.email,
+      telefono: body.telefono,
       rol: body.rol,
+      estado: body.estado,
       updatedAt: new Date(),
     };
 
@@ -103,12 +105,12 @@ export async function updateUserService(query, body) {
 
 export async function deleteUserService(query) {
   try {
-    const { id, rut, email } = query;
+    const { id, rut, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }],
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];

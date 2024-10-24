@@ -27,7 +27,18 @@ const UserSchema = new EntitySchema({
       nullable: false,
       unique: true,
     },
+    telefono: {
+      type: "varchar",
+      length: 9,
+      nullable: false,
+      unique: true,
+    },
     rol: {
+      type: "varchar",
+      length: 50,
+      nullable: false,
+    },
+    estado: {
       type: "varchar",
       length: 50,
       nullable: false,
@@ -62,6 +73,11 @@ const UserSchema = new EntitySchema({
     {
       name: "IDX_USER_EMAIL",
       columns: ["email"],
+      unique: true,
+    },
+    {
+      name: "IDX_USER_TELEFONO",
+      columns: ["telefono"],
       unique: true,
     },
   ],
