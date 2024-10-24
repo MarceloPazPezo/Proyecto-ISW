@@ -62,7 +62,6 @@ const Users = () => {
   return (
     <div className='main-container'>
       <Navbar /> {/* Asegúrate de que el Navbar esté aquí */}
-      <div className='content'> {/* Añade una clase de contenido */}
         <div className='table-container'>
           <div className='top-table'>
             <h1 className='title-table'>Usuarios</h1>
@@ -95,7 +94,6 @@ const Users = () => {
         </div>
         <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
       </div>
-    </div>
   );
 };
 

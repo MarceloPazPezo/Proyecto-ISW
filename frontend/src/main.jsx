@@ -7,6 +7,8 @@ import Register from '@pages/Register';
 import Error404 from '@pages/Error404';
 import Root from '@pages/Root';
 import Reservation from '@pages/Reservation';
+import Schedule from '@pages/Schedule';
+import Permisos from '@pages/Permisos';
 import About from '@pages/About';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
@@ -30,8 +32,16 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/reservation', // Nueva ruta para Reservación
-        element: <Reservation /> // Componente que se renderizará en esta ruta
+        path: '/reservation', 
+        element: <Reservation />       
+      },
+      {
+        path: '/schedule', 
+        element: <Schedule />       
+      },
+      {
+        path: '/permisos', 
+        element: <Permisos /> 
       },
       {
         path: '/about',

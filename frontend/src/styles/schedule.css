@@ -1,0 +1,63 @@
+.horario-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .recreo {
+    background-color: #555555; /* Color más oscuro para recreos y almuerzos */
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold; /* Hace el texto más destacado */
+  }
+  
+  input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  input:disabled {
+    background-color: #f0f0f0;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

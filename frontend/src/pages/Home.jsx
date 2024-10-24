@@ -1,10 +1,9 @@
-// @pages/Home.jsx
 import '../styles/home.css'; // Asegúrate de tener estilos si es necesario
 
 const Home = () => {
   return (
     <>
-      <main className="main-content">
+      <div className="main-content">
         <div className="title-box">
           <h1 className="title">Bienvenidos a PGadminE: Programa gestor administrativo Educacional.</h1>
         </div>
@@ -17,7 +16,7 @@ const Home = () => {
             <li>Ante cualquier conflicto no dude en contactarse con nosotros.</li>
           </ul>
         </section>
-      </main>
+      </div>
 
       <footer className="footer">
         <p>&copy; 2024 Mi Empresa. Todos los derechos reservados.</p>
@@ -27,3 +26,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
