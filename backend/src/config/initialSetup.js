@@ -39,7 +39,9 @@ async function createUsers() {
           rut: "21.279.536-4",
           email: "profe.2024@gmail.cl",
           password: await encryptPassword("profe1234"),
+          telefono: "912375312",
           rol: "docente",
+          estado: "regular",
         })
       ),
         userRepository.save(

@@ -5,6 +5,7 @@ import Home from '@pages/Home';
 import Users from '@pages/Users';
 import Register from '@pages/Register';
 import Error404 from '@pages/Error404';
+import Teachers from '@pages/Teachers';
 import Root from '@pages/Root';
 import Reservation from '@pages/Reservation';
 import Schedule from '@pages/Schedule';
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador']}>
           <Users />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/teachers',
+        element: (
+        <ProtectedRoute allowedRoles={['jefe de utp']}>
+          <Teachers />
         </ProtectedRoute>
         ),
       },
