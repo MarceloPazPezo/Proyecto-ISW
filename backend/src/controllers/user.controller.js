@@ -1,6 +1,7 @@
 "use strict";
 import {
   deleteUserService,
+  getTeachersService,
   getUserService,
   getUsersService,
   updateUserService,
@@ -48,6 +49,24 @@ export async function getUsers(req, res) {
       500,
       error.message,
     );
+  }
+}
+
+export async function getTeachers(req, res) {
+  try {
+    const [teachers, errorTeachers] = await getTeachersService();
+
+    if (errorTeachers) return handleErrorClient(res, 404, errorTeachers);
+
+    teachers.length === 0
+      ? handleSuccess(res, 204)
+      : handleSuccess(res, 200, "Docentes encontrados", teachers);
+  } catch (error) {
+    handleErrorServer(
+      res,
+      500,
+      error.message,
+    );    
   }
 }
 

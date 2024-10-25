@@ -60,6 +60,19 @@ export default function Popup({ show, setShow, data, action }) {
                                 required: true,
                             },
                             {
+                                label: "Teléfono",
+                                name: "telefono",
+                                defaultValue: userData.telefono || "",
+                                placeholder: '912345678',
+                                fieldType: 'input',
+                                type: "tel",
+                                required: true,
+                                minLength: 9,
+                                maxLength: 9,
+                                pattern: /^\d{9}$/,
+                                patternMessage: "Debe ser xxxxxxxxx",
+                            },
+                            {
                                 label: "Rol",
                                 name: "rol",
                                 fieldType: 'select',
@@ -68,11 +81,22 @@ export default function Popup({ show, setShow, data, action }) {
                                     { value: 'usuario', label: 'Usuario' },
                                     { value: 'docente', label: 'Docente' },
                                     { value: 'encargado', label: 'Encargado' },
-                                    { value: 'jefeUTP', label: 'Jefe UTP' },
+                                    { value: 'jefe de utp', label: 'Jefe de UTP' },
                                     { value: 'director', label: 'Director' },
                                 ],
                                 required: true,
                                 defaultValue: userData.rol || "",
+                            },
+                            {
+                                label: "Estado",
+                                name: "estado",
+                                fieldType: 'select',
+                                options: [
+                                    { value: 'regular', label: 'Regular' },
+                                    { value: 'desvinculado', label: 'Desvinculado' },
+                                ],
+                                required: true,
+                                defaultValue: userData.estado || "",
                             },
                             {
                                 label: (
