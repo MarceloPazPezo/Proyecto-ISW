@@ -129,3 +129,22 @@ export async function deleteUserService(query) {
     return [null, "Error interno del servidor"];
   }
 }
+
+export async function getTeachersService() {
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const teachers = await userRepository.find({
+      where: { rol: "docente" },
+    });
+
+    if (!teachers || teachers.length === 0) return [null, "No hay docentes"];
+
+    const teachersData = teachers.map(({ password, ...teacher }) => teacher);
+
+    return [teachersData, null];
+  } catch (error) {
+    console.error("Error al obtener a los docentes:", error);
+    return [null, "Error interno del servidor"];
+  }
+}
