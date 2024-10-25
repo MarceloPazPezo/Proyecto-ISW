@@ -30,3 +30,13 @@ export async function deleteUser(rut) {
         return error.response.data;
     }
 }
+
+export async function getTeachers() {
+    try {
+        const { data } = await axios.get('/user/teachers');
+        const formattedData = data.data.map(formatUserData);
+        return formattedData;
+    } catch (error) {
+        return error.response.data;
+    }
+}
