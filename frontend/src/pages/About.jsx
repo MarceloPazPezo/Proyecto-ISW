@@ -31,10 +31,6 @@ const About = () => {
             </form>
             </section>
         </main>
-
-        <footer className="footer">
-            <p>&copy; 2024 Mi Empresa. Todos los derechos reservados.</p>
-        </footer>
         </>
     );
 };

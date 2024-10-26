@@ -1,15 +1,15 @@
 .navbar {
-	position: fixed;
+	position: relative;
 	width: 100%;
 	top: 0.5;
 	left: 0;
 	display: block;
-	background-color: #272C4C; /*Color de la navbar*/
+	background-color: #7A28CB;
 	height: 9vh;
 	z-index: 1000;
 	ul {
 		display: flex;
-		justify-content: center; /* Centra los elementos */
+		justify-content: center;
 		align-items: center;
 		padding: 0 5vw;
 		margin: 0;
@@ -17,64 +17,68 @@
 		li {
 			display: flex;
 			align-items: center;
-			padding: 0 10px; /* Reduce la distancia entre los elementos */
+			padding: 0 10px;
 			position: relative;
 			height: 100%;
 			a {
-				color: #ffffff;
+				color: #F0F1FF;
 				font-size: 0.9em;
 				text-decoration: none;
 				position: relative;
 				border-bottom: transparent 3px solid;
-				transition: border-color 0.3s ease;
 				padding: 0 10px 3px 10px;
 				box-sizing: border-box;
 			}
-			:not(.active):hover::before {
-				animation: heartbeat 5s ease-in-out infinite;
-				transform: scaleX(1);
-			}
 			.active {
-				font-weight: bold;
-				background-color: #F0F1FF;
-				color: #002651;
+				background-color: #3E3478;
 				margin: 0;
 				padding-bottom: 0;
 				border: 0;
 				height: 100%;
 				line-height: 9.1vh;
+				border-radius: 20px 20px 0 0;
 			}
-		}
-	}
-	.nav-menu ul li {
-		span {
-			color: #F9567D;
-			font-size: 0.9em;
-			text-decoration: none;
-			position: relative;
-			border-bottom: transparent 3px solid;
-			transition: border-color 0.3s ease;
-			padding: 0 10px 3px 10px;
-			box-sizing: border-box;
-		}
-
-		.submenu {
-		display: none;
-		position: absolute;
-		left: 0; /* Ajusta esta propiedad si necesitas desplazar horizontalmente el submenú */
-		top: 100%; /* Esto hará que el submenú se despliegue hacia abajo */
-		background-color: #272C4C;
-		list-style: none;
-		padding: 10px;
-		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Añade sombra para que se vea mejor */
-		z-index: 1000
-		}
-		.submenu li {
-			padding: 10px 0;
-		}
-		.submenu.open {
-		  display: block;
-		  height: auto;
+			.admin-menu-button {
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				background-color: #7A28CB;
+				color: #F0F1FF;
+				border: none;
+				padding: 0 30px 0px 25px;
+				height: 9vh;
+				border-radius: 20px 20px 0px 0px;
+				cursor: pointer;
+			}
+			.admin-menu-button.open {
+				background-color: #3E3478;
+				color: #F0F1FF;
+			}
+			.submenu {
+				display: none;
+				position: absolute;
+				left: 0;
+				top: 100%;
+				background-color: #3E3478;
+				list-style: none;
+				padding: 10px;
+				z-index: 1000;
+			}
+			.submenu.open {
+				display: block;
+				border-radius: 0px 0px 20px 20px ;
+				height: auto;
+				padding: 0px 20px 0px 0px;
+				width: 80%;
+			}
+			.submenu.open a {
+				background-color: #3E3478;
+				color: #F0F1FF;
+				margin: 0;
+				padding-bottom: 0;
+				height: 100%;
+				line-height: 4.5vh;
+			}
 		}
 	}
 }
@@ -95,12 +99,12 @@
 	}
 }  
 .chevron {
-    transform: rotate(90deg); /* Inicia en 90 grados */
-    transition: transform 0.3s ease; /* Añade una transición suave */
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
 }
 
 .rotate {
-    transform: rotate(0deg); /* Rota a -90 grados cuando se hace clic */
+    transform: rotate(0deg);
 }
 /* Media queries para pantallas medianas */
 @media (max-width: 1224px) {

@@ -16,18 +16,13 @@ const Navbar = () => {
     const logoutSubmit = () => {
         try {
             logout();
-            navigate('/auth'); 
+            navigate('/auth');
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }
     };
 
     const toggleMenu = () => {
-        if (!menuOpen) {
-            removeActiveClass();
-        } else {
-            addActiveClass();
-        }
         setMenuOpen(!menuOpen);
     };
 
@@ -49,105 +44,110 @@ const Navbar = () => {
         setAdminMenuOpen(!adminMenuOpen);
     };
 
+    const handleLinkClick = () => {
+        setMenuOpen(false);
+        setAdminMenuOpen(false);
+        removeActiveClass();
+        addActiveClass();
+    };
+
     return (
         <nav className="navbar">
             <div className={`nav-menu ${menuOpen ? 'activado' : ''}`}>
                 <ul>
                     <li>
-                        <NavLink 
-                            to="/home" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
+                        <NavLink
+                            to="/home"
+                            onClick={handleLinkClick}
                             activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faHome} /> Inicio
                         </NavLink>
                     </li>
-                    {userRole === 'administrador' && (
+                    {(userRole === 'administrador' || userRole === 'director' || userRole === 'jefe de utp') && (
                         <li className="admin-menu">
-                            <span onClick={toggleAdminMenu}>
+                            <button
+                                onClick={toggleAdminMenu}
+                                tabIndex="0"
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleAdminMenu(); }}
+                                className={`admin-menu-button ${adminMenuOpen ? 'open' : ''}`}
+                            >
                                 <FontAwesomeIcon icon={faUsers} />
                                 Panel
                                 <FontAwesomeIcon icon={faChevronDown} className={`chevron ${adminMenuOpen ? 'rotate' : ''}`} />
-                            </span>
+                            </button>
                             <ul className={`submenu ${adminMenuOpen ? 'open' : ''}`}>
+                                {userRole !== 'jefe de utp' && (
+                                    <li>
+                                        <NavLink to="/users" activeClassName="active" onClick={handleLinkClick}>
+                                            Usuarios
+                                        </NavLink>
+                                    </li>
+                                )}
+                                {userRole !== 'jefe de utp' && (
+                                    <li>
+                                        <NavLink to="/classrooms" activeClassName="active" onClick={handleLinkClick}>
+                                            Salas
+                                        </NavLink>
+                                    </li>
+                                )}
                                 <li>
-                                    <NavLink to="/users" activeClassName="active">
-                                        Usuarios
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/rooms" activeClassName="active">
-                                        Salas
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/teachers" activeClassName="active">
+                                    <NavLink to="/teachers" activeClassName="active" onClick={handleLinkClick}>
                                         Docentes
                                     </NavLink>
                                 </li>
                             </ul>
                         </li>
                     )}
+                    {userRole === 'docente' && (
                     <li>
-                        <NavLink 
-                            to="/reservation" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
+                        <NavLink
+                            to="/reservation"
+                            onClick={handleLinkClick}
                             activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faClipboardList} /> Reserva
                         </NavLink>
                     </li>
-                    {userRole !== 'administrador' && (
-                    <li>
-                        <NavLink 
-                            to="/schedule" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
-                            activeClassName="active"
-                        >
-                            <FontAwesomeIcon icon={faCalendar} /> Horario
-                        </NavLink>
-                    </li>
+                    )}
+                    {userRole === 'docente' && (
+                        <li>
+                            <NavLink
+                                to="/schedule"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faCalendar} /> Horario
+                            </NavLink>
+                        </li>
+                    )}
+                    {userRole === 'docente' && (
+                        <li>
+                            <NavLink
+                                to="/permisos"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faFileAlt} /> Permisos
+                            </NavLink>
+                        </li>
                     )}
                     <li>
-                        <NavLink 
-                            to="/permisos" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
-                            activeClassName="active"
-                        >
-                            <FontAwesomeIcon icon={faFileAlt} /> Permisos
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink 
-                            to="/about" 
-                            onClick={() => { 
-                                setMenuOpen(false); 
-                                addActiveClass();
-                            }} 
+                        <NavLink
+                            to="/about"
+                            onClick={handleLinkClick}
                             activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
                         </NavLink>
                     </li>
                     <li className="cerrar-sesion">
-                        <NavLink 
-                            to="/auth" 
-                            onClick={() => { 
-                                logoutSubmit(); 
-                                setMenuOpen(false); 
-                            }} 
+                        <NavLink
+                            to="/auth"
+                            onClick={() => {
+                                logoutSubmit();
+                                setMenuOpen(false);
+                            }}
                             activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar sesión
@@ -161,7 +161,7 @@ const Navbar = () => {
                 <span className="bar"></span>
             </div>
         </nav>
-    );    
+    );
 };
 
 export default Navbar;
