@@ -1,7 +1,7 @@
 import Table from '@components/Table';
 import useTeachers from '@hooks/users/useGetTeachers.jsx';
 import Search from '../components/Search';
-import Popup from '../components/Popup';
+import PopupEditUser from '../components/PopupEditUser';
 import DeleteIcon from '../assets/deleteIcon.svg';
 import UpdateIcon from '../assets/updateIcon.svg';
 import UpdateIconDisable from '../assets/updateIconDisabled.svg';
@@ -85,7 +85,7 @@ const Teachers = () => {
             onSelectionChange={handleSelectionChange}
           />
         </div>
-        <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
+        <PopupEditUser show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
       </div>
   );
 };

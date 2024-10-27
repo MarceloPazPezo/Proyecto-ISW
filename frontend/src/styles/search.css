@@ -1,19 +1,24 @@
 .search-input-table {
     padding: 8px 16px;
     border-radius: 4px;
-    padding-left: 50px; /* Aumenta el espacio para que el texto no se superponga al ícono */
+    padding-left: 40px;
     background-image: url('../assets/SearchIcon.svg');
     background-repeat: no-repeat;
-    background-position: 1px center; /* Ajusta la posición del ícono */
-    border: 1px solid #003366;
+    background-position: 10px center;
     font-size: 16px;
-    width: 300px; /* Aumenta el ancho del campo de búsqueda */
+    width: 200px;
     background-color: rgba(255, 255, 255, 0.87);
-    color: black;
+    transition: background-position 0.3s ease, padding-left 0.3s ease;
+    text-indent: 25px;
+}
+
+.search-input-table:focus {
+    background-position: -20px center;
+    border: 2px solid #7A28CB;
 }
 
 .search-input-table::placeholder {
-    color: black;
+    color: #3E3478;
     font-family: "Montserrat", sans-serif;
-    text-indent: 10px; /* Mueve el placeholder un poco a la derecha */
+    text-indent: 25px;
 }

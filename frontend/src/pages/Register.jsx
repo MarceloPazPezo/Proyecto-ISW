@@ -91,6 +91,8 @@ const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d
                         maxLength: 9,
                         pattern: /^\d{9}$/,
                         patternMessage: "Debe contener solo números",
+                        errorMessageData: errorTelefono,
+                        onChange: (e) => handleInputChange('telefono', e.target.value)
                     },
                     {
                         label: "Contraseña",

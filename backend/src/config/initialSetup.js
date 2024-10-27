@@ -1,5 +1,6 @@
 "use strict";
 import User from "../entity/user.entity.js";
+import Classroom from "../entity/classroom.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
@@ -106,4 +107,42 @@ async function createUsers() {
   }
 }
 
-export { createUsers };
+async function createClassrooms() {
+  try {
+    const classroomRepository = AppDataSource.getRepository(Classroom);
+
+    const count = await classroomRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A101AA",
+          estado: "ocupada",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A102AA",
+          estado: "ocupada",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A103AA",
+          estado: "disponible",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A104AA",
+          estado: "ocupada",
+        }),
+      ),
+    ]);
+    console.log("* => Aulas creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear aulas:", error);
+  }
+}
+export { createUsers, createClassrooms };

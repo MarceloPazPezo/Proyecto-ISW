@@ -4,7 +4,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #3E3478;
     color: #333;
   }
   
@@ -17,7 +17,7 @@ body {
   }
   
   .title-box {
-      background-color: #0b305a; /* Color de fondo de la caja */
+      background-color: #0077ff; /* Color de fondo de la caja */
       color: #fff; /* Color del texto */
       padding: 20px; /* Espaciado interno */
       border-radius: 8px; /* Bordes redondeados */
@@ -44,7 +44,7 @@ body {
   }
   
   .about-section, .services-section, .contact-section {
-    background-color: #fff;
+    background-color: #F0F1FF;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -52,7 +52,7 @@ body {
   }
   
   h2 {
-    color: #4A90E2;
+    color: #A158F5;
   }
   
   /* Estilos del formulario */
@@ -80,8 +80,8 @@ body {
   }
   
   button {
-    background-color: #4A90E2;
-    color: white;
+    background-color: #7A28CB;
+    color: #F0F1FF;
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -90,15 +90,15 @@ body {
   }
   
   button:hover {
-    background-color: #357ABD;
+    background-color: #7A28CB;
   }
   
   /* Estilos del pie de página */
   .footer {
     text-align: center;
     padding: 20px;
-    background-color: #4A90E2;
-    color: #fff;
+    background-color: #7A28CB;
+    color: #F0F1FF;
     position: relative;
     bottom: 0;
     width: 100%;

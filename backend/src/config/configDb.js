@@ -2,6 +2,7 @@
 import { DataSource } from "typeorm";
 import { DATABASE, DB_USERNAME, HOST, PASSWORD } from "./configEnv.js";
 import User from "../entity/user.entity.js"; // Verifica la ruta aquí
+import Classroom from "../entity/classroom.entity.js"; // Verifica la ruta aquí
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: `${DB_USERNAME}`,
   password: `${PASSWORD}`,
   database: `${DATABASE}`,
-  entities: ["src/entity/user.entity.js"],
+  entities: ["src/entity/user.entity.js", "src/entity/classroom.entity.js"], // Verifica la ruta aquí
   synchronize: true,
   logging: false,
 });
