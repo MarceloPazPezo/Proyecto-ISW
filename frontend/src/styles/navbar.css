@@ -29,6 +29,9 @@
 				padding: 0 10px 3px 10px;
 				box-sizing: border-box;
 			}
+			a:hover {
+				color: #F9567D;
+			}
 			.active {
 				background-color: #3E3478;
 				margin: 0;
@@ -45,39 +48,50 @@
 				background-color: #7A28CB;
 				color: #F0F1FF;
 				border: none;
-				padding: 0 30px 0px 25px;
+				padding: 0 25px 0px 18px;
 				height: 9vh;
 				border-radius: 20px 20px 0px 0px;
 				cursor: pointer;
+			}
+			.admin-menu-button:hover {
+				color: #F9567D;
 			}
 			.admin-menu-button.open {
 				background-color: #3E3478;
 				color: #F0F1FF;
 			}
+			.admin-menu-button.open:hover {
+				color: #F9567D;
+			}
 			.submenu {
 				display: none;
 				position: absolute;
-				left: 0;
+				left: 10;
 				top: 100%;
 				background-color: #3E3478;
 				list-style: none;
-				padding: 10px;
+				padding: 0px;
 				z-index: 1000;
 			}
 			.submenu.open {
 				display: block;
 				border-radius: 0px 0px 20px 20px ;
 				height: auto;
-				padding: 0px 20px 0px 0px;
-				width: 80%;
+				align-items: center;
+				background-color: #3E3478;
+				box-shadow: 5px 10px 5px 0px #272C4C;
+				padding: 0 0px;
 			}
 			.submenu.open a {
-				background-color: #3E3478;
 				color: #F0F1FF;
 				margin: 0;
+				padding: 0 0px;
 				padding-bottom: 0;
 				height: 100%;
 				line-height: 4.5vh;
+			}
+			.submenu.open a:hover {
+				color: #F9567D;
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 import Table from '@components/Table';
 import useUsers from '@hooks/users/useGetUsers.jsx';
 import Search from '../components/Search';
-import Popup from '../components/Popup';
+import PopupEditUser from '../components/PopupEditUser';
 import DeleteIcon from '../assets/deleteIcon.svg';
 import UpdateIcon from '../assets/updateIcon.svg';
 import UpdateIconDisable from '../assets/updateIconDisabled.svg';
@@ -49,7 +49,7 @@ const Users = () => {
   };
 
   const columns = [
-    { title: "Nombre", field: "nombreCompleto", width: 350, responsive: 0 },
+    { title: "Nombre", field: "nombreCompleto", responsive: 0 },
     { title: "Correo electrónico", field: "email", width: 300, responsive: 2 },
     { title: "Rut", field: "rut", width: 100, responsive: 2 },
     { title: "Teléfono", field: "telefono", width: 100, responsive: 2 },
@@ -90,7 +90,7 @@ const Users = () => {
           onSelectionChange={handleSelectionChange}
         />
       </div>
-      <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
+      <PopupEditUser show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
     </div>
   );
 };

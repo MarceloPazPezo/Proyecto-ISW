@@ -14,13 +14,15 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                 { 
                     formatter: "rowSelection", 
                     titleFormatter: false, 
-                    hozAlign: "center", 
-                    headerSort: false, 
+                    hozAlign: "middle", 
+                    headerSort: false,
+                    width: 50,
                     cellClick: function (e, cell) {
                         cell.getRow().toggleSelect();
-                    } 
+                    },
+                    resizable: false
                 },
-                ...columns
+                ...columns.map(col => ({ ...col, resizable: false}))
             ];
             const tabulatorTable = new Tabulator(tableRef.current, {
                 data: [],
