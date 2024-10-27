@@ -3,11 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from '@pages/Login';
 import Home from '@pages/Home';
 import Users from '@pages/Users';
-import Register from '@pages/Register';
 import Error404 from '@pages/Error404';
 import Teachers from '@pages/Teachers';
 import Root from '@pages/Root';
 import Reservation from '@pages/Reservation';
+import Classrooms from '@pages/Classrooms'; 
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
 import About from '@pages/About';
@@ -35,14 +35,26 @@ const router = createBrowserRouter([
       {
         path: '/teachers',
         element: (
-        <ProtectedRoute allowedRoles={['jefe de utp']}>
+        <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
           <Teachers />
         </ProtectedRoute>
         ),
       },
       {
+        path: '/classrooms',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador', 'director']}>
+          <Classrooms />
+        </ProtectedRoute>
+        ),
+      },
+      {
         path: '/reservation', 
-        element: <Reservation />       
+        element: (
+        <ProtectedRoute allowedRoles={['administrador', 'director', 'docente']}>
+          <Reservation />
+        </ProtectedRoute>
+        )
       },
       {
         path: '/schedule', 
@@ -61,10 +73,6 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Login/>
-  },
-  {
-    path: '/register',
-    element: <Register/>
   }
 ])
 

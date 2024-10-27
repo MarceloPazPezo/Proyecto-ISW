@@ -13,6 +13,15 @@ export function formatUserData(user) {
     };
 }
 
+export function formatClassroomData(classroom) {
+    return {
+        ...classroom,
+        nombre: classroom.nombre.toUpperCase(),
+        estado: startCase(classroom.estado),
+        createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
+    };
+}
+
 export function convertirMinusculas(obj) {
     for (let key in obj) {
         if (typeof obj[key] === 'string') {
@@ -28,6 +37,16 @@ export function formatPostUpdate(user) {
         rol: startCase(user.rol),
         rut: formatRut(user.rut),
         email: user.email,
+        estado: startCase(user.estado),
+        telefono: user.telefono,
         createdAt: formatTempo(user.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateClassroom(classroom) {
+    return {
+        nombre: classroom.nombre.toUpperCase(),
+        estado: startCase(classroom.estado),
+        createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
     };
 }

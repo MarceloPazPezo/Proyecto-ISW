@@ -3,7 +3,7 @@ import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
 import QuestionIcon from '@assets/QuestionCircleIcon.svg';
 
-export default function Popup({ show, setShow, data, action }) {
+export default function PopupEditUser({ show, setShow, data, action }) {
     const userData = data && data.length > 0 ? data[0] : {};
 
     const handleSubmit = (formData) => {
