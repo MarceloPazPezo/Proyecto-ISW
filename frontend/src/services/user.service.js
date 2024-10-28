@@ -1,5 +1,5 @@
 import axios from './root.service.js';
-import { formatUserData } from '@helpers/formatData.js';
+import { convertirMinusculas, formatUserData } from '@helpers/formatData.js';
 
 export async function getUsers() {
     try {
@@ -31,9 +31,27 @@ export async function deleteUser(rut) {
     }
 }
 
+export async function addTeacher(data) {
+    try {
+        const dataRegister = convertirMinusculas(data);
+        const { nombreCompleto, email, rut, password, telefono } = dataRegister;
+
+        const response = await axios.post('/user/teacher', {
+            nombreCompleto,
+            email,
+            rut,
+            password,
+            telefono
+        });
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export async function getTeachers() {
     try {
-        const { data } = await axios.get('/user/teachers');
+        const { data } = await axios.get('/user/teacher');
         const formattedData = data.data.map(formatUserData);
         return formattedData;
     } catch (error) {

@@ -24,3 +24,8 @@
     font-size: 12px;
     border-radius: 4px;
 }
+
+.tabulator-row {
+    background-color: #ffffff;
+    color: #0a0909; 
+}

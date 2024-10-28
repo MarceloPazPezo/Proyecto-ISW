@@ -130,6 +130,60 @@ export async function deleteUserService(query) {
   }
 }
 
+export async function createTeacherService(dataUser) {
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const { rut, email, telefono } = dataUser;
+
+    const createErrorMessage = (dataInfo, message) => ({
+      dataInfo,
+      message
+    });
+
+    const existingEmailUser = await userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+    
+    if (existingEmailUser) return [null, createErrorMessage("email", "Correo electrónico en uso")];
+
+    const existingRutUser = await userRepository.findOne({
+      where: {
+        rut,
+      },
+    });
+
+    if (existingRutUser) return [null, createErrorMessage("rut", "Rut ya asociado a una cuenta")];
+
+    const existingTelefonoUser = await userRepository.findOne({
+      where: {
+        telefono,
+      },
+    });
+
+    if (existingTelefonoUser) return [null, createErrorMessage("telefono", "Telefono ya asociado a una cuenta")];
+
+    const newUser = userRepository.create({
+      nombreCompleto: dataUser.nombreCompleto,
+      email: dataUser.email,
+      rut: dataUser.rut,
+      password: await encryptPassword(dataUser.password),
+      telefono: dataUser.telefono,
+      rol: "docente",
+      estado: "regular"
+    });
+
+    const userSaved = await userRepository.save(newUser);
+
+    return [userSaved, null];
+  } catch (error) {
+    console.error("Error al registrar al docente", error);
+    return [null, "Error interno del servidor"];
+  }
+}
+
 export async function getTeachersService() {
   try {
     const userRepository = AppDataSource.getRepository(User);
