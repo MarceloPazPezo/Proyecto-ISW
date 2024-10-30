@@ -1,5 +1,6 @@
 "use strict";
 import {
+  createTeacherService,
   deleteUserService,
   getTeachersService,
   getUserService,
@@ -7,6 +8,7 @@ import {
   updateUserService,
 } from "../services/user.service.js";
 import {
+  addValidation,
   userBodyValidation,
   userQueryValidation,
 } from "../validations/user.validation.js";
@@ -141,6 +143,21 @@ export async function deleteUser(req, res) {
     if (errorUserDelete) return handleErrorClient(res, 404, "Error eliminado al usuario", errorUserDelete);
 
     handleSuccess(res, 200, "Usuario eliminado correctamente", userDelete);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
+}
+
+export async function createTeacher(req, res) {
+  try {
+    const teacher = req.body;
+    const { value, error } = addValidation.validate(teacher);
+    if(error)
+      return handleErrorClient(res, 400, "Error de validación", error.message);
+    
+    const userSaved = await createTeacherService(value);
+
+    handleSuccess(res, 201, "Usuario agregado exitosamente", userSaved);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }
