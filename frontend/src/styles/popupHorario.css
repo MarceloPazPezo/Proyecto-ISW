@@ -18,8 +18,8 @@
     position: relative;
     max-width: 90%; /* Máximo ancho */
     max-height: 90%; /* Máxima altura */
-    width: auto; /* Ancho automático */
-    height: auto; /* Altura automática */
+    width: auto; 
+    height: auto; 
     box-sizing: border-box;
     overflow: auto; /* Habilita el desplazamiento si el contenido excede el contenedor */
     display: flex;

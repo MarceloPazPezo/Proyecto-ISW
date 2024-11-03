@@ -14,7 +14,7 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                 { 
                     formatter: "rowSelection",         
                     titleFormatter: false,             
-                    hozAlign: "middle",                
+                    hozAlign: "middle",
                     headerSort: false,                 
                     width: 50,                         
                     cellClick: function (e, cell) {   

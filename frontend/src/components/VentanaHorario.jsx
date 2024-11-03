@@ -10,10 +10,8 @@ const VentanaHorario = ({ isOpen, onClose, horario, onModify }) => {
             }
         };
 
-        // Agrega el event listener cuando el componente se monta
         window.addEventListener('keydown', handleEsc);
 
-        // Limpia el event listener cuando el componente se desmonta
         return () => {
             window.removeEventListener('keydown', handleEsc);
         };
