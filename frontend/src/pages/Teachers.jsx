@@ -13,11 +13,17 @@ import useDeleteTeacher from '@hooks/users/useDeleteTeacher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import '@styles/spreadsheet.css';
+//
+import HorarioIcon from '../assets/horarioIcon.svg';
+import VentanaHorario from '@components/VentanaHorario';
 
 const Teachers = () => {
   const { teachers, fetchTeachers, setTeachers } = useTeachers();
   const [filterRut, setFilterRut] = useState('');
   const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+  const [isVentanaHorarioOpen, setIsVentanaHorarioOpen] = useState(false);
+  const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
+
   const {
     handleClickUpdate,
     handleUpdate,
@@ -46,13 +52,30 @@ const Teachers = () => {
     return `${formattedNumber}-${dv}`;
   };
 
+  const handleOpenVentanaHorario = (horario) => {
+    setHorarioSeleccionado(horario);
+    setIsVentanaHorarioOpen(true);
+  };
+
   const columns = [
     { title: "Nombre", field: "nombreCompleto", responsive: 0 },
     { title: "Correo electrónico", field: "email", width: 300, responsive: 2 },
     { title: "Rut", field: "rut", width: 100, responsive: 2 },
     { title: "Teléfono", field: "telefono", width: 100, responsive: 2 },
     { title: "Estado", field: "estado", width: 150, responsive: 2 },
-    { title: "Creado", field: "createdAt", width: 100, responsive: 2 }
+    { title: "Creado", field: "createdAt", width: 100, responsive: 2 },
+    { 
+      title: "Horario", width: 115, hozAlign: "center",
+      formatter: () => {
+        return `<img src=${HorarioIcon} alt="horario" style="width: 30px; height: 30px; cursor: pointer;" />`;
+      },
+      cellClick: (e, cell) => {
+        if (e.target.tagName === "IMG") {
+          const horario = cell.getRow().getData().horario;
+          handleOpenVentanaHorario(horario);
+        }
+      }
+    }
   ];
 
   const handleAddTeacherClick = () => {
@@ -96,6 +119,12 @@ const Teachers = () => {
                 dataToFilter={'rut'}
                 initialSortName={'nombre'}
                 onSelectionChange={handleSelectionChange}
+            />
+            {/* <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} /> */}
+            <VentanaHorario 
+              isOpen={isVentanaHorarioOpen} 
+              onClose={() => setIsVentanaHorarioOpen(false)} 
+              horario={horarioSeleccionado} // Pasa el horario seleccionado
             />
         </div>
     <PopupAddTeacher show={isPopupAddOpen} setShow={setIsPopupAddOpen} />

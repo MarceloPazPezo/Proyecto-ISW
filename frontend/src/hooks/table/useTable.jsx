@@ -12,18 +12,20 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
         if (tableRef.current) {
             const updatedColumns = [
                 { 
-                    formatter: "rowSelection", 
-                    titleFormatter: false, 
-                    hozAlign: "middle", 
-                    headerSort: false,
-                    width: 50,
-                    cellClick: function (e, cell) {
+                    formatter: "rowSelection",         
+                    titleFormatter: false,             
+                    hozAlign: "middle",                
+                    headerSort: false,                 
+                    width: 50,                         
+                    cellClick: function (e, cell) {   
+                        e.stopPropagation(); 
                         cell.getRow().toggleSelect();
                     },
                     resizable: false
                 },
-                ...columns.map(col => ({ ...col, resizable: false}))
+                ...columns 
             ];
+            
             const tabulatorTable = new Tabulator(tableRef.current, {
                 data: [],
                 columns: updatedColumns,
@@ -31,7 +33,7 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                 responsiveLayout: "collapse",
                 pagination: true,
                 paginationSize: 6,
-                selectableRows: 1,
+                selectableRows: false,
                 rowHeight: 50,
                 langs: {
                     "default": {
@@ -47,11 +49,19 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                     { column: initialSortName, dir: "asc" }
                 ],
             });
+            
+            tabulatorTable.on("cellClick", function(e, cell) {
+                if (cell.getColumn().getField() === "checkbox") { 
+                    cell.getRow().toggleSelect(); 
+                }
+            });
+
             tabulatorTable.on("rowSelectionChanged", function(selectedData) {
                 if (onSelectionChange) {
                     onSelectionChange(selectedData);
                 }
             });
+            
             tabulatorTable.on("tableBuilt", function() {
                 setIsTableBuilt(true);
             });
