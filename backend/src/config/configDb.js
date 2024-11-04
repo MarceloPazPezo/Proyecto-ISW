@@ -12,7 +12,6 @@ export const AppDataSource = new DataSource({
   password: `${PASSWORD}`,
   database: `${DATABASE}`,
   entities: ["src/entity/**/*.js"],
-  entities: ["src/entity/user.entity.js", "src/entity/classroom.entity.js"], // Verifica la ruta aquí
   synchronize: true,
   logging: false,
 });

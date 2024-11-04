@@ -1,13 +1,16 @@
 "use strict";
 import User from "../entity/user.entity.js";
 import Classroom from "../entity/classroom.entity.js";
+import Subject from "../entity/subject.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
 async function createUsers() {
   try {
+    // Obtiene los elementos de la BD Tabla -> USers
     const userRepository = AppDataSource.getRepository(User);
 
+    // Revisa si la tabla de la BD esta vacía, si lo esta, crea los usuarios
     const count = await userRepository.count();
     if (count > 0) return;
 
@@ -145,4 +148,64 @@ async function createClassrooms() {
     console.error("Error al crear aulas:", error);
   }
 }
-export { createUsers, createClassrooms };
+
+// ->subject.entity.js
+async function createSubject() {
+  try {
+    const subjectRepository = AppDataSource.getRepository(Subject);
+
+    const count = await subjectRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Matemáticas",
+          departamento : "Matemáticas"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Lenguaje",
+          departamento : "Humanista"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Historia",
+          departamento : "Humanista"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Biología",
+          departamento : "Ciencias"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Música",
+          departamento : "Artes"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Artes Visuales",
+          departamento : "Artes"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Química",
+          departamento : "Ciencias"
+        }),
+      ),
+    ]);
+    console.log("* => Asignaturas creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear asignaturas:", error);
+  }
+}
+
+
+export { createUsers, createClassrooms, createSubject };
