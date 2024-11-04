@@ -6,7 +6,7 @@ const VentanaHorario = ({ isOpen, onClose, horario, onModify }) => {
     useEffect(() => {
         const handleEsc = (event) => {
             if (event.key === 'Escape') {
-                onClose(); // Cierra la ventana si se presiona 'ESC'
+                onClose();
             }
         };
 

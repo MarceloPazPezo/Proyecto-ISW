@@ -21,6 +21,7 @@ const Teachers = () => {
   const { teachers, fetchTeachers, setTeachers } = useTeachers();
   const [filterRut, setFilterRut] = useState('');
   const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+  //
   const [isVentanaHorarioOpen, setIsVentanaHorarioOpen] = useState(false);
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
@@ -120,7 +121,6 @@ const Teachers = () => {
                 initialSortName={'nombre'}
                 onSelectionChange={handleSelectionChange}
             />
-            {/* <Popup show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} /> */}
             <VentanaHorario 
               isOpen={isVentanaHorarioOpen} 
               onClose={() => setIsVentanaHorarioOpen(false)} 

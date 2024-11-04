@@ -23,7 +23,7 @@ function useTable({ data, columns, filter, dataToFilter, initialSortName, onSele
                     },
                     resizable: false
                 },
-                ...columns 
+                ...columns.map(col => ({ ...col, resizable: false}))
             ];
             
             const tabulatorTable = new Tabulator(tableRef.current, {
