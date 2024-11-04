@@ -2,7 +2,7 @@ import '@styles/search.css';
 
 function Search({ value, onChange, placeholder }) {
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <input
                 type="text"
                 className='search-input-table'
@@ -11,7 +11,7 @@ function Search({ value, onChange, placeholder }) {
                 placeholder={placeholder}
             />
         </div>
-    )
+    );
 }
 
 export default Search;

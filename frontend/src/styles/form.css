@@ -28,22 +28,23 @@
         padding: 0 10px;
     }
     
-    .toggle-password-icon {
+    /* .toggle-password-icon {
         width: 20px;
         height: 20px;
-    }
+    } */
 }
 
 
 .form {
-	background-color: #eef7ff; /*Color del formulario*/
+	background-color: #F0F1FF; /*Color del formulario*/
 	padding: 7vh;
 	display: flex;
 	flex-direction: column;
 	border-radius: 24px;
 	align-items: center;
+	min-width: 300px;
 	h1 {
-		color: #003366; /*Color del titulo del formulario*/
+		color: #7A28CB; /*Color del titulo del formulario*/
 		font-size: 30px;
 		font-weight: bold;
 		margin: 0;
@@ -54,13 +55,13 @@
 		display: flex;
 	}
 	label {
-		color: #003366; /*Color label de inputs del formulario*/
+		color: #3E3478; /*Color label de inputs del formulario*/
 		font-weight: bold;
 		margin-bottom: 0.7vh;
 	}
 	input {
 		display: flex;
-		border: 3px solid #003366; /*Color del borde de inputs del formulario*/
+		border: 3px solid #7A28CB; /*Color del borde de inputs del formulario*/
 		border-radius: 12px;
 		padding: 8px 5px;
 		background-repeat: no-repeat;
@@ -68,23 +69,22 @@
 		background-color: #eef7ff;
 		font-weight: regular;
 		font-size: 16px;
-		color: #003366;
-		border-radius: 12px;
+		color: #3E3478;
 		background-position: right 10px center;
 		background-size: 25px 25px;
 		box-sizing: border-box;
 	}
 	input::placeholder {
-		color: rgba(0, 51, 102, 0.3);
+		color: #3E3478;
 		font-weight: light;
 	}
 	input:focus {
-		background-color: rgba(0, 110, 223, 0.14);
+		background-color: #FFFFFF;
 		font-weight: regular;
 	}
 	select {
 		display: flex;
-		border: 3px solid #003366; /*Color del borde de selects del formulario*/
+		border: 3px solid #3E3478; /*Color del borde de selects del formulario*/
 		border-radius: 12px;
 		padding: 8px 5px;
 		background-repeat: no-repeat;
@@ -93,12 +93,9 @@
 		font-weight: regular;
 		font-size: 16px;
 		color: #003366;
-		border-radius: 12px;
-		background-position: right 30px center;
 		background-size: 25px 25px;
 		box-sizing: border-box;
 		background-image: url('../assets/ChevronDownIcon.svg');
-		background-repeat: no-repeat;
 		background-position: calc(100% - 12px) center;
 		-webkit-appearance: none;
 		-moz-appearance: none;
@@ -123,7 +120,6 @@
 		font-weight: regular;
 		font-size: 16px;
 		color: #003366;
-		border-radius: 12px;
 		background-position: right 10px center;
 		background-size: 25px 25px;
 		box-sizing: border-box;
@@ -144,17 +140,17 @@
 		border-radius: 12px;
 		border: none;
 		width: 100%;
-		background-color: #003366; /*Color del boton del formulario*/
+		background-color: #7A28CB; /*Color del boton del formulario*/
 		color: #eef7ff;
 		font-weight: bold;
 		font-size: 16px;
-		border: 3px solid #003366; /*Color del borde del boton*/
+		border: 3px solid #3E3478; /*Color del borde del boton*/
 		margin-top: 10px;
 	}
 	button:hover{
-		border: 3px solid #003366;
-		background-color: #eef7ff;
-		color: #003366;
+		border: 3px solid #3E3478;
+		background-color: #F0F1FF;
+		color: #7A28CB;
 		transition: .3s ease-out;
 	}
 	div {
@@ -181,7 +177,7 @@
 
 .container {
 	height: 100vh;	
-	background: linear-gradient(90deg, #003366, #001a33); /*Color principal para login (gradiente)*/
+	background: linear-gradient(0deg, #3E3478 10%,#7A28CB 80%);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -202,6 +198,15 @@ input[name='nombreCompleto'] {
 input[name='rol'] {
 	background-image: url('../assets/PasskeyIcon.svg');
 	
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"] {
+    padding-right: 40px;
 }
 
 .container_inputs {
@@ -232,4 +237,6 @@ input {
 	width: 25px;
 	height: 25px;
 	margin-top: 4px;
+	-webkit-user-drag: none;
+    pointer-events: 
 }

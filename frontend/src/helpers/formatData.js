@@ -7,8 +7,18 @@ export function formatUserData(user) {
         ...user,
         nombreCompleto: startCase(user.nombreCompleto),
         rol: startCase(user.rol),
+        estado: startCase(user.estado),
         rut: formatRut(user.rut),
         createdAt: formatTempo(user.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatClassroomData(classroom) {
+    return {
+        ...classroom,
+        nombre: classroom.nombre.toUpperCase(),
+        estado: startCase(classroom.estado),
+        createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
     };
 }
 
@@ -27,6 +37,16 @@ export function formatPostUpdate(user) {
         rol: startCase(user.rol),
         rut: formatRut(user.rut),
         email: user.email,
+        estado: startCase(user.estado),
+        telefono: user.telefono,
         createdAt: formatTempo(user.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateClassroom(classroom) {
+    return {
+        nombre: classroom.nombre.toUpperCase(),
+        estado: startCase(classroom.estado),
+        createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
     };
 }

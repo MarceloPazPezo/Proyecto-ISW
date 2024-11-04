@@ -5,12 +5,12 @@ import { comparePassword, encryptPassword } from "../helpers/bcrypt.helper.js";
 
 export async function getUserService(query) {
   try {
-    const { rut, id, email } = query;
+    const { rut, id, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }], 
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];
@@ -43,22 +43,22 @@ export async function getUsersService() {
 
 export async function updateUserService(query, body) {
   try {
-    const { id, rut, email } = query;
+    const { id, rut, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }],
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];
 
     const existingUser = await userRepository.findOne({
-      where: [{ rut: body.rut }, { email: body.email }],
+      where: [{ rut: body.rut }, { email: body.email }, { telefono: body.telefono }],
     });
 
     if (existingUser && existingUser.id !== userFound.id) {
-      return [null, "Ya existe un usuario con el mismo rut o email"];
+      return [null, "Ya existe un usuario con el mismo rut o email o teléfono"];
     }
 
     if (body.password) {
@@ -74,7 +74,9 @@ export async function updateUserService(query, body) {
       nombreCompleto: body.nombreCompleto,
       rut: body.rut,
       email: body.email,
+      telefono: body.telefono,
       rol: body.rol,
+      estado: body.estado,
       updatedAt: new Date(),
     };
 
@@ -103,12 +105,12 @@ export async function updateUserService(query, body) {
 
 export async function deleteUserService(query) {
   try {
-    const { id, rut, email } = query;
+    const { id, rut, email, telefono } = query;
 
     const userRepository = AppDataSource.getRepository(User);
 
     const userFound = await userRepository.findOne({
-      where: [{ id: id }, { rut: rut }, { email: email }],
+      where: [{ id: id }, { rut: rut }, { email: email }, { telefono: telefono }],
     });
 
     if (!userFound) return [null, "Usuario no encontrado"];
@@ -124,6 +126,79 @@ export async function deleteUserService(query) {
     return [dataUser, null];
   } catch (error) {
     console.error("Error al eliminar un usuario:", error);
+    return [null, "Error interno del servidor"];
+  }
+}
+
+export async function createTeacherService(dataUser) {
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const { rut, email, telefono } = dataUser;
+
+    const createErrorMessage = (dataInfo, message) => ({
+      dataInfo,
+      message
+    });
+
+    const existingEmailUser = await userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+    
+    if (existingEmailUser) return [null, createErrorMessage("email", "Correo electrónico en uso")];
+
+    const existingRutUser = await userRepository.findOne({
+      where: {
+        rut,
+      },
+    });
+
+    if (existingRutUser) return [null, createErrorMessage("rut", "Rut ya asociado a una cuenta")];
+
+    const existingTelefonoUser = await userRepository.findOne({
+      where: {
+        telefono,
+      },
+    });
+
+    if (existingTelefonoUser) return [null, createErrorMessage("telefono", "Telefono ya asociado a una cuenta")];
+
+    const newUser = userRepository.create({
+      nombreCompleto: dataUser.nombreCompleto,
+      email: dataUser.email,
+      rut: dataUser.rut,
+      password: await encryptPassword(dataUser.password),
+      telefono: dataUser.telefono,
+      rol: "docente",
+      estado: "regular"
+    });
+
+    const userSaved = await userRepository.save(newUser);
+
+    return [userSaved, null];
+  } catch (error) {
+    console.error("Error al registrar al docente", error);
+    return [null, "Error interno del servidor"];
+  }
+}
+
+export async function getTeachersService() {
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const teachers = await userRepository.find({
+      where: { rol: "docente" },
+    });
+
+    if (!teachers || teachers.length === 0) return [null, "No hay docentes"];
+
+    const teachersData = teachers.map(({ password, ...teacher }) => teacher);
+
+    return [teachersData, null];
+  } catch (error) {
+    console.error("Error al obtener a los docentes:", error);
     return [null, "Error interno del servidor"];
   }
 }

@@ -1,5 +1,6 @@
 "use strict";
 import User from "../entity/user.entity.js";
+import Classroom from "../entity/classroom.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
@@ -17,7 +18,9 @@ async function createUsers() {
           rut: "21.308.770-3",
           email: "administrador2024@gmail.cl",
           password: await encryptPassword("admin1234"),
+          telefono: "987654321",
           rol: "administrador",
+          estado: "regular",
         }),
       ),
       userRepository.save(
@@ -26,7 +29,9 @@ async function createUsers() {
           rut: "21.151.897-9",
           email: "usuario1.2024@gmail.cl",
           password: await encryptPassword("user1234"),
+          telefono: "987654312",
           rol: "usuario",
+          estado: "regular",
         })
       ),
       userRepository.save(
@@ -35,7 +40,9 @@ async function createUsers() {
           rut: "21.279.536-4",
           email: "profe.2024@gmail.cl",
           password: await encryptPassword("profe1234"),
+          telefono: "912375312",
           rol: "docente",
+          estado: "regular",
         })
       ),
         userRepository.save(
@@ -44,7 +51,9 @@ async function createUsers() {
             rut: "20.630.735-8",
             email: "usuario2.2024@gmail.cl",
             password: await encryptPassword("user1234"),
-            rol: "usuario",
+            telefono: "987654123",
+            rol: "docente",
+            estado: "regular",
           }),
       ),
       userRepository.save(
@@ -53,7 +62,9 @@ async function createUsers() {
           rut: "20.738.450-K",
           email: "usuario3.2024@gmail.cl",
           password: await encryptPassword("user1234"),
-          rol: "usuario",
+          telefono: "987651234",
+          rol: "encargado",
+          estado: "regular",
         }),
       ),
       userRepository.save(
@@ -62,7 +73,9 @@ async function createUsers() {
           rut: "20.976.635-3",
           email: "usuario4.2024@gmail.cl",
           password: await encryptPassword("user1234"),
-          rol: "usuario",
+          telefono: "987612345",
+          rol: "jefe de utp",
+          estado: "regular",
         }),
       ),
       userRepository.save(
@@ -71,7 +84,9 @@ async function createUsers() {
           rut: "21.172.447-1",
           email: "usuario5.2024@gmail.cl",
           password: await encryptPassword("user1234"),
-          rol: "usuario",
+          telefono: "987123456",
+          rol: "director",
+          estado: "regular",
         }),
       ),
       userRepository.save(
@@ -80,7 +95,9 @@ async function createUsers() {
           rut: "20.738.415-1",
           email: "usuario6.2024@gmail.cl",
           password: await encryptPassword("user1234"),
+          telefono: "981234567",
           rol: "usuario",
+          estado: "desvinculado",
         }),
       ),
     ]);
@@ -90,4 +107,42 @@ async function createUsers() {
   }
 }
 
-export { createUsers };
+async function createClassrooms() {
+  try {
+    const classroomRepository = AppDataSource.getRepository(Classroom);
+
+    const count = await classroomRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A101AA",
+          estado: "ocupada",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A102AA",
+          estado: "ocupada",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A103AA",
+          estado: "disponible",
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A104AA",
+          estado: "ocupada",
+        }),
+      ),
+    ]);
+    console.log("* => Aulas creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear aulas:", error);
+  }
+}
+export { createUsers, createClassrooms };
