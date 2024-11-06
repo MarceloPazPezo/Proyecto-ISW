@@ -20,7 +20,7 @@ import {
 
 export async function getUser(req, res) {
   try {
-    const { rut, id, email, telefono } = req.query; // Aquí debería ser body, o no funciona.
+    const { rut, id, email, telefono } = req.query;
 
     const { error } = userQueryValidation.validate({ rut, id, email, telefono });
 
@@ -74,7 +74,7 @@ export async function getTeachers(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    const { rut, id, email, telefono } = req.query; // Aquí debería ser body, o no funciona.
+    const { rut, id, email, telefono } = req.query;
     const { body } = req;
 
     const { error: queryError } = userQueryValidation.validate({
