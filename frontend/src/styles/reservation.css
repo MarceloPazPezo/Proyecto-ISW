@@ -60,7 +60,68 @@ h1 {
     cursor: pointer;
 }
 
+.reservation-table button2{
+    padding: 3px 5px;
+    padding-top: 1px;
+    background-color: #dc3545; /* Color del botón */
+    color: white;
+    border: black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reservation-table button2:hover {
+    background-color: #991592; /* Nuevo color del botón al pasar el mouse */
+}
+
+.reservation-container button{
+    padding: 5px 10px;
+    background-color: #29036e; /* Color del botón */ 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reservation-container button:hover {
+    background-color: #218838; /* Nuevo color del botón al pasar el mouse */
+}
+
 .reservation-table button:disabled {
     background-color: #ccc; /* Color del botón deshabilitado */
     cursor: not-allowed;
+}
+
+/* Estilos para la ventana emergente de confirmación */
+.confirm-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-popup-inner {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.confirm-popup button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-popup button:hover {
+    background-color: #c82333;
 }

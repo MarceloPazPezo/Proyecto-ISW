@@ -30,6 +30,10 @@ body {
     padding: 80px;
     max-width: 800px;
     margin: auto;
+    /* background-image: url('../assets/images/materiales.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;  */
   }
   
   .about-section, .services-section, .contact-section {

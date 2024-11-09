@@ -18,8 +18,8 @@ router.use(authenticateJwt);
 
 router
     .get("/", authorizeRoles("administrador", "encargado", "docente"),getResources)
-    .get("/resource", authorizeRoles("administrador", "encargado", "docente"),getResource)
-    .post("/detail", authorizeRoles("administrador", "encargado"),createResource)
-    .put("/detail", authorizeRoles("administrador", "encargado"),updateResource)
+    .get("/detail/", authorizeRoles("administrador", "encargado", "docente"),getResource)
+    .post("/detail/", authorizeRoles("administrador", "encargado"),createResource)
+    .put("/detail/", authorizeRoles("administrador", "encargado"),updateResource)
     .delete("/detail", authorizeRoles("administrador", "encargado"),deleteResource);
 export default router;

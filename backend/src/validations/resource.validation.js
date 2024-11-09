@@ -1,5 +1,5 @@
 "use strict";
-import { Joi } from "joi";
+import Joi from "joi";
 
 export const sourceQueryValidation = Joi.object({
     id : Joi.number().integer().positive().messages({
@@ -46,9 +46,9 @@ export const sourceBodyValidation = Joi.object({
         "number.integer": "El idManager debe ser un número entero.",
         "number.positive": "El idManager debe ser un número positivo.",
     }),
-    estado : Joi.string().valid("disponible", "ocupada" , "ocupado").messages({
-        "string.base": "El estado debe ser de tipo string.",
-        "string.min": "El estado debe tener como mínimo 8 caracteres.",
-        "string.max": "El estado debe tener como máximo 15 caracteres.",
-    }),
+    // estado : Joi.string().valid("disponible", "ocupada" , "ocupado").messages({
+    //     "string.base": "El estado debe ser de tipo string.",
+    //     "string.min": "El estado debe tener como mínimo 8 caracteres.",
+    //     "string.max": "El estado debe tener como máximo 15 caracteres.",
+    // }),
 })

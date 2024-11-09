@@ -1,6 +1,6 @@
 "use strict";
 import Source from "../entity/resource.entity.js";
-import { AppDataSource } from "../config/configDb";
+import { AppDataSource } from "../config/configDb.js";
 
 export async function getResourceService(query) {
     try {
@@ -27,11 +27,11 @@ export async function getResourcesService() {
     try {
         const resourcesRepository = AppDataSource.getRepository(Source);
 
-        const resourcesFound = await resourcesRepository.find({
-            relations: ["manager"],
-        });
+        const resourcesFound = await resourcesRepository.find()
 
-        return [resourcesFound, null];
+        if (!resourcesFound) return [null, "No se encontraron recursos."];
+
+        return [resourcesFound];
     } catch (error) {
         console.error("Error al obtener los recursos: ", error);
         return [null, "Error interno del servidor."];
@@ -43,7 +43,9 @@ export async function createResourceService(dataResource) {
 
         const resourcesRepository = AppDataSource.getRepository(Source);
 
-        const { id , nombre, idManager } = dataResource;
+        // console.log("Datos1_>" + dataResource.nombre + " - " + dataResource.idManager);
+
+        const { nombre, idManager } = dataResource;
 
         const createErrorMessage = (dataInfo , message) => {
             return {
@@ -52,14 +54,14 @@ export async function createResourceService(dataResource) {
             }
         }
 
-        const existingResource = await resourcesRepository.findOne({ nombre });
+        // console.log("Datos_>" + nombre + " - " + idManager);
+
+        // Verifica si ya existe un recurso con ese nombre
+        const existingResource = await resourcesRepository.findOne({ where: { nombre } });
 
         if (existingResource) return [null, createErrorMessage(dataResource, "El recurso ya existe.")];
 
-        const existingidResource = await resourcesRepository.findOne ({ id });
-
-        if (existingidResource) return [null, createErrorMessage(dataResource, "El id del recurso ya existe.")];
-
+        // Si no existe, crea un nuevo recurso
         const newResource = resourcesRepository.create({
             nombre : dataResource.nombre,
             manager : dataResource.idManager,
@@ -74,6 +76,7 @@ export async function createResourceService(dataResource) {
         return [null, "Error interno del servidor."];
     }
 }
+
 
 export async function updateResourceService(query, body) {
     try {
@@ -121,18 +124,19 @@ export async function updateResourceService(query, body) {
 export async function deleteResourceService(query) {
     try {
 
-        const { id , nombre , idManager } = query;
+        // console.log("ServiceBK id: ", query);
+
+        const { id } = query;
 
         const resourcesRepository = AppDataSource.getRepository(Source);
 
         const resourceFound = await resourcesRepository.findOne({
-            where: [{ id }, { nombre }, { idManager }],
-            relations: ["manager"],
+            where: [{ id }],
         });
 
         if (!resourceFound) return [null, "No se encontró el recurso solicitado."]
 
-        const resourceData = await resourcesRepository.delete({ id : resourceFound.id });
+        const resourceData = await resourcesRepository.remove({ id : resourceFound.id });
 
         return [resourceData, null];
 

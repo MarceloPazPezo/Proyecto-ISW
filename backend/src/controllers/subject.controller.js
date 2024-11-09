@@ -7,7 +7,6 @@ import {
     updateSubjectsService,
 } from "../services/subject.service.js";
 import {
-    addValidation,
     subjectBodyValidation,
     subjectQueryValidation,
 } from "../validations/subject.validation.js";

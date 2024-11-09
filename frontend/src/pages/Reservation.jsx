@@ -1,47 +1,88 @@
+import { useState, useEffect } from 'react';
 import '@styles/reservation.css';
+import { getUserRol } from '../services/user.service.js';
+import PopupAddResource from '../components/PopupAddResource.jsx';
+import useDeleteResource from '../hooks/resource/useDeleteResource.jsx';
+import useGetResources from '../hooks/resource/useGetResources.jsx';
 
 const Reservation = () => {
-    const elementsToReserve = [
-        { id: 1, name: "Aula 101", capacity: 30, reserved: false },
-        { id: 2, name: "Aula 102", capacity: 25, reserved: false },
-        { id: 3, name: "Laboratorio de Ciencias", capacity: 20, reserved: true },
-        { id: 4, name: "Sala de Computación", capacity: 15, reserved: false },
-        { id: 5, name: "Auditorio", capacity: 100, reserved: true },
-        { id: 6, name: "Libros de ciencia", capacity: 50, reserved: false }
-    ];
+    const [user, setUser] = useState(null);
+    const [rol, setRol] = useState('');
+    const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+
+    const { resources, fetchResources, setDataResources } = useGetResources();
+    const { handleDelete } = useDeleteResource(fetchResources, setDataResources);
+
+    const handleAddResourceClick = () => {
+        setIsPopupAddOpen(true);
+    };
+
+    const handleDeleteClick = async (id) => {
+        await handleDelete(id);
+    };
+
+    useEffect(() => {
+        const fetchUserRole = async () => {
+            const savedUser = JSON.parse(localStorage.getItem('user'));
+            if (savedUser) {
+                setUser(savedUser);
+                try {
+                    const userRol = await getUserRol(savedUser.email);
+                    setRol(userRol);
+                    // console.log('Rol del usuario:', userRol);
+                } catch (error) {
+                    console.error('Error al obtener el rol del usuario:', error);
+                }
+            }
+        };
+
+        fetchUserRole();
+    }, []);
+
+    const ROL = rol.data?.rol;
+    const canManageResources = user && (ROL === 'admin' || ROL === 'encargado');
 
     return (
         <div className="main-container">
-        <div className="reservation-container">
-        <h1>Reservas de Espacios</h1>
-        <table className="reservation-table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Capacidad</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            {elementsToReserve.map((element) => (
-                <tr key={element.id}>
-                <td>{element.id}</td>
-                <td>{element.name}</td>
-                <td>{element.capacity}</td>
-                <td>{element.reserved ? "Reservado" : "Disponible"}</td>
-                <td>
-                    <button disabled={element.reserved}>Reservar</button>
-                </td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
-        </div>
+            <div className="reservation-container">
+                <h1>Reservas de Espacios {`(${ROL})`}</h1>
+                {canManageResources && (
+                    <button onClick={handleAddResourceClick}>Crear Reserva</button>
+                )}
+                <table className="reservation-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(resources) && resources.map((element) => (
+                            <tr key={element.id}>
+                                <td>{element.id}</td>
+                                <td>{element.nombre}</td>
+                                <td>{element.estado}</td>
+                                <td>
+                                    <button disabled={element.estado === "reservado" || !canManageResources}>
+                                        Reservar
+                                    </button>
+                                    {canManageResources && (
+                                        <>
+                                            <button2>Editar</button2>
+                                            <button2 onClick={() => handleDeleteClick(element.id)}>Eliminar</button2>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <PopupAddResource show={isPopupAddOpen} setShow={setIsPopupAddOpen} />
         </div>
     );
-};
+}
 
 export default Reservation;
-

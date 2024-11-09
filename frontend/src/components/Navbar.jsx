@@ -99,7 +99,7 @@ const Navbar = () => {
                             </ul>
                         </li>
                     )}
-                    {userRole === 'docente' && (
+                    {(userRole === 'docente' || userRole === 'encargado') && (
                     <li>
                         <NavLink
                             to="/reservation"

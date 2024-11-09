@@ -6,25 +6,33 @@ import {
     getResourcesService,
     updateResourceService,
 } from "../services/resource.service.js";
-import {
+
+import { 
     sourceBodyValidation,
     sourceQueryValidation,
 } from "../validations/resource.validation.js";
+
 import {
     handleErrorClient,
     handleErrorServer,
     handleSuccess,
 } from "../handlers/responseHandlers.js"
-import { subjectBodyValidation } from "../validations/subject.validation.js";
+
 
 export async function createResource (req,res){ 
     try {
 
+        // console.log(typeof sourceBodyValidation);
+
         const resourceBody = req.body;
 
-        const { error } = subjectBodyValidation({ resourceBody })
+        const { error } = sourceBodyValidation.validate(resourceBody);
 
-        const [resource, errorResource] = await createResourceService({ resourceBody });
+        if (error) return handleErrorClient(res, 404, error);
+
+        // console.log("ControlerBody:" , resourceBody);
+
+        const [resource, errorResource] = await createResourceService(resourceBody);
 
         if (errorResource) return handleErrorClient(res , 404 , errorResource)
 
@@ -55,7 +63,7 @@ export async function getResource (req,res){
 
         const { id , nombre } = req.query;
 
-        const { error } = sourceQueryValidation({ id , nombre });
+        const { error } = sourceQueryValidation.validate({ id });
 
         if (error) return handleErrorClient(res, 400, error);
 
@@ -93,20 +101,25 @@ export async function updateResource (req,res){
     }
 }
 
-export async function deleteResource (req,res){
+export async function deleteResource(req, res) {
     try {
-        const { id , nombre } = req.query;
+        const { id } = req.query;
 
-        const { error } = sourceQueryValidation({ id , nombre });
+        const { error } = sourceQueryValidation.validate({ id });
 
-        if (error) return handleErrorClient(res, 404, error);
+        if (error) return handleErrorClient(res, 400, error);
 
-        const [resource, errorResource] = await deleteResourceService({ id , nombre });
+        // console.log("ControllerID:", id);
 
-        if (errorResource) return handleErrorClient(res, 404, errorResource);
+        const [resource, errorResource] = await deleteResourceService({ id });
+
+        if (errorResource) { 
+            // console.log("ExisteErrorController");
+            return handleErrorClient(res, 404, errorResource); 
+        }
 
         handleSuccess(res, 200, "Recurso eliminado", resource);
     } catch (error) {
-        handleErrorServer(res, 404, error.message);
+        handleErrorServer(res, 500, error.message);
     }
 }

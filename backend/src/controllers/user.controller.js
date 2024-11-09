@@ -3,6 +3,7 @@ import {
   createTeacherService,
   deleteUserService,
   getTeachersService,
+  getUserRolService,
   getUserService,
   getUsersService,
   updateUserService,
@@ -158,6 +159,30 @@ export async function createTeacher(req, res) {
     const userSaved = await createTeacherService(value);
 
     handleSuccess(res, 201, "Usuario agregado exitosamente", userSaved);
+  } catch (error) {
+    handleErrorServer(res, 500, error.message);
+  }
+}
+
+export async function getUserRol(req, res) {
+  try {
+
+    const { email } = req.query;
+
+    // console.log(email);
+
+    const { error } = userQueryValidation.validate({ email });
+
+    if (error) return handleErrorClient(res, 400, error.message);
+
+    const [userRol, errorUserRol] = await getUserRolService({ email });
+
+    // console.log("controller->" + userRol);
+
+    if (errorUserRol) return handleErrorClient(res, 404, errorUserRol);
+
+    handleSuccess(res, 200, "Rol de usuario encontrado", userRol);
+
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }

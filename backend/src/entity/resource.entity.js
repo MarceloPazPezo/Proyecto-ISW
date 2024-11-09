@@ -1,5 +1,5 @@
 import { EntitySchema } from "typeorm";
-import User from "./User.js"; // Asegúrate de importar el esquema de la entidad "User"
+import User from "./user.entity.js"; 
 
 const ResourceSchema = new EntitySchema({
     name: "Resource",
