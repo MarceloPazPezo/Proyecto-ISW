@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 dotenv.config(); // Cargar variables de entorno
 import { cookieKey, HOST, PORT } from "./config/configEnv.js";
 import { connectDB } from "./config/configDb.js";
-import { createUsers, createClassrooms } from "./config/initialSetup.js";
+import { createUsers, createClassrooms ,createCourses} from "./config/initialSetup.js";
 import { passportJwtSetup } from "./auth/passport.auth.js";
 
 async function setupServer() {
@@ -77,6 +77,7 @@ async function setupAPI() {
     await setupServer();
     await createUsers();
     await createClassrooms();
+    await createCourses();
   } catch (error) {
     console.log("Error en index.js -> setupAPI(), el error es: ", error);
   }
