@@ -2,6 +2,7 @@
 import User from "../entity/user.entity.js";
 import Classroom from "../entity/classroom.entity.js";
 import Subject from "../entity/subject.entity.js";
+import Resource from "../entity/resource.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
@@ -101,6 +102,17 @@ async function createUsers() {
           telefono: "981234567",
           rol: "usuario",
           estado: "desvinculado",
+        }),
+      ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Eduardo Mago Hermosilla Vidal",
+          rut: "18.256.248-8",
+          email: "encargado1.2024@gmail.cl",
+          password: await encryptPassword("encargado1234"),
+          telefono: "925488148",
+          rol: "encargado",
+          estado: "regular",
         }),
       ),
     ]);
@@ -207,5 +219,47 @@ async function createSubject() {
   }
 }
 
+async function createResource() {
+  try {
+    const resourceRepository = AppDataSource.getRepository(Resource);
 
-export { createUsers, createClassrooms, createSubject };
+    const count = await resourceRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      resourceRepository.save([
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Química",
+          estado: "disponible",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Física",
+          estado: "disponible",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Computación",
+          estado: "reservado",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Auditorio",
+          estado: "disponible",
+          manager: 9,
+        }),
+      ]),
+    ]);
+    console.log("* => Recursos creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear recursos:", error);
+  } 
+}
+
+
+
+export { createUsers, createClassrooms, createSubject , createResource };

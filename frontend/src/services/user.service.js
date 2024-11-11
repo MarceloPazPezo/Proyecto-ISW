@@ -58,3 +58,16 @@ export async function getTeachers() {
         return error.response.data;
     }
 }
+
+export async function getUserRol(email){
+    try {
+        const { data } = await axios.get(`/user/rol/?email=${email}`); // crear ruta y service en backend
+        
+        // console.log("Data de getUserRol:" + data);
+
+        localStorage.setItem('rol', JSON.stringify(data));
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}

@@ -6,14 +6,14 @@ export async function getSubjectService(query) { // Buscar asignatura especifica
     try {
         const { id, nombre, departamento } = query;
         const subjectRepository = AppDataSource.getRepository(Subject);
-        console.log(query);
+        // console.log(query);
 
         // Buscar asignatura que coincida con 'nombre' y 'departamento'
         const subjectFound = await subjectRepository.findOne({
             where: { id: id, nombre: nombre, departamento: departamento },
         });
 
-        console.log(subjectFound);
+        // console.log(subjectFound);
 
         if (!subjectFound) return [null, "Asignatura no encontrada"];
 
@@ -93,11 +93,11 @@ export async function deleteSubjectService(query) {
 
         if (!subjectFound) return [null, "Asignatura no encontrada"];
 
-        console.log(subjectFound);
+        // console.log(subjectFound);
         
         const deletedSubject = await subjectRepository.delete({ nombre: subjectFound.nombre });
 
-        console.log(deletedSubject);
+        // console.log(deletedSubject);
 
         return [deletedSubject, null];
     } catch (error) {

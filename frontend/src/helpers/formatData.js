@@ -13,6 +13,15 @@ export function formatUserData(user) {
     };
 }
 
+export function formatResourceData (resource) {
+    return {
+        ...resource,
+        nombre: resource.nombre.toUpperCase(),
+        estado: startCase(resource.estado),
+        createdAt: formatTempo(resource.createdAt, "DD-MM-YYYY")
+    };
+}
+
 export function formatClassroomData(classroom) {
     return {
         ...classroom,
@@ -60,5 +69,14 @@ export function formatPostUpdateClassroom(classroom) {
         nombre: classroom.nombre.toUpperCase(),
         estado: startCase(classroom.estado),
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateResource(resource) {
+    return {
+        nombre: resource.nombre.toUpperCase(),
+        estado: startCase(resource.estado),
+        idManager: resource.idManager,
+        createdAt: formatTempo(resource.createdAt, "DD-MM-YYYY")
     };
 }
