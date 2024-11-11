@@ -4,6 +4,7 @@ import userRoutes from "./user.routes.js";
 import authRoutes from "./auth.routes.js";
 import subjectRoutes from "./subject.routes.js";
 import classroomRoutes from "./classroom.routes.js";
+import courseRoutes from "./course.routes.js";
 import resourceRoutes from "./resource.routes.js";
 import reservationRoutes from "./reservation.routes.js";
 import timeBlockRoutes from "./timeblock.routes.js";
@@ -14,6 +15,7 @@ router
     .use("/auth", authRoutes)
     .use("/user", userRoutes)
     .use("/classroom", classroomRoutes)
+    .use("/course", courseRoutes)
     .use("/resource", resourceRoutes)
     .use("/reservation", reservationRoutes)
     .use("/timeblock", timeBlockRoutes)

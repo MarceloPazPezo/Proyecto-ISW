@@ -156,9 +156,11 @@ export async function createTeacher(req, res) {
     if(error)
       return handleErrorClient(res, 400, "Error de validación", error.message);
     
-    const userSaved = await createTeacherService(value);
+    const [newTeacher, errorNewTeacher] = await createTeacherService(value);
+    if (errorNewTeacher) 
+      return handleErrorClient(res, 400, "Error de registro de docente", errorNewTeacher);
 
-    handleSuccess(res, 201, "Usuario agregado exitosamente", userSaved);
+    handleSuccess(res, 201, "Usuario agregado exitosamente", newTeacher);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }
