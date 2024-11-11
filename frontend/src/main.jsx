@@ -6,7 +6,8 @@ import Users from '@pages/Users';
 import Error404 from '@pages/Error404';
 import Teachers from '@pages/Teachers';
 import Root from '@pages/Root';
-import Reservation from '@pages/Reservation';
+import Reservation from './pages/reservas/Reservation';
+import MyReservation from './pages/reservas/MisReservas';
 import Classrooms from '@pages/Classrooms'; 
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
@@ -51,9 +52,17 @@ const router = createBrowserRouter([
       {
         path: '/reservation', 
         element: (
-        <ProtectedRoute allowedRoles={['administrador', 'director', 'docente']}>
+        <ProtectedRoute allowedRoles={['administrador', 'director', 'docente', 'encargado']}>
           <Reservation />
         </ProtectedRoute>
+        )
+      },
+      {
+        path: '/myreservation',
+        element: (
+          <ProtectedRoute allowedRoles={['docente']}>
+            <MyReservation />
+          </ProtectedRoute>
         )
       },
       {

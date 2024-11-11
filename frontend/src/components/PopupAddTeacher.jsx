@@ -120,3 +120,4 @@ export default function PopupAddTeacher({ show, setShow }) {
         </div>
     );
 }
+

@@ -19,8 +19,7 @@ import {
 export async function getSubject(req, res) {
     try {
 
-        const { id, nombre, departamento } = req.body; // Cambiado de req.query a req.body
-        // const { body } = req;
+        const { id, nombre, departamento } = req.query; 
 
         const { error } = subjectQueryValidation.validate({ id , nombre, departamento });
 
@@ -59,7 +58,9 @@ export async function createSubject(req, res) {
     try {
         const { nombre, departamento } = req.body;
 
-        const { error } = subjectBodyValidation.validate({ nombre, departamento });
+        // const { error } = subjectQueryValidation.validate({ nombre, departamento });
+
+        const { error } = subjectBodyValidation.validate({ nombre , departamento })
 
         if (error) return handleErrorClient(res, 400, error.message);
 
@@ -75,20 +76,28 @@ export async function createSubject(req, res) {
 
 export async function updateSubject(req, res) {
     try {
-        const { id, nombre } = req.body; // Cambiado de req.query a req.body
+        const { id, nombre } = req.query;
         const { body } = req;
 
-        console.log("------>" + id + " " + nombre);
-        console.log("------>" + JSON.stringify(body));
-
-        const { error: bodyError } = subjectQueryValidation.validate({ id, nombre });
-
+        const { error: bodyError } = subjectBodyValidation.validate(body);
+        
         if (bodyError){
             return handleErrorClient(
                 res,
                 400,
                 "Error en la validación de los datos",
-                bodyError.message // Cambié queryError.message a bodyError.message
+                bodyError.message
+            );
+        }
+
+        const { error: queryError } = subjectQueryValidation.validate({ id, nombre });
+
+        if (queryError){
+            return handleErrorClient(
+                res,
+                400,
+                "Error en la validación de la consulta",
+                queryError.message
             );
         }
 
@@ -96,7 +105,7 @@ export async function updateSubject(req, res) {
 
         if (errorSubject) return handleErrorClient(res, 404, errorSubject);
 
-        handleSuccess(res, 200, "Asignatura actualizada", subject);
+        handleSuccess(res, 200, "Asignatura actualizada correctamente", subject);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
@@ -106,7 +115,7 @@ export async function updateSubject(req, res) {
 export async function deleteSubject(req, res) {
     try {
 
-        const { id, nombre } = req.body; // Cambiado de req.query a req.body
+        const { id, nombre } = req.query; 
 
         const { error : queryError } = subjectQueryValidation.validate({ id, nombre });
 
@@ -122,6 +131,8 @@ export async function deleteSubject(req, res) {
         const [errorSubjectDelete] = await deleteSubjectService({ id, nombre });
 
         if (errorSubjectDelete) return handleErrorClient(res, 404, errorSubjectDelete);
+
+        handleSuccess(res, 200, "Asignatura eliminada correctamente");
 
     } catch (error) {
         handleErrorServer(res, 500, error.message);
