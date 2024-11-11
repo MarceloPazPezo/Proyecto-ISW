@@ -1,7 +1,6 @@
 import axios from './root.service.js';
 import cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
-import { convertirMinusculas } from '@helpers/formatData.js';
 
 export async function login(dataUser) {
     try {
@@ -18,22 +17,6 @@ export async function login(dataUser) {
             cookies.set('jwt-auth', data.data.token, {path:'/'});
             return response.data
         }
-    } catch (error) {
-        return error.response.data;
-    }
-}
-
-export async function register(data) {
-    try {
-        const dataRegister = convertirMinusculas(data);
-        const { nombreCompleto, email, rut, password } = dataRegister
-        const response = await axios.post('/auth/register', {
-            nombreCompleto,
-            email,
-            rut,
-            password
-        });
-        return response.data;
     } catch (error) {
         return error.response.data;
     }
