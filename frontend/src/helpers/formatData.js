@@ -31,6 +31,18 @@ export function formatClassroomData(classroom) {
     };
 }
 
+export function formatTimeBlockData(timeblock) {
+    return {
+        ...timeblock,
+        idTeacher: timeblock.idTeacher,
+        idCourse: timeblock.idCourse,
+        idSubject: timeblock.idSubject,
+        horaInicio: timeblock.horaInicio,
+        horaTermino: timeblock.horaTermino,
+        fecha: formatTempo(timeblock.fecha, "DD-MM-YYYY")
+    };
+}
+
 export function convertirMinusculas(obj) {
     for (let key in obj) {
         if (typeof obj[key] === 'string') {

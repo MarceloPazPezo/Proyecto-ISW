@@ -1,0 +1,46 @@
+.ventana-horario {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenido {
+    background: white;
+    padding: 20px; /* Ajusta el padding según sea necesario */
+    border-radius: 20px;
+    position: relative;
+    max-width: 90%; /* Máximo anchoo */
+    max-height: 90%; /* Máxima altura */
+    width: auto; 
+    height: auto; 
+    box-sizing: border-box;
+    overflow: auto; /* Habilita el desplazamiento si el contenido excede el contenedor */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos verticalmente */
+}
+
+.contenido > .botones {
+    margin-top: auto; /* Empuja los botones hacia abajo */
+    display: flex;
+    gap: 10px;
+}
+
+.botones button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botones button:hover {
+    background-color: #1973d2;
+}
