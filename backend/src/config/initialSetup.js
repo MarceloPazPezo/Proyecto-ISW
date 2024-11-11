@@ -2,13 +2,17 @@
 import User from "../entity/user.entity.js";
 import Classroom from "../entity/classroom.entity.js";
 import Course from "../entity/course.entity.js";
+import Subject from "../entity/subject.entity.js";
+import Resource from "../entity/resource.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
 async function createUsers() {
   try {
+    // Obtiene los elementos de la BD Tabla -> USers
     const userRepository = AppDataSource.getRepository(User);
 
+    // Revisa si la tabla de la BD esta vacía, si lo esta, crea los usuarios
     const count = await userRepository.count();
     if (count > 0) return;
 
@@ -111,40 +115,40 @@ async function createUsers() {
           rol: "docente",
           estado: "regular",
         }),
-    ),
-    userRepository.save(
-      userRepository.create({
-        nombreCompleto: "Marcelo Alfredo Paz Pezo",
-        rut: "21.756.745-0",
-        email: "profe3.2024@gmail.cl",
-        password: await encryptPassword("user1234"),
-        telefono: "999999907",
-        rol: "docente",
-        estado: "regular",
-      }),
-  ),
-  userRepository.save(
-    userRepository.create({
-      nombreCompleto: "Maria Jesus Sobino Sobino",
-      rut: "21.566.241-1",
-      email: "profe4.2024@gmail.cl",
-      password: await encryptPassword("user1234"),
-      telefono: "997766345",
-      rol: "docente",
-      estado: "regular",
-    }),
-    userRepository.save(
-      userRepository.create({
-        nombreCompleto: "Claudia Jimena Sobino Sobino",
-        rut: "20.622.042-2",
-        email: "profe5.2024@gmail.cl",
-        password: await encryptPassword("user1234"),
-        telefono: "994754167",
-        rol: "docente",
-        estado: "regular",
-      }),
-  ),
-),
+      ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Marcelo Alfredo Paz Pezo",
+          rut: "21.756.745-0",
+          email: "profe3.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "999999907",
+          rol: "docente",
+          estado: "regular",
+        }),
+      ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Maria Jesus Sobino Sobino",
+          rut: "21.566.241-1",
+          email: "profe4.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "997766345",
+          rol: "docente",
+          estado: "regular",
+        }),
+      ),
+      userRepository.save(
+          userRepository.create({
+            nombreCompleto: "Claudia Jimena Sobino Sobino",
+            rut: "20.622.042-2",
+            email: "profe5.2024@gmail.cl",
+            password: await encryptPassword("user1234"),
+            telefono: "994754167",
+            rol: "docente",
+            estado: "regular",
+          }),
+        ),
     ]);
     console.log("* => Usuarios creados exitosamente");
   } catch (error) {
@@ -237,4 +241,103 @@ async function createCourses() {
     console.error("Error al crear cursos:", error);
   }
 }
-export { createUsers, createClassrooms, createCourses, };
+
+async function createSubject() {
+  try {
+    const subjectRepository = AppDataSource.getRepository(Subject);
+
+    const count = await subjectRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Matemáticas",
+          departamento : "Matemáticas"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Lenguaje",
+          departamento : "Humanista"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Historia",
+          departamento : "Humanista"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Biología",
+          departamento : "Ciencias"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Música",
+          departamento : "Artes"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Artes Visuales",
+          departamento : "Artes"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "Química",
+          departamento : "Ciencias"
+        }),
+      ),
+    ]);
+    console.log("* => Asignaturas creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear asignaturas:", error);
+  }
+}
+
+async function createResource() {
+  try {
+    const resourceRepository = AppDataSource.getRepository(Resource);
+
+    const count = await resourceRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      resourceRepository.save([
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Química",
+          estado: "disponible",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Física",
+          estado: "disponible",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Laboratorio de Computación",
+          estado: "reservado",
+          manager: 9,
+        }),
+        resourceRepository.create({
+          
+          nombre: "Auditorio",
+          estado: "disponible",
+          manager: 9,
+        }),
+      ]),
+    ]);
+    console.log("* => Recursos creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear recursos:", error);
+  } 
+}
+
+export { createUsers, createClassrooms, createSubject , createResource, createCourses };

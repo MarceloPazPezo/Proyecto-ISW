@@ -202,3 +202,32 @@ export async function getTeachersService() {
     return [null, "Error interno del servidor"];
   }
 }
+
+export async function getUserRolService(query) {
+  try {
+
+    const { email } = query;
+
+    const userRepository = AppDataSource.getRepository(User);
+
+    // console.log(email);
+
+    const user = await userRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) return [null, "Usuario no encontrado"];
+
+    // console.log(user.rol);
+
+    const aEnviar = {
+      rol: user.rol,
+      id: user.id
+    }
+
+    return [aEnviar, null];
+  } catch (error) {
+    console.error("Error al obtener el rol del usuario:", error);
+    return [null, "Error interno del servidor"];
+  }
+}

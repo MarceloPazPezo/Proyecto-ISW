@@ -7,6 +7,7 @@ import {
   deleteUser,
   getTeachers,
   getUser,
+  getUserRol,
   getUsers,
   updateUser,
 } from "../controllers/user.controller.js";
@@ -21,5 +22,6 @@ router
   .patch("/detail/", authorizeRoles("administrador"), updateUser)
   .delete("/detail/", authorizeRoles("administrador"), deleteUser)
   .post("/teacher", authorizeRoles("administrador", "jefe de utp"), createTeacher)
-  .get("/teacher", authorizeRoles("administrador", "jefe de utp"), getTeachers);
+  .get("/teacher", authorizeRoles("administrador", "jefe de utp"), getTeachers)
+  .get("/rol/" , getUserRol);
 export default router;

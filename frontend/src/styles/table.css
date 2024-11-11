@@ -1,5 +1,5 @@
 .table-container .tabulator .tabulator-col {
-    background-color: #003366;
+    background-color: #7A28CB;
     color: #fff;
 }
 
@@ -8,17 +8,16 @@
     color: black;
     border: 1px solid #003366;
     padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 12px; 
+    border-radius: 4px; 
+    font-size: 12px;
     height: 30px;
-    width: 80px; 
+    width: 80px;
 }
 
 .tabulator .tabulator-footer .tabulator-page.active {
-    color: #E4332C;
+    color: #7A28CB;
 }
 
-/* Opcional: Si tienes otros botones en el footer, puedes hacer ajustes adicionales */
 .tabulator .tabulator-footer .tabulator-button {
     padding: 2px 4px;
     font-size: 12px;
@@ -27,5 +26,11 @@
 
 .tabulator-row {
     background-color: #ffffff;
-    color: #0a0909; 
+    color: #0a0909;
+}
+
+.tabulator {
+    border-radius: 8px; 
+    border: 1px solid #7A28CB; 
+    overflow: hidden; 
 }
