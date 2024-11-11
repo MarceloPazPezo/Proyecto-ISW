@@ -1,6 +1,7 @@
 "use strict";
 import User from "../entity/user.entity.js";
 import Classroom from "../entity/classroom.entity.js";
+import Course from "../entity/course.entity.js";
 import Subject from "../entity/subject.entity.js";
 import Resource from "../entity/resource.entity.js";
 import { AppDataSource } from "./configDb.js";
@@ -106,15 +107,48 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Eduardo Mago Hermosilla Vidal",
-          rut: "18.256.248-8",
-          email: "encargado1.2024@gmail.cl",
-          password: await encryptPassword("encargado1234"),
-          telefono: "925488148",
-          rol: "encargado",
+          nombreCompleto: "Bastián Alexis Rodríguez Campusano",
+          rut: "20.300.745-9",
+          email: "profe2.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "999999496",
+          rol: "docente",
           estado: "regular",
         }),
       ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Marcelo Alfredo Paz Pezo",
+          rut: "21.756.745-0",
+          email: "profe3.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "999999907",
+          rol: "docente",
+          estado: "regular",
+        }),
+      ),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Maria Jesus Sobino Sobino",
+          rut: "21.566.241-1",
+          email: "profe4.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "997766345",
+          rol: "docente",
+          estado: "regular",
+        }),
+      ),
+      userRepository.save(
+          userRepository.create({
+            nombreCompleto: "Claudia Jimena Sobino Sobino",
+            rut: "20.622.042-2",
+            email: "profe5.2024@gmail.cl",
+            password: await encryptPassword("user1234"),
+            telefono: "994754167",
+            rol: "docente",
+            estado: "regular",
+          }),
+        ),
     ]);
     console.log("* => Usuarios creados exitosamente");
   } catch (error) {
@@ -161,7 +195,53 @@ async function createClassrooms() {
   }
 }
 
-// ->subject.entity.js
+async function createCourses() {
+  try {
+    const courseRepository = AppDataSource.getRepository(Course);
+
+    const count = await courseRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      courseRepository.save(
+        courseRepository.create({
+          nombre: "Primero A",
+          idBossTeacher: "7",
+          idClassroom:"1",
+          cantidadAlumnos: "30",
+        }),
+      ),
+      courseRepository.save(
+        courseRepository.create({
+          nombre: "Tercero A",
+          idBossTeacher: "9",
+          idClassroom:"2",
+          cantidadAlumnos: "40",
+        }),
+      ),
+      courseRepository.save(
+        courseRepository.create({
+          nombre: "Segundo A",
+          idBossTeacher: "10",
+          idClassroom:"3",
+          cantidadAlumnos: "35",
+        }),
+      ),
+      courseRepository.save(
+        courseRepository.create({
+          nombre: "Cuarto A",
+          idBossTeacher: "12",
+          idClassroom:"4",
+          cantidadAlumnos: "25",
+        }),
+      ),
+    ]);
+    console.log("* => Cursos creados exitosamente");
+  } catch (error) {
+    console.error("Error al crear cursos:", error);
+  }
+}
+
 async function createSubject() {
   try {
     const subjectRepository = AppDataSource.getRepository(Subject);
@@ -260,6 +340,4 @@ async function createResource() {
   } 
 }
 
-
-
-export { createUsers, createClassrooms, createSubject , createResource };
+export { createUsers, createClassrooms, createSubject , createResource, createCourses };
