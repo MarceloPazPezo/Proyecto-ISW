@@ -67,7 +67,7 @@ export async function createClassroom(req, res) {
  */
 export async function getClassroom(req, res) {
   try {
-    const { id, nombre } = req.query; // Aquí debería ser body, o no funciona.
+    const { id, nombre } = req.query; 
 
     const { error } = classroomQueryValidation.validate({ id, nombre });
 

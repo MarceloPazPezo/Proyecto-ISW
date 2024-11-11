@@ -12,12 +12,14 @@ import {
 
 const router = Router();
 
+router.use(authenticateJwt);
+
 // Asignar a admin crear asignaturas y ver al jefe de UTP
 router
-    .get("/all", getSubjects) //funciona
-    .get("/detail/", getSubject) //funciona
-    .post("/", createSubject) //funciona
-    .patch("/detail/", updateSubject) // falta probar
-    .delete("/detail/", deleteSubject); // borra el que no es (puse física y borro matemáticas)
+    .get("/all", authorizeRoles("administrador" , "jefe de utp"), getSubjects) 
+    .get("/detail/", authorizeRoles("administrador" , "jefe de utp"), getSubject) 
+    .post("/", authorizeRoles("administrador"), createSubject) 
+    .patch("/detail/",authorizeRoles("administrador"), updateSubject) 
+    .delete("/detail/", authorizeRoles("administrador"), deleteSubject); 
 
 export default router;

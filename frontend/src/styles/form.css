@@ -34,6 +34,39 @@
     } */
 }
 
+/* Animación de desvanecimiento */
+.fade-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.login-page {
+    background-image: url('../assets/images/opcion1.jpg'); /* Ruta a tu imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .form {
 	background-color: #F0F1FF; /*Color del formulario*/
@@ -230,13 +263,13 @@ input {
 }
 
 .newPassword span {
-	top: 10px;
+    top: 10px;
 }
 
-.toggle-password-icon img{
-	width: 25px;
-	height: 25px;
-	margin-top: 4px;
-	-webkit-user-drag: none;
-    pointer-events: 
+.toggle-password-icon img {
+    width: 25px;
+    height: 25px;
+    margin-top: 4px;
+    -webkit-user-drag: none;
+    pointer-events: none; /* Valor agregado */
 }

@@ -1,0 +1,16 @@
+.tooltip-copiado {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 18px;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+  }
+  

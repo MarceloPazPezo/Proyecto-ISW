@@ -11,6 +11,11 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	font-family: "Montserrat", sans-serif;
+	background-image: url('../assets/images/opcion2.jpg'); 
+    background-size: cover; /* Se puede cambiar por porcentajes */ 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: scroll; /*No funciona -> que se mueva la imagen con el contenido*/
 }
 
 #root {

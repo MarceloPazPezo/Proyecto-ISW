@@ -76,6 +76,7 @@ async function setupAPI() {
     await createUsers();
     await createClassrooms();
     await createSubject();
+    await createResource();
   } catch (error) {
     console.log("Error en index.js -> setupAPI(), el error es: ", error);
   }
