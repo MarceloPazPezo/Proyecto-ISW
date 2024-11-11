@@ -40,33 +40,33 @@ export async function getResourcesService() {
 
 export async function createResourceService(dataResource) {
     try {
-
         const resourcesRepository = AppDataSource.getRepository(Source);
-
-        // console.log("Datos1_>" + dataResource.nombre + " - " + dataResource.idManager);
 
         const { nombre, idManager } = dataResource;
 
-        const createErrorMessage = (dataInfo , message) => {
+        const createErrorMessage = (dataInfo, message) => {
             return {
                 dataInfo,
                 message
-            }
-        }
-
-        // console.log("Datos_>" + nombre + " - " + idManager);
+            };
+        };
 
         // Verifica si ya existe un recurso con ese nombre
         const existingResource = await resourcesRepository.findOne({ where: { nombre } });
 
         if (existingResource) return [null, createErrorMessage(dataResource, "El recurso ya existe.")];
 
-        // Si no existe, crea un nuevo recurso
+        // console.log("Available ID: ", availableId);
+
+        // Si hay un ID disponible, úsalo; de lo contrario, se asignará automáticamente
         const newResource = resourcesRepository.create({
-            nombre : dataResource.nombre,
-            manager : dataResource.idManager,
-            estado : "disponible",
+            id: dataResource.id || undefined, // Si availableId es null, se asignará automáticamente
+            nombre: dataResource.nombre,
+            manager: dataResource.idManager,
+            estado: "disponible",
         });
+
+        console.log("New Resource: ", newResource.id);
 
         const resourceSaved = await resourcesRepository.save(newResource);
 

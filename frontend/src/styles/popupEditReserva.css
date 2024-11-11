@@ -1,0 +1,191 @@
+.bg {
+    position: fixed;  /*Opciones: absolute, fixed, relative, static, sticky*/
+    top: 0 ;
+    padding-bottom: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(18, 19, 18, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegura que el popup esté por encima de otros elementos */
+}
+
+.popup {
+    max-height: 80vh; /* Limitar la altura máxima del popup */
+    width: 600px;
+    background: white;
+    position: relative;
+    border-radius: 12px;
+    overflow-y: auto; /* Permitir el desplazamiento vertical */
+    padding: 20px; /* Agregar padding para el contenido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    z-index: 1001; /* Asegura que el popup esté por encima del fondo */
+}
+
+.close {
+    position: flex;
+    top: 10px;
+    padding-top: 0px ;
+    right: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none; /* Eliminar el borde */
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-align: center;
+    margin-top: 0px; /* Agregar margen superior para separar del botón de cierre */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #401474;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0px;
+}
+
+button[type="submit"]:hover {
+    background-color: #b300aa;
+}
+
+.checkbox-actions {
+    display: auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.checkbox-actions button5 {
+    display: center;
+    width: 20%;
+    padding: 10px;
+    background-color: #401474;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0px;
+}
+
+.checkbox-actions button5:hover {
+    background-color: #b300aa;
+}
+
+.tooltip-icon .tooltip-text {
+    visibility: hidden;
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    font-size: 12px;
+    z-index: 1;
+    top: -3px;
+    left: 105%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-icon .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
+}
+
+.tooltip-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toggle-password-icon {
+    top: 47.5%;
+}
+
+/* Estilos para los elementos de checkbox */
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se ajusten a una nueva línea si es necesario */
+    gap: 10px; /* Espacio entre los checkboxes */
+}
+
+.checkbox-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 1px;
+    border-radius: 12px;
+    
+    transition: background-color 0.3s;
+    border: 1px solid #401474;
+    width: 20%; /* Ajustar el ancho automáticamente al contenido */
+}
+
+.checkbox-item:hover {
+    background-color: #f0f0f0;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.8);
+    cursor: pointer !important;
+}
+
+.checkbox-item label {
+    color: #333;
+    font-size: 14px;
+    cursor: pointer !important;
+    padding-left: 10px;
+}
+
+.fecha {
+    display: flex;
+    justify-content: space-between;
+}

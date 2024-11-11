@@ -15,12 +15,12 @@ const useGetResources = () => {
             //     console.log('Recursos:', response.data); // Ver los datos de recursos
             // }       
             
-            const formattedResources = response.data.map (resource => ({
-                id : resource.id,
-                nombre : resource.nombre,
-                estado : resource.estado,
-                idManager : resource.idManager,
-                cratedAt : resource.createdAt
+            const formattedResources = response.data.map(resource => ({
+                id: resource.id,
+                nombre: capitalizeFirstLetter(resource.nombre),
+                estado: resource.estado.toUpperCase(),
+                idManager: resource.idManager,
+                createdAt: resource.createdAt
             }));
 
             // console.log("Recursos: ", formattedResources);
@@ -52,5 +52,8 @@ const useGetResources = () => {
     return { resources , fetchResources , setResources };
 }   
 
+const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
 
 export default useGetResources;

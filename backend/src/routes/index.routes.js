@@ -5,6 +5,7 @@ import authRoutes from "./auth.routes.js";
 import subjectRoutes from "./subject.routes.js";
 import classroomRoutes from "./classroom.routes.js";
 import resourceRoutes from "./resource.routes.js";
+import reservationRoutes from "./reservation.routes.js";
 
 const router = Router();
 
@@ -13,5 +14,6 @@ router
     .use("/user", userRoutes)
     .use("/classroom", classroomRoutes)
     .use("/subject", subjectRoutes)
-    .use("/resource", resourceRoutes);
+    .use("/resource", resourceRoutes)
+    .use("/reservation", reservationRoutes);
 export default router;

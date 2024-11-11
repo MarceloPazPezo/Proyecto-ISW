@@ -4,6 +4,7 @@ import '@styles/navbar.css';
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faClipboardList, faInfoCircle, faSignOutAlt, faCalendar, faFileAlt, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+// import { set } from "react-hook-form";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Navbar = () => {
     const userRole = user?.rol;
     const [menuOpen, setMenuOpen] = useState(false);
     const [adminMenuOpen, setAdminMenuOpen] = useState(false);
+    const [docenteMenuOpen, setDocenteMenuOpen] = useState(false);
 
     const logoutSubmit = () => {
         try {
@@ -44,9 +46,14 @@ const Navbar = () => {
         setAdminMenuOpen(!adminMenuOpen);
     };
 
+    const toggleDocenteMenu = () => {
+        setDocenteMenuOpen(!docenteMenuOpen);
+    };
+
     const handleLinkClick = () => {
         setMenuOpen(false);
         setAdminMenuOpen(false);
+        setDocenteMenuOpen(false);
         removeActiveClass();
         addActiveClass();
     };
@@ -99,7 +106,33 @@ const Navbar = () => {
                             </ul>
                         </li>
                     )}
-                    {(userRole === 'docente' || userRole === 'encargado') && (
+                    {(userRole === 'docente') && (
+                        <li className="docente-menu">
+                            <button
+                                onClick={toggleDocenteMenu}
+                                tabIndex="0"
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleDocenteMenu(); }}
+                                className={`admin-menu-button ${docenteMenuOpen ? 'open' : ''}`}
+                            >
+                                <FontAwesomeIcon icon={faClipboardList} />
+                                Reservas
+                                <FontAwesomeIcon icon={faChevronDown} className={`chevron ${docenteMenuOpen ? 'rotate' : ''}`} />
+                            </button>
+                            <ul className={`submenu ${docenteMenuOpen ? 'open' : ''}`}>
+                                <li>
+                                <NavLink to="/reservation" activeClassName="active" onClick={handleLinkClick}>
+                                    <FontAwesomeIcon/> Disponibles
+                                </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/myreservation" activeClassName="active" onClick={handleLinkClick}>
+                                        <FontAwesomeIcon/> Mis Reservas
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </li>
+                    )}
+                    {(userRole === 'encargado') && (
                     <li>
                         <NavLink
                             to="/reservation"

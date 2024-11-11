@@ -8,7 +8,7 @@ const ResourceSchema = new EntitySchema({
         id: {
             type: "int",
             primary: true,
-            generated: true,
+            generated: "true", // Permitir la generación automática de IDs
         },
         nombre: {
             type: "varchar",

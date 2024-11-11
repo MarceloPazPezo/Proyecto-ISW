@@ -2,7 +2,7 @@ import { deleteResource } from '../../services/resource.service.js';
 import { deleteDataAlert, showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 
 const useDeleteResource = (fetchResources) => {
-    const handleDelete = async (resourceID) => {
+    const handleDeleteRecurso = async (resourceID) => {
         try {
             const result = await deleteDataAlert();
             if (result.isConfirmed) {
@@ -25,7 +25,7 @@ const useDeleteResource = (fetchResources) => {
         }
     };
 
-    return { handleDelete };
+    return { handleDeleteRecurso };
 };
 
 export default useDeleteResource;

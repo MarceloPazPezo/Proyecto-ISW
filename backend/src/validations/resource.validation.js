@@ -19,7 +19,7 @@ export const sourceQueryValidation = Joi.object({
         "number.integer": "El idManager debe ser un número entero.",
         "number.positive": "El idManager debe ser un número positivo.",
     }),
-    estado : Joi.string().valid("disponible", "ocupada" , "ocupado").messages({
+    estado : Joi.string().valid("disponible", "reservado" , "reservada").messages({
         "string.base": "El estado debe ser de tipo string.",
         "string.min": "El estado debe tener como mínimo 8 caracteres.",
         "string.max": "El estado debe tener como máximo 15 caracteres.",

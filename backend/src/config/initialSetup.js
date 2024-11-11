@@ -229,21 +229,25 @@ async function createResource() {
     await Promise.all([
       resourceRepository.save([
         resourceRepository.create({
+          
           nombre: "Laboratorio de Química",
           estado: "disponible",
           manager: 9,
         }),
         resourceRepository.create({
+          
           nombre: "Laboratorio de Física",
           estado: "disponible",
           manager: 9,
         }),
         resourceRepository.create({
+          
           nombre: "Laboratorio de Computación",
           estado: "reservado",
           manager: 9,
         }),
         resourceRepository.create({
+          
           nombre: "Auditorio",
           estado: "disponible",
           manager: 9,
@@ -253,7 +257,7 @@ async function createResource() {
     console.log("* => Recursos creadas exitosamente");
   } catch (error) {
     console.error("Error al crear recursos:", error);
-  }
+  } 
 }
 
 
