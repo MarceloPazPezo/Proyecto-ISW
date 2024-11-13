@@ -81,6 +81,13 @@ const UserSchema = new EntitySchema({
       unique: true,
     },
   ],
+  relations: {
+    teaches: {
+      type: "one-to-many",
+      target: "Teach",
+      inverseSide: "user",
+    }
+  }
 });
 
 export default UserSchema;
