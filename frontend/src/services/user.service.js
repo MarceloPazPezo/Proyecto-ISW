@@ -1,6 +1,25 @@
 import axios from './root.service.js';
 import { convertirMinusculas, formatUserData } from '@helpers/formatData.js';
 
+export async function addUser(data) {
+    try {
+        const dataRegister = convertirMinusculas(data);
+        const { nombreCompleto, email, rut, telefono, rol, password } = dataRegister;
+
+        const response = await axios.post('/user/', {
+            nombreCompleto,
+            email,
+            rut,
+            telefono,
+            rol,
+            password
+        });
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export async function getUsers() {
     try {
         const { data } = await axios.get('/user/');
