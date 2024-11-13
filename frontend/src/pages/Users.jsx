@@ -6,6 +6,7 @@ import DeleteIcon from '../assets/deleteIcon.svg';
 import UpdateIcon from '../assets/updateIcon.svg';
 import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
+import PopupCopiado from '../components/PopupCopiado';
 import { useCallback, useState } from 'react';
 import '@styles/users.css';
 import useEditUser from '@hooks/users/useEditUser';
@@ -14,6 +15,7 @@ import useDeleteUser from '@hooks/users/useDeleteUser';
 const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
   const [filterRut, setFilterRut] = useState('');
+  const [messageCopied, setMessageCopied] = useState('');
 
   const {
     handleClickUpdate,
@@ -48,14 +50,32 @@ const Users = () => {
     return `${formattedNumber}-${dv}`;
   };
 
+  const handleCellClick = (e, cell) => {
+    const row = cell.getRow();
+    if (e.altKey) {
+      if (row.isSelected()) {
+        row.deselect();
+      } else {
+        const tableRows = row.getTable().getRows(); 
+        tableRows.forEach(r => r.deselect()); 
+        row.select(); 
+      }
+    } else if (e.ctrlKey) {
+      const cellValue = cell.getValue();
+      navigator.clipboard.writeText(cellValue)
+        .then(() => setMessageCopied('Copiado'))
+        .catch(err => console.error('Error al copiar al portapapeles:', err));
+    }
+  };
+
   const columns = [
-    { title: "Nombre", field: "nombreCompleto", responsive: 0 },
-    { title: "Correo electrónico", field: "email", width: 300, responsive: 2 },
-    { title: "Rut", field: "rut", width: 100, responsive: 2 },
-    { title: "Teléfono", field: "telefono", width: 100, responsive: 2 },
-    { title: "Rol", field: "rol", width: 100, responsive: 2 },
-    { title: "Estado", field: "estado", width: 150, responsive: 2 },
-    { title: "Creado", field: "createdAt", width: 100, responsive: 2 }
+    { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
+    { title: "Correo electrónico", field: "email", width: 300, responsive: 2, cellClick: handleCellClick },
+    { title: "Rut", field: "rut", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Teléfono", field: "telefono", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Rol", field: "rol", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Estado", field: "estado", width: 150, responsive: 2, cellClick: handleCellClick },
+    { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick },
   ];
 
   return (
@@ -90,6 +110,7 @@ const Users = () => {
           onSelectionChange={handleSelectionChange}
         />
       </div>
+      <PopupCopiado message={messageCopied} onClose={() => setMessageCopied('')} />
       <PopupEditUser show={isPopupOpen} setShow={setIsPopupOpen} data={dataUser} action={handleUpdate} />
     </div>
   );

@@ -1,18 +1,39 @@
 "use strict";
 import TimeBlock from "../entity/timeblock.entity.js";
+import User from "../entity/user.entity.js";
+import Course from "../entity/course.entity.js";
+import Subject from "../entity/subject.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 export async function createTimeBlockService(body) {
     try {
 
-        const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
-
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = body;
-
         const createErrorMessage = (dataInfo, message) => ({
             dataInfo,
             message
         });
+
+        const userRepository = AppDataSource.getRepository(User);
+
+        const courseRepository = AppDataSource.getRepository(Course);
+
+        const subjectRepository = AppDataSource.getRepository(Subject);
+
+        const teacherFound = await userRepository.findOne({ where: { id: body.idTeacher, rol: "docente" } });
+
+        if (!teacherFound) return [null, createErrorMessage("Profesor no encontrado")];
+
+        const courseFound = await courseRepository.findOne({ where: { id: body.idCourse } });
+
+        if (!courseFound) return [null, createErrorMessage("Curso no encontrado")];
+
+        const subjectFound = await subjectRepository.findOne({ where: { id: body.idSubject } });
+
+        if (!subjectFound) return [null, createErrorMessage("Asignatura no encontrada")];
+
+        const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
+
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = body;
 
         const existingTimeBlock = await timeBlockRepository.findOne({
             where: {
@@ -42,17 +63,17 @@ export async function createTimeBlockService(body) {
 
 export async function updateTimeBlockService(query, body) {
     try {
-        const { id, idTeacher, idCourse, idSubject } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: [{ id: id }, { idTeacher: idTeacher }, { idCourse: idCourse }, { idSubject: idSubject }],
+            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha },
         });
 
-        if (!timeBlockFound) return [null, "TimeBlock no encontrado"];
+        if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
 
-        const datatimeBlockUpdated = {
+        const updatedTimeBlockData = {
             idTeacher: body.idTeacher,
             idCourse: body.idCourse,
             idSubject: body.idSubject,
@@ -61,7 +82,13 @@ export async function updateTimeBlockService(query, body) {
             fecha: body.fecha
         };
 
-        await timeBlockRepository.update({ id: timeBlockFound.id }, datatimeBlockUpdated);
+        const timeBlockUpdatedFound = await timeBlockRepository.findOne({
+            where: updatedTimeBlockData,
+        });
+
+        if (timeBlockUpdatedFound) return [null, "Ya existe un bloque de tiempo con los mismos datos"];
+
+        await timeBlockRepository.update({ id: timeBlockFound.id }, updatedTimeBlockData);
 
         // se busca el timeBlock actualizado
         const timeBlockData = await timeBlockRepository.findOne({
@@ -72,7 +99,7 @@ export async function updateTimeBlockService(query, body) {
             return [null, "Tiempo de bloque no encontrado después de actualizar"];
         }
 
-        return [datatimeBlockUpdated, null];
+        return [timeBlockData, null];
     } catch (error) {
         console.error("Error al modificar un usuario:", error);
         return [null, "Error interno del servidor"];
@@ -81,12 +108,12 @@ export async function updateTimeBlockService(query, body) {
 
 export async function deleteTimeBlockService(query) {
     try {
-        const { id, idTeacher, idCourse, idSubject } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: [{ id: id }, { idTeacher: idTeacher }, { idCourse: idCourse }, { idSubject: idSubject }],
+            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha },
         });
 
         if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
@@ -98,8 +125,8 @@ export async function deleteTimeBlockService(query) {
             where: { id: timeBlockDeleted.id },
         });
 
-        if (!timeBlockData) {
-            return [null, "Tiempo de bloque no encontrado después de eliminar"];
+        if (timeBlockData) {
+            return [null, "Bloque de tiempo encontrado después de eliminar, error al eliminar"];
         }
 
         return [timeBlockDeleted, null];
@@ -111,12 +138,20 @@ export async function deleteTimeBlockService(query) {
 
 export async function getTimeBlockService(query) {
     try {
-        const { idTeacher, idCourse, idSubject } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
+        const whereClause = {};
+        if (idTeacher) whereClause.idTeacher = idTeacher;
+        if (idCourse) whereClause.idCourse = idCourse;
+        if (idSubject) whereClause.idSubject = idSubject;
+        if (horaInicio) whereClause.horaInicio = horaInicio;
+        if (horaTermino) whereClause.horaTermino = horaTermino;
+        if (fecha) whereClause.fecha = fecha;
+
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: [{ id: id }, { idTeacher: idTeacher }, { idCourse: idCourse }, { idSubject: idSubject }],
+            where: whereClause
         });
 
         if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
