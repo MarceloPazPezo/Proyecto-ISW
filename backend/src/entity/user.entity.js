@@ -86,6 +86,8 @@ const UserSchema = new EntitySchema({
       type: "one-to-many",
       target: "Teach",
       inverseSide: "user",
+      cascade: true,
+      onDelete: "CASCADE",
     }
   }
 });

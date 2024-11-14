@@ -39,6 +39,8 @@ const TeachSchema = new EntitySchema({
         referencedColumnName: "id",
       },
       eager: true,
+      cascade: true,
+      onDelete: "CASCADE",
     },
     subject: {
       type: "many-to-one",
@@ -48,6 +50,8 @@ const TeachSchema = new EntitySchema({
         referencedColumnName: "id",
       },
       eager: true,
+      cascade: true,
+      onDelete: "CASCADE",
     },
   }
 });
