@@ -50,7 +50,8 @@ export async function createUserService(dataUser) {
 
     const userSaved = await userRepository.save(newUser);
 
-    return [userSaved, null];
+    const { password, ...userAdded } = userSaved;
+    return [userAdded, null];
   } catch (error) {
     console.error("Error al registrar al usuario", error);
     return [null, "Error interno del servidor"];
@@ -175,9 +176,9 @@ export async function deleteUserService(query) {
 
     const userDeleted = await userRepository.remove(userFound);
 
-    const { password, ...dataUser } = userDeleted;
+    const { password, ...userData } = userDeleted;
 
-    return [dataUser, null];
+    return [userData, null];
   } catch (error) {
     console.error("Error al eliminar un usuario:", error);
     return [null, "Error interno del servidor"];
@@ -231,7 +232,8 @@ export async function createTeacherService(dataUser) {
 
     const userSaved = await userRepository.save(newUser);
 
-    return [userSaved, null];
+    const { password, ...userAdded } = userSaved;
+    return [userAdded, null];
   } catch (error) {
     console.error("Error al registrar al docente", error);
     return [null, "Error interno del servidor"];
