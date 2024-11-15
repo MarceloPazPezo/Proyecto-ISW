@@ -1,33 +1,19 @@
 import Form from './Form';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
-import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
-import { addTeacher } from '@services/user.service.js';
 import useAddTeacher from '@hooks/users/useAddTeacher.jsx';
 
-export default function PopupAddTeacher({ show, setShow }) {
+export default function PopupAddTeacher({ show, setShow, action }) {
     const {
         errorEmail,
         errorRut,
         errorTelefono,
-        errorData,
         handleInputChange
     } = useAddTeacher();
 
-    const addSubmit = async (data) => {
-        try {
-            console.log(data);
-            const response = await addTeacher(data);
-            if (response.status === 'Success') {
-                showSuccessAlert('¡Registrado!','Docente registrado exitosamente.');
-            } else if (response.status === 'Client error') {
-                errorData(response.details);
-            }
-        } catch (error) {
-            console.error("Error al registrar un docente: ", error);
-            showErrorAlert('Cancelado', 'Ocurrió un error al registrarse.');
-        }
-    }
+    const handleSubmit = (formData) => {
+        action(formData);
+    };
 
     const patternRut = new RegExp(/^(?:(?:[1-9]\d{0}|[1-2]\d{1})(\.\d{3}){2}|[1-9]\d{6}|[1-2]\d{7}|29\.999\.999|29999999)-[\dkK]$/);
 
@@ -65,7 +51,7 @@ export default function PopupAddTeacher({ show, setShow }) {
                                 maxLength: 35,
                                 errorMessageData: errorEmail,
                                 validate: {
-                                    emailDomain: (value) => value.endsWith('@gmail.cl') || 'El correo debe terminar en @gmail.cl'
+                                    emailDomain: (value) => value.endsWith('@gmail.com') || value.endsWith('@gmail.cl') || 'El correo debe terminar en @gmail.cl o @gmail.com'
                                 },
                                 onChange: (e) => handleInputChange('email', e.target.value)
                             },
@@ -111,7 +97,7 @@ export default function PopupAddTeacher({ show, setShow }) {
                             },
                         ]}
                         buttonText="Crear Docente"
-                        onSubmit={addSubmit}
+                        onSubmit={handleSubmit}
                         backgroundColor={'#fff'}
                     />
                 </div>

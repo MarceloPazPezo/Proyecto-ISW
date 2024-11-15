@@ -4,12 +4,12 @@ import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 import { formatPostUpdateClassroom } from '@helpers/formatData.js';
 
 const useEditClassroom = (setClassrooms) => {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isPopupEditOpen, setIsPopupEditOpen] = useState(false);
     const [dataClassroom, setDataClassroom] = useState([]);
     
     const handleClickUpdate = () => {
         if (dataClassroom.length > 0) {
-            setIsPopupOpen(true);
+            setIsPopupEditOpen(true);
         }
     };
 
@@ -18,7 +18,7 @@ const useEditClassroom = (setClassrooms) => {
             try {
                 const updatedClassroom = await updateClassroom(updatedClassroomData, dataClassroom[0].nombre);
                 showSuccessAlert('¡Actualizado!','El usuario ha sido actualizado correctamente.');
-                setIsPopupOpen(false);
+                setIsPopupEditOpen(false);
                 const formattedClassroom = formatPostUpdateClassroom(updatedClassroom);
 
                 setClassrooms(prevClassrooms => prevClassrooms.map(classroom => {
@@ -41,8 +41,8 @@ const useEditClassroom = (setClassrooms) => {
     return {
         handleClickUpdate,
         handleUpdate,
-        isPopupOpen,
-        setIsPopupOpen,
+        isPopupEditOpen,
+        setIsPopupEditOpen,
         dataClassroom,
         setDataClassroom
     };

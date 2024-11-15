@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
+import { addTeacher } from '../../services/user.service';
+import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
+import { formatPostUpdate } from '@helpers/formatData.js';
 
-const useAddTeacher = () => {
+const useAddTeacher = (setTeachers) => {
+    const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+
     const [errorEmail, setErrorEmail] = useState('');
     const [errorRut, setErrorRut] = useState('');
     const [inputData, setInputData] = useState({ email: '', rut: '' });
@@ -18,11 +23,32 @@ const useAddTeacher = () => {
         }
     };
 
+    const handleAdd = async (addedTeacherData) => {
+        if (addedTeacherData) {
+            try {
+                const addedTeacher = await addTeacher(addedTeacherData);
+                showSuccessAlert('¡Registrado!', 'Docente registrado exitosamente.');
+                setIsPopupAddOpen(false);
+
+                const formattedUser = formatPostUpdate(addedTeacher);
+
+                setTeachers(prevUsers => [...prevUsers, formattedUser]);
+            } catch (error) {
+                console.error("Error al registrar el docente: ", error);
+                showErrorAlert('Cancelado', 'Ocurrió un error al registrarse.');
+            }
+        }
+    }
+
     const handleInputChange = (field, value) => {
         setInputData(prevState => ({
             ...prevState,
             [field]: value
         }));
+    };
+
+    const handleAddTeacherClick = () => {
+        setIsPopupAddOpen(true);
     };
 
     return {
@@ -31,6 +57,10 @@ const useAddTeacher = () => {
         inputData,
         errorData,
         handleInputChange,
+        handleAdd,
+        isPopupAddOpen,
+        setIsPopupAddOpen,
+        handleAddTeacherClick
     };
 };
 

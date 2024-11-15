@@ -1,29 +1,18 @@
 import Form from './Form';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
-import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
-import { addClassroom } from '@services/classroom.service.js';
 import useAddClassroom from '@hooks/classrooms/useAddClassroom.jsx';
 
-export default function PopupAddClassroom({ show, setShow }) {
+export default function PopupAddClassroom({ show, setShow, action }) {
     const {
         errorNombre,
         errorData
     } = useAddClassroom();
 
-    const addSubmit = async (data) => {
-        try {
-            const response = await addClassroom(data);
-            if (response.status === 'Success') {
-                showSuccessAlert('¡Registrada!','Aula registrada exitosamente.');
-            } else if (response.status === 'Client error') {
-                errorData(response.details);
-            }
-        } catch (error) {
-            console.error("Error al registrar un aula: ", error);
-            showErrorAlert('Cancelado', 'Ocurrió un error al registrarse.');
-        }
-    }
+    const handleSubmit = (formData) => {
+        action(formData);
+    };
+
     return (
         <div>
             { show && (
@@ -61,7 +50,7 @@ export default function PopupAddClassroom({ show, setShow }) {
                             }
                         ]}
                         buttonText="Agregar aula"
-                        onSubmit={addSubmit}
+                        onSubmit={handleSubmit}
                         backgroundColor={'#fff'}
                     />
                 </div>

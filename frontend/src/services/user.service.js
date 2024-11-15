@@ -14,7 +14,7 @@ export async function addUser(data) {
             rol,
             password
         });
-        return response.data;
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }
@@ -33,10 +33,8 @@ export async function getUsers() {
 export async function updateUser(data, rut) {
     try {
         const response = await axios.patch(`/user/detail/?rut=${rut}`, data);
-        console.log(response);
         return response.data.data;
     } catch (error) {
-        console.log(error);
         return error.response.data;
     }
 }
@@ -44,7 +42,7 @@ export async function updateUser(data, rut) {
 export async function deleteUser(rut) {
     try {
         const response = await axios.delete(`/user/detail/?rut=${rut}`);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }
@@ -62,7 +60,7 @@ export async function addTeacher(data) {
             password,
             telefono
         });
-        return response.data;
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }

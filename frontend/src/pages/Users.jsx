@@ -7,6 +7,7 @@ import Search from '../components/Search';
 import PopupAddUser from '../components/PopupAddUser';
 import PopupEditUser from '../components/PopupEditUser';
 import PopupCopiado from '../components/PopupCopiado';
+import useAddUser from '@hooks/users/useAddUser';
 import useEditUser from '@hooks/users/useEditUser';
 import useDeleteUser from '@hooks/users/useDeleteUser';
 import DeleteIcon from '../assets/deleteIcon.svg';
@@ -21,7 +22,13 @@ const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
   const [filterRut, setFilterRut] = useState('');
   const [messageCopied, setMessageCopied] = useState('');
-  const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+
+  const {
+    handleAdd,
+    isPopupAddOpen,
+    setIsPopupAddOpen,
+    handleAddUserClick
+  } = useAddUser(setUsers);
 
   const {
     handleClickUpdate,
@@ -79,10 +86,6 @@ const Users = () => {
     { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick }
   ];
 
-  const handleAddUserClick = () => {
-    setIsPopupAddOpen(true);
-  };
-
   return (
     <div className='main-container'>
       <div className='table-container'>
@@ -129,7 +132,7 @@ const Users = () => {
         />
       </div>
       <PopupCopiado message={messageCopied} onClose={() => setMessageCopied('')} />
-      <PopupAddUser show={isPopupAddOpen} setShow={setIsPopupAddOpen} />
+      <PopupAddUser show={isPopupAddOpen} setShow={setIsPopupAddOpen} action={handleAdd} />
       <PopupEditUser show={isPopupEditOpen} setShow={setIsPopupEditOpen} data={dataUser} action={handleUpdate} />
     </div>
   );
