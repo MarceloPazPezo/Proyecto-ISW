@@ -1,6 +1,4 @@
 import axios from './root.service.js';
-import { formatClassroomData } from '@helpers/formatData.js';
-import { convertirMinusculas } from '@helpers/formatData.js';
 
 export async function addTeach(data) {
     try {
@@ -17,23 +15,11 @@ export async function addTeach(data) {
     }
 }
 
-export async function getTeachByTeacher() {
+export async function getTeachesByTeacher(rut) {
     try {
-        const { data } = await axios.get('/classroom/');
-        const formattedData = data.data.map(formatClassroomData);
-        return formattedData;
+        const { data } = await axios.get(`/teach/teacher/detail/?rut=${rut}`);
+        return data;
     } catch (error) {
-        return error.response.data;
-    }
-}
-
-export async function updateClassroom(data, nombre) {
-    try {
-        const response = await axios.patch(`/classroom/detail/?nombre=${nombre}`, data);
-        console.log(response);
-        return response.data.data;
-    } catch (error) {
-        console.log(error);
         return error.response.data;
     }
 }

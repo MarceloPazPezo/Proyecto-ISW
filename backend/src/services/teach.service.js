@@ -78,7 +78,19 @@ export async function getTeachesService() {
   try {
     const teachRepository = AppDataSource.getRepository(Teach);
 
-    const teaches = await teachRepository.find();
+    const teaches = await teachRepository
+      .createQueryBuilder("teach")
+      .leftJoinAndSelect("teach.teacher", "teacher")
+      .leftJoinAndSelect("teach.subject", "subject")
+      .select([
+        "teach.id",
+        "teach.year",
+        "teacher.rut",
+        "teacher.nombreCompleto",
+        "subject.nombre",
+        "subject.departamento"
+      ])
+      .getMany();
 
     if (!teaches || teaches.length === 0)
       return [null, "No hay relaciones"];
@@ -173,19 +185,23 @@ export async function getSubjectsByTeacherService(rutTeacher) {
     if (!teacher)
       return [null, "El docente no existe"];
 
-    const { password, ...teacherData } = teacher;
+    const teaches = await teachRepository
+      .createQueryBuilder("teach")
+      .leftJoinAndSelect("teach.teacher", "teacher")
+      .leftJoinAndSelect("teach.subject", "subject")
+      .where("teach.idTeacher = :id", { id: teacher.id })
+      .select([
+        "teach.id",
+        "teach.year",
+        "teacher.rut",
+        "teacher.nombreCompleto",
+        "subject.id",
+        "subject.nombre",
+      ])
+      .where("teacher.rut = :rut", { rut: teacher.rut })
+      .getMany();
 
-    const teaches = await teachRepository.find({
-      where: { teacher: { id: teacherData.id } },
-      relations: ["subject"]
-    });
-
-    const subjects = teaches.map(teach => ({
-      id: teach.subject.id,
-      nombre: teach.subject.nombre,
-    }));
-
-    return [subjects, null];
+    return [teaches, null];
   } catch (error) {
     return [null, error.message];
   }
