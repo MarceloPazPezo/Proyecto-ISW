@@ -15,6 +15,7 @@ columns: {
             type: "varchar",
             length: 255,
             nullable: false,
+            unique: true,
         },
         departamento: {
             type: "varchar",
@@ -32,7 +33,19 @@ columns: {
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
         },
-    }
+    },
+    indices: [
+        {
+          name: "IDX_SUBJECT",
+          columns: ["id"],
+          unique: true,
+        },
+        {
+          name: "IDX_SUBJECT_NOMBRE",
+          columns: ["nombre"],
+          unique: true,
+        }
+      ],
 });
 
 export default SubjectSchema;

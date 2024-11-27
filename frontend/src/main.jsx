@@ -9,6 +9,7 @@ import Root from '@pages/Root';
 import Reservation from './pages/reservas/Reservation';
 import MyReservation from './pages/reservas/MisReservas';
 import Classrooms from '@pages/Classrooms'; 
+import Subjects from '@pages/Subjects';
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
 import About from '@pages/About';
@@ -46,6 +47,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador', 'director']}>
           <Classrooms />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/subjects',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador', 'director']}>
+          <Subjects />
         </ProtectedRoute>
         ),
       },

@@ -31,6 +31,15 @@ export function formatClassroomData(classroom) {
     };
 }
 
+export function formatSubjectData(subject) {
+    return {
+        ...subject,
+        nombre: startCase(subject.nombre),
+        departamento: startCase(subject.departamento),
+        createdAt: formatTempo(subject.createdAt, "DD-MM-YYYY")
+    };
+}
+
 export function formatTimeBlockData(timeblock) {
     return {
         ...timeblock,
@@ -47,6 +56,15 @@ export function convertirMinusculas(obj) {
     for (let key in obj) {
         if (typeof obj[key] === 'string') {
             obj[key] = obj[key].toLowerCase();
+        }
+    }
+    return obj;
+}
+
+export function quitarAcentos(obj) {
+    for (let key in obj) {
+        if (typeof obj[key] === 'string') {
+            obj[key] = obj[key].normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
     }
     return obj;
@@ -69,6 +87,14 @@ export function formatPostUpdateClassroom(classroom) {
         nombre: classroom.nombre.toUpperCase(),
         estado: startCase(classroom.estado),
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateSubject(subject) {
+    return {
+        nombre: startCase(subject.nombre),
+        departamento: startCase(subject.departamento),
+        createdAt: formatTempo(subject.createdAt, "DD-MM-YYYY")
     };
 }
 
