@@ -23,7 +23,6 @@ const Teachers = () => {
   const [messageCopied, setMessageCopied] = useState('');
   const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
   const [isVentanaHorarioOpen, setIsVentanaHorarioOpen] = useState(false);
-  const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
   const {
     handleClickUpdate,
@@ -53,20 +52,15 @@ const Teachers = () => {
     return `${formattedNumber}-${dv}`;
   };
 
-  const handleOpenVentanaHorario = (horario) => {
-    setHorarioSeleccionado(horario);
-    setIsVentanaHorarioOpen(true);
-  };
-
   const handleCellClick = (e, cell) => {
     const row = cell.getRow();
     if (e.altKey) {
       if (row.isSelected()) {
         row.deselect();
       } else {
-        const tableRows = row.getTable().getRows(); 
-        tableRows.forEach(r => r.deselect()); 
-        row.select(); 
+        const tableRows = row.getTable().getRows();
+        tableRows.forEach(r => r.deselect());
+        row.select();
       }
     } else if (e.ctrlKey) {
       const cellValue = cell.getValue();
@@ -75,7 +69,7 @@ const Teachers = () => {
         .catch(err => console.error('Error al copiar al portapapeles:', err));
     }
   };
-  
+
   const columns = [
     { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
     { title: "Correo electrónico", field: "email", width: 300, responsive: 2, cellClick: handleCellClick },
@@ -83,18 +77,6 @@ const Teachers = () => {
     { title: "Teléfono", field: "telefono", width: 100, responsive: 2, cellClick: handleCellClick },
     { title: "Estado", field: "estado", width: 150, responsive: 2, cellClick: handleCellClick },
     { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick },
-    {
-      title: "Horario", width: 115, hozAlign: "center",
-      formatter: () => {
-        return `<img src=${HorarioIcon} alt="horario" style="width: 30px; height: 30px; cursor: pointer;" />`;
-      },
-      cellClick: (e, cell) => {
-        if (e.target.tagName === "IMG") {
-          const horario = cell.getRow().getData().horario;
-          handleOpenVentanaHorario(horario);
-        }
-      }
-    }
   ];
 
   const handleAddTeacherClick = () => {
@@ -129,6 +111,16 @@ const Teachers = () => {
                 <img src={DeleteIcon} alt="delete" />
               )}
             </button>
+            <button
+              className={`horario-button ${dataTeacher.length === 0 ? 'button-disabled' : ''}`}
+              onClick={() => setIsVentanaHorarioOpen(true)}
+              disabled={dataTeacher.length === 0}>
+              {dataTeacher.length === 0 ? (
+                <img src={HorarioIcon} alt="delete-disabled" />
+              ) : (
+                <img src={HorarioIcon} alt="delete" />
+              )}
+            </button>
           </div>
         </div>
         <Table
@@ -142,7 +134,6 @@ const Teachers = () => {
         <VentanaHorario
           isOpen={isVentanaHorarioOpen}
           onClose={() => setIsVentanaHorarioOpen(false)}
-          horario={horarioSeleccionado} 
         />
       </div>
       <PopupCopiado message={messageCopied} onClose={() => setMessageCopied('')} />

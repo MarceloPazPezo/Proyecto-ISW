@@ -5,7 +5,7 @@ export async function addTimeBlock(data) {
     try {
         const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
 
-        const response = await axios.post('/timeblock/timeBlock', {
+        const response = await axios.post('/timeblock/timeBlock/', {
             idTeacher,
             idCourse,
             idSubject,
@@ -13,7 +13,54 @@ export async function addTimeBlock(data) {
             horaTermino,
             fecha
         });
+
         return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export async function updateTimeBlockCopy(data, idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha) {
+    try {
+        const response = await axios.patch(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`, data);
+        console.log(response);
+        return response.data.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+export async function updateTimeBlock(data) {
+    try {
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+
+        const response = await axios.patch(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`,
+            {
+                idTeacher,
+                idCourse,
+                idSubject,
+                horaInicio,
+                horaTermino,
+                fecha
+            });
+
+        return response.data.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export async function deleteTimeBlock(data) {
+    try {
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+
+        const response = await axios.delete(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`, data);
+
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }
@@ -22,7 +69,9 @@ export async function addTimeBlock(data) {
 export async function getTimeBlocks() {
     try {
         const { data } = await axios.get('/timeblock/');
+        console.log(data);
         const formattedData = data.data.map(formatTimeBlockData);
+        console.log(formattedData);
         return formattedData;
     } catch (error) {
         return error.response.data;
@@ -31,27 +80,11 @@ export async function getTimeBlocks() {
 
 export async function getTimeBlock() {
     try {
-        const { data } = await axios.get('`/timeblock/detail/?id=${id}`');
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+        const { data } = await axios.get(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`);
         const formattedData = data.data.map(formatTimeBlockData);
         return formattedData;
-    } catch (error) {   
-        return error.response.data;
-    }
-}
-
-export async function updateTimeBlock(data, id) {
-    try {
-        const response = await axios.patch(`/timeblock/detail/?id=${id}`, data);
-        return response.data.data;
-    } catch (error) {
-        return error.response.data;
-    }
-}
-
-export async function deleteTimeBlock(id) {
-    try {
-        const response = await axios.delete(`/timeblock/detail/?id=${id}`);
-        return response.data;
     } catch (error) {
         return error.response.data;
     }

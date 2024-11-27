@@ -8,8 +8,10 @@ import passport from "passport";
 import express, { json, urlencoded } from "express";
 import { cookieKey, HOST, PORT } from "./config/configEnv.js";
 import { connectDB } from "./config/configDb.js";
-import { createClassrooms, createCourses, createResource, createSubject, createUsers } from "./config/initialSetup.js";
+import { createClassrooms, createCourses, createResource, createSubject, createTimeblocks, createUsers } 
+from "./config/initialSetup.js";
 import { passportJwtSetup } from "./auth/passport.auth.js";
+import { createTeacher } from "./controllers/user.controller.js";
 
 async function setupServer() {
   try {
@@ -78,6 +80,8 @@ async function setupAPI() {
     await createCourses();
     await createSubject();
     await createResource();
+    await createTimeblocks();
+
   } catch (error) {
     console.log("Error en index.js -> setupAPI(), el error es: ", error);
   }

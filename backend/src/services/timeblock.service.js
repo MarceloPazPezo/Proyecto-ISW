@@ -61,6 +61,7 @@ export async function createTimeBlockService(body) {
     }
 }
 
+
 export async function updateTimeBlockService(query, body) {
     try {
         const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
