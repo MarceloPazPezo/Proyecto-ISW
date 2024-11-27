@@ -86,6 +86,13 @@ const Navbar = () => {
                             <ul className={`submenu ${adminMenuOpen ? 'open' : ''}`}>
                                 {userRole !== 'jefe de utp' && (
                                     <li>
+                                        <NavLink to="/subjects" activeClassName="active" onClick={handleLinkClick}>
+                                            Asignaturas
+                                        </NavLink>
+                                    </li>
+                                )}
+                                {userRole !== 'jefe de utp' && (
+                                    <li>
                                         <NavLink to="/classrooms" activeClassName="active" onClick={handleLinkClick}>
                                             Aulas
                                         </NavLink>
