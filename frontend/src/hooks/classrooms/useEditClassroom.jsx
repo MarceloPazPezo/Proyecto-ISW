@@ -17,19 +17,14 @@ const useEditClassroom = (setClassrooms) => {
         if (updatedClassroomData) {
             try {
                 const updatedClassroom = await updateClassroom(updatedClassroomData, dataClassroom[0].nombre);
-                showSuccessAlert('¡Actualizado!','El usuario ha sido actualizado correctamente.');
+                showSuccessAlert('¡Actualizado!','El aula ha sido actualizada correctamente.');
                 setIsPopupEditOpen(false);
                 const formattedClassroom = formatPostUpdateClassroom(updatedClassroom);
 
                 setClassrooms(prevClassrooms => prevClassrooms.map(classroom => {
-                    console.log("Aula actual:", classroom);
-                    if (classroom.nombre === formattedClassroom.nombre) {
-                        console.log("Reemplazando con:", formattedClassroom);
-                    }
                     return classroom.nombre === formattedClassroom.nombre ? formattedClassroom : classroom;
                 }));
                 
-
                 setDataClassroom([]);
             } catch (error) {
                 console.error('Error al actualizar el aula:', error);
