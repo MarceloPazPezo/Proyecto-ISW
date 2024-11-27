@@ -103,9 +103,10 @@ export async function updateSubject(req, res) {
 
         const [subject, errorSubject] = await updateSubjectsService({ id, nombre }, body);
 
-        if (errorSubject) return handleErrorClient(res, 404, errorSubject);
+        if (errorSubject)
+            return handleErrorClient(res, 404, "Error modificando la asignatura", errorSubject);
 
-        handleSuccess(res, 200, "Asignatura actualizada correctamente", subject);
+        handleSuccess(res, 200, "Asignatura modificada correctamente", subject);
     } catch (error) {
         handleErrorServer(res, 500, error.message);
     }
@@ -128,11 +129,12 @@ export async function deleteSubject(req, res) {
             );
         }
 
-        const [errorSubjectDelete] = await deleteSubjectService({ id, nombre });
+        const [subjectDelete, errorSubjectDelete] = await deleteSubjectService({ id, nombre });
 
-        if (errorSubjectDelete) return handleErrorClient(res, 404, errorSubjectDelete);
+        if (errorSubjectDelete)
+            return handleErrorClient(res, 404, "Error eliminando la asignatura", errorSubjectDelete);
 
-        handleSuccess(res, 200, "Asignatura eliminada correctamente");
+        handleSuccess(res, 200, "Asignatura eliminada correctamente", subjectDelete);
 
     } catch (error) {
         handleErrorServer(res, 500, error.message);

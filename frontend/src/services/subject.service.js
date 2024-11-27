@@ -10,8 +10,7 @@ export async function addSubject(data) {
             nombre,
             departamento
         });
-        const formattedData = formatSubjectData(response.data.data);
-        return formattedData;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
@@ -30,7 +29,7 @@ export async function getSubjects() {
 export async function updateSubject(data, nombre) {
     try {
         const response = await axios.patch(`/subject/detail/?nombre=${nombre}`, data);
-        return response.data.data;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }

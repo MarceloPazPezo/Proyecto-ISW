@@ -5,15 +5,14 @@ import Course from "../entity/course.entity.js";
 import Subject from "../entity/subject.entity.js";
 import Resource from "../entity/resource.entity.js";
 import TimeBlock from "../entity/timeblock.entity.js";
+import Teach from "../entity/teach.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
 async function createUsers() {
   try {
-    // Obtiene los elementos de la BD Tabla -> USers
     const userRepository = AppDataSource.getRepository(User);
 
-    // Revisa si la tabla de la BD esta vacía, si lo esta, crea los usuarios
     const count = await userRepository.count();
     if (count > 0) return;
 
@@ -253,44 +252,50 @@ async function createSubject() {
     await Promise.all([
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Matemáticas",
-          departamento: "Matemáticas"
+          nombre: "matematicas",
+          departamento: "matematica"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Lenguaje",
-          departamento: "Humanista"
+          nombre: "lenguaje",
+          departamento: "humanista"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Historia",
-          departamento: "Humanista"
+          nombre: "historia",
+          departamento: "humanista"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Biología",
-          departamento: "Ciencias"
+          nombre: "biologia",
+          departamento: "ciencias"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Música",
-          departamento: "Artes"
+          nombre: "musica",
+          departamento: "artes"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Artes Visuales",
-          departamento: "Artes"
+          nombre: "artes visuales",
+          departamento: "artes"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
-          nombre: "Química",
-          departamento: "Ciencias"
+          nombre: "quimica",
+          departamento: "ciencias"
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "fisica",
+          departamento: "ciencias"
         }),
       ),
     ]);
@@ -310,28 +315,24 @@ async function createResource() {
     await Promise.all([
       resourceRepository.save([
         resourceRepository.create({
-
           nombre: "Laboratorio de Química",
           estado: "disponible",
-          manager: 9,
+          idManager: 8,
         }),
         resourceRepository.create({
-
           nombre: "Laboratorio de Física",
           estado: "disponible",
-          manager: 9,
+          idManager: 8,
         }),
         resourceRepository.create({
-
           nombre: "Laboratorio de Computación",
           estado: "reservado",
-          manager: 9,
+          idManager: 8,
         }),
         resourceRepository.create({
-
           nombre: "Auditorio",
           estado: "disponible",
-          manager: 9,
+          idManager: 8,
         }),
       ]),
     ]);
@@ -351,7 +352,7 @@ async function createTimeblocks() {
     await Promise.all([
       timeBlocksRepository.save(
         timeBlocksRepository.create({
-          idTeacher: "2",
+          idTeacher: "3",
           idCourse: "3",
           idSubject: "1",
           horaInicio: "08:00",
@@ -359,11 +360,57 @@ async function createTimeblocks() {
           fecha: "14-11-2024",
         }),
       ),
+      timeBlocksRepository.save(
+        timeBlocksRepository.create({
+          idTeacher: "3",
+          idCourse: "3",
+          idSubject: "1",
+          horaInicio: "08:45",
+          horaTermino: "09:30",
+          fecha: "14-11-2024",
+        }),
+      ),
     ]);
-    // console.log("* => Cursos creados exitosamente");
+    console.log("* => Bloques de clases creados exitosamente");
   } catch (error) {
     console.error("Error al crear el bloque de tiempo:", error);
   }
 }
 
-export { createUsers, createClassrooms, createSubject, createResource, createCourses, createTimeblocks };
+async function createTeach() {
+  try {
+    const teachRepository = AppDataSource.getRepository(Teach);
+
+    const count = await teachRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      teachRepository.save(
+        teachRepository.create({
+          "idTeacher": "2",
+          "idSubject": "1",
+          "year": "2024"
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          "idTeacher": "2",
+          "idSubject": "2",
+          "year": "2024"
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          "idTeacher": "2",
+          "idSubject": "3",
+          "year": "2024"
+        }),
+      ),
+    ]);
+    console.log("* => Relaciones entre docente y asignaturas creados exitosamente");
+  } catch (error) {
+    console.error("Error al crear el bloque de tiempo:", error);
+  }
+}
+
+export { createUsers, createClassrooms, createSubject, createResource, createCourses, createTimeblocks, createTeach };

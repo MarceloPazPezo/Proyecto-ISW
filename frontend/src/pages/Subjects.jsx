@@ -22,11 +22,10 @@ const Subjects = () => {
   const [filterDepartamento, setFilterDepartamento] = useState('');
  
   const {
-    handleAdd,
     isPopupAddOpen,
     setIsPopupAddOpen,
     handleAddSubjectClick
-  } = useAddSubject(setSubjects);
+  } = useAddSubject();
   
   const {
     handleClickUpdate,
@@ -99,7 +98,7 @@ const Subjects = () => {
                 onSelectionChange={handleSelectionChange}
             />
         </div>
-    <PopupAddSubject show={isPopupAddOpen} setShow={setIsPopupAddOpen} action={handleAdd} />
+    <PopupAddSubject show={isPopupAddOpen} setShow={setIsPopupAddOpen} dataSubjects={setSubjects} />
     <PopupEditSubject show={isPopupEditOpen} setShow={setIsPopupEditOpen} data={dataSubject} action={handleUpdate} />
     </div>
   );
