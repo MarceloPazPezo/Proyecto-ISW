@@ -4,12 +4,12 @@ import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 import { formatPostUpdate } from '@helpers/formatData.js';
 
 const useEditUser = (setUsers) => {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isPopupEditOpen, setIsPopupEditOpen] = useState(false);
     const [dataUser, setDataUser] = useState([]);
     
     const handleClickUpdate = () => {
         if (dataUser.length > 0) {
-            setIsPopupOpen(true);
+            setIsPopupEditOpen(true);
         }
     };
 
@@ -18,14 +18,10 @@ const useEditUser = (setUsers) => {
             try {
             const updatedUser = await updateUser(updatedUserData, dataUser[0].rut);
             showSuccessAlert('¡Actualizado!','El usuario ha sido actualizado correctamente.');
-            setIsPopupOpen(false);
+            setIsPopupEditOpen(false);
             const formattedUser = formatPostUpdate(updatedUser);
 
             setUsers(prevUsers => prevUsers.map(user => {
-                console.log("Usuario actual:", user);
-                if (user.id === formattedUser.id) {
-                    console.log("Reemplazando con:", formattedUser);
-                }
                 return user.email === formattedUser.email ? formattedUser : user;
             }));
             
@@ -41,8 +37,8 @@ const useEditUser = (setUsers) => {
     return {
         handleClickUpdate,
         handleUpdate,
-        isPopupOpen,
-        setIsPopupOpen,
+        isPopupEditOpen,
+        setIsPopupEditOpen,
         dataUser,
         setDataUser
     };

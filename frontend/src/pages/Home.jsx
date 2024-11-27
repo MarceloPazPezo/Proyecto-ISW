@@ -1,5 +1,3 @@
-import '../styles/home.css'; // Asegúrate de tener estilos si es necesario
-
 const Home = () => {
   return (
     <>

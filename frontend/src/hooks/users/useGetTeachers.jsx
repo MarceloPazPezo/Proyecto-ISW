@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getTeachers } from '@services/user.service.js';
 
 const useTeachers = () => {
-    const [teachers, setUsers] = useState([]);
+    const [teachers, setTeachers] = useState([]);
 
     const fetchTeachers = async () => {
         try {
@@ -17,7 +17,7 @@ const useTeachers = () => {
                 createdAt: user.createdAt
             }));
             dataLogged(formattedData);
-            setUsers(formattedData);
+            setTeachers(formattedData);
         } catch (error) {
             console.error("Error: ", error);
         }
@@ -41,7 +41,7 @@ const useTeachers = () => {
         }
     };
 
-    return { teachers, fetchTeachers, setUsers };
+    return { teachers, fetchTeachers, setTeachers };
 };
 
 export default useTeachers;

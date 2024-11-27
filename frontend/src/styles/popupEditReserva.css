@@ -24,15 +24,15 @@
     z-index: 1001; /* Asegura que el popup esté por encima del fondo */
 }
 
-.close {
+/* .close {
     position: flex;
     top: 10px;
     padding-top: 0px ;
     right: 10px;
     cursor: pointer;
     background-color: transparent;
-    border: none; /* Eliminar el borde */
-}
+    border: none;
+} */
 
 .title {
     font-size: 24px;

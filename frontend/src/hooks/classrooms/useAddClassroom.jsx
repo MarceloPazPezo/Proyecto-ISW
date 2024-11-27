@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const useAddClassroom = () => {
+    const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+
     const [errorNombre, setErrorNombre] = useState('');
     const [inputData, setInputData] = useState({ nombre: ''});
 
@@ -10,7 +12,7 @@ const useAddClassroom = () => {
 
     const errorData = (dataMessage) => {
         if (dataMessage.dataInfo === 'nombre') {
-            setErrorNombre(dataMessage.nombre);
+            setErrorNombre(dataMessage.message);
         }
     };
 
@@ -21,11 +23,18 @@ const useAddClassroom = () => {
         }));
     };
 
+    const handleAddClassroomClick = () => {
+        setIsPopupAddOpen(true);
+    };
+
     return {
         errorNombre,
         inputData,
         errorData,
         handleInputChange,
+        isPopupAddOpen,
+        setIsPopupAddOpen,
+        handleAddClassroomClick
     };
 };
 

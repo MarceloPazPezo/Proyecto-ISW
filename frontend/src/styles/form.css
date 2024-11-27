@@ -23,18 +23,13 @@
     .form .footerContent {
         font-size: 12px;
     }
-    
+
     .container {
         padding: 0 10px;
     }
-    
-    /* .toggle-password-icon {
-        width: 20px;
-        height: 20px;
-    } */
+
 }
 
-/* Animación de desvanecimiento */
 .fade-enter {
     opacity: 0;
     transform: scale(0.9);
@@ -58,7 +53,7 @@
 }
 
 .login-page {
-    background-image: url('../assets/images/opcion1.jpg'); /* Ruta a tu imagen */
+    background-image: url('../assets/images/background.svg'); /* Ruta a tu imagen */
     background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -69,7 +64,7 @@
 }
 
 .form {
-	background-color: #F0F1FF; /*Color del formulario*/
+	background-color: #F0F1FF;
 	padding: 7vh;
 	display: flex;
 	flex-direction: column;
@@ -77,24 +72,20 @@
 	align-items: center;
 	min-width: 300px;
 	h1 {
-		color: #7A28CB; /*Color del titulo del formulario*/
+		color: #7A28CB;
 		font-size: 30px;
 		font-weight: bold;
 		margin: 0;
 		margin-bottom: 4vh;
 	}
-	div {
-		width: 100%;
-		display: flex;
-	}
 	label {
-		color: #3E3478; /*Color label de inputs del formulario*/
+		color: #3E3478;
 		font-weight: bold;
 		margin-bottom: 0.7vh;
 	}
 	input {
 		display: flex;
-		border: 3px solid #7A28CB; /*Color del borde de inputs del formulario*/
+		border: 3px solid #3E3478;
 		border-radius: 12px;
 		padding: 8px 5px;
 		background-repeat: no-repeat;
@@ -107,17 +98,24 @@
 		background-size: 25px 25px;
 		box-sizing: border-box;
 	}
-	input::placeholder {
-		color: #3E3478;
-		font-weight: light;
+	input:active {
+		font-weight: regular;
+	}
+	input:hover {
+		border: 3px solid #7A28CB;
+		font-weight: regular;
 	}
 	input:focus {
 		background-color: #FFFFFF;
 		font-weight: regular;
 	}
+	input::placeholder {
+		color: #3E3478;
+		font-weight: light;
+	}
 	select {
 		display: flex;
-		border: 3px solid #3E3478; /*Color del borde de selects del formulario*/
+		border: 3px solid #3E3478;
 		border-radius: 12px;
 		padding: 8px 5px;
 		background-repeat: no-repeat;
@@ -125,14 +123,17 @@
 		background-color: #eef7ff;
 		font-weight: regular;
 		font-size: 16px;
-		color: #003366;
+		color: #3E3478;
 		background-size: 25px 25px;
 		box-sizing: border-box;
-		background-image: url('../assets/ChevronDownIcon.svg');
 		background-position: calc(100% - 12px) center;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
+	}
+	select:hover {
+		border: 3px solid #7A28CB;
+		font-weight: regular;
 	}
 	select::placeholder {
 		color: rgba(0, 51, 102, 0.3);
@@ -142,16 +143,14 @@
 		background-color: rgba(0, 110, 223, 0.14);
 		font-weight: regular;
 	}
+
 	textarea {
 		display: flex;
-		border: 3px solid #003366; /*Color del borde de textareas del formulario*/
 		border-radius: 12px;
 		padding: 8px 5px;
 		background-repeat: no-repeat;
 		margin-bottom: 0.8vh;
 		background-color: #eef7ff;
-		font-weight: regular;
-		font-size: 16px;
 		color: #003366;
 		background-position: right 10px center;
 		background-size: 25px 25px;
@@ -159,7 +158,6 @@
 	}
 	textarea::placeholder {
 		color: rgba(0, 51, 102, 0.3);
-		font-weight: light;
 	}
 	textarea:focus {
 		background-color: rgba(0, 110, 223, 0.14);
@@ -173,11 +171,11 @@
 		border-radius: 12px;
 		border: none;
 		width: 100%;
-		background-color: #7A28CB; /*Color del boton del formulario*/
+		background-color: #7A28CB;
 		color: #eef7ff;
 		font-weight: bold;
 		font-size: 16px;
-		border: 3px solid #3E3478; /*Color del borde del boton*/
+		border: 3px solid #3E3478;
 		margin-top: 10px;
 	}
 	button:hover{
@@ -187,9 +185,22 @@
 		transition: .3s ease-out;
 	}
 	div {
-		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		width: 100%;
+		.css-b62m3t-container {
+			.css-1nvb9zf-multiValue {
+				margin: 0 0px 0 10px;
+				width: auto;
+				.css-10vuv5u {
+					width: 30px;
+					height: 30px;
+					background-color: #7A28CB;
+					color: #eef7ff;
+					font-size: 16px;
+					border: 5px solid #3E3478;
+				}
+			}
+		}
 	}
 	.footerContent {
 		display: flex;
@@ -209,7 +220,7 @@
 }
 
 .container {
-	height: 100vh;	
+	height: 100vh;
 	background: linear-gradient(0deg, #3E3478 10%,#7A28CB 80%);
 	display: flex;
 	justify-content: center;
@@ -224,13 +235,17 @@ input[name='rut'] {
 	background-image: url('../assets/IdentityCardIcon.svg');
 }
 
+input[name='telefono'] {
+	background-image: url('../assets/PhoneIcon.svg');
+}
+
 input[name='nombreCompleto'] {
 	background-image: url('../assets/PersonIcon.svg');
 }
 
-input[name='rol'] {
+select[name='rol'] {
 	background-image: url('../assets/PasskeyIcon.svg');
-	
+
 }
 
 input[type="password"]::-ms-reveal,
@@ -254,9 +269,9 @@ input {
 
 .toggle-password-icon {
     position: absolute;
-    right: 15px;
-    top: 44%;
-    transform: translateY(-50%);
+    right: 10px;
+    top: 45%;
+    transform: translateY(-55%);
     width: 25px;
     height: 25px;
     cursor: pointer;
@@ -269,7 +284,6 @@ input {
 .toggle-password-icon img {
     width: 25px;
     height: 25px;
-    margin-top: 4px;
-    -webkit-user-drag: none;
-    pointer-events: none; /* Valor agregado */
+	-webkit-user-drag: none;
+    pointer-events: none;
 }
