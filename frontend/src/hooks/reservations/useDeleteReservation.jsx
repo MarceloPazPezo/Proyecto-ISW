@@ -3,13 +3,14 @@ import { deleteDataAlert, showErrorAlert, showSuccessAlert } from '../../helpers
 
 const useDeleteReservation = (fetchReservations) => {
     const handleDeleteReserva = async (dataReservation) => {
-        console.log("DataReservation: ", dataReservation);
-        if (dataReservation.length > 0) {
+        console.log("DataReservation: ", dataReservation.id);
+        console.log("DataReservationLenght: ", dataReservation.length);
+        if (dataReservation.length > 0 || dataReservation.id !== undefined) {
             try {
                 const result = await deleteDataAlert();
                 if (result.isConfirmed) {
-                    console.log("Reserva->" + dataReservation[0].id);
-                    const response = await deleteReservation(dataReservation[0].id); //FIXME: dataReservation[0].id
+                    console.log("Reserva->" + dataReservation.id);
+                    const response = await deleteReservation(dataReservation.id); //FIXME: dataReservation[0].id
                     if(response.status === 'Client error') {
                         return showErrorAlert('Error', response.details);
                     }

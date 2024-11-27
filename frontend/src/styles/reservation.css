@@ -63,13 +63,14 @@
 }
 
 .reservation-table button1{
-    padding: 8px 6px;
-    padding-top: 6px;
+    padding: 8px 8px;
+    /* padding-top: 6px; */
     background-color: #460e5c; 
     color: white;
     border: black;
     border-radius: 4px;
     cursor: pointer;
+    margin-right: 2px;
 }
 
 .reservation-table button1:hover {
@@ -99,6 +100,22 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.reservation-table button2{
+    border: white;
+    /* border-radius: 500px; */
+    cursor: pointer;
+    background-color: #290652;
+}
+
+.close-button{
+    position: center;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #c82333;
+}
+
 
 
 .pagination buttonPag{

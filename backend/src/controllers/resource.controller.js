@@ -22,9 +22,9 @@ import {
 export async function createResource (req,res){ 
     try {
 
-        // console.log(typeof sourceBodyValidation);
-
         const resourceBody = req.body;
+        
+        // console.log(resourceBody.idManager);
 
         const { error } = sourceBodyValidation.validate(resourceBody);
 
@@ -32,7 +32,10 @@ export async function createResource (req,res){
 
         // console.log("ControlerBody:" , resourceBody);
 
-        const [resource, errorResource] = await createResourceService(resourceBody);
+        const nombre = resourceBody.nombre;
+        const idManager = resourceBody.idManager;
+
+        const [resource, errorResource] = await createResourceService({ nombre, idManager });
 
         if (errorResource) return handleErrorClient(res , 404 , errorResource)
 

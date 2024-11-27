@@ -32,6 +32,14 @@ const ReservationSchema = new EntitySchema({
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
         },
+        idTeacher: {
+            type: "int",
+            nullable: true,
+        },
+        idResource: {
+            type: "int",
+            nullable: false,
+        },
     },
     relations: {
         teacher: {
@@ -52,7 +60,17 @@ const ReservationSchema = new EntitySchema({
             },
             nullable: false,
         },
-    }
+    },
+    indices: [
+        {
+            name: "IDX_RESERVATION_RESOURCE",
+            columns: ["idResource"],
+        },
+        {
+            name: "IDX_RESERVATION_TEACHER",
+            columns: ["idTeacher"],
+        },
+    ],
 });
 
 export default ReservationSchema;
