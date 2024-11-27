@@ -28,8 +28,6 @@ export async function login(req, res) {
     });
 
     handleSuccess(res, 200, "Inicio de sesión exitoso", { token: accessToken });
-
-    // console.log(accessToken);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
   }
