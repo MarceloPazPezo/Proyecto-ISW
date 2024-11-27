@@ -11,11 +11,11 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	font-family: "Montserrat", sans-serif;
-	background-image: url('../assets/images/opcion2.jpg'); 
-    background-size: cover; /* Se puede cambiar por porcentajes */ 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-attachment: scroll; /*No funciona -> que se mueva la imagen con el contenido*/
+	background-image: url('../assets/images/background.svg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
 }
 
 #root {
@@ -24,35 +24,121 @@ body {
 	margin: 0 auto;
 }
 
-/* Estilos para la barra de navegación */
-
 nav ul {
 	list-style: none;
 	padding: 0;
-	display: center; /* Alinea los elementos horizontalmente */
+	display: center;
 }
 
 nav ul li {
-	margin: 0 15px; /* Espaciado entre los elementos */
+	margin: 0 15px;
 }
 
 nav ul li a {
-	color: #FFFFFF; /* Cambiado a blanco */
-	text-decoration: none; /* Sin subrayado */
-	transition: color 0.3s ease; /* Transición suave para el color */
+	color: #FFFFFF;
+	text-decoration: none;
+	transition: color 0.3s ease;
 	font-weight: bold;
 }
 
 nav ul li a:hover {
-	color: #F9567D; /* Color dorado para el hover */
+	color: #F9567D;
 }
 
-/* Estilo personalizado para "Cerrar sesión" */
 .cerrar-sesion a {
-    color: #FFFFFF;
-    transition: color 0.3s ease;
+	color: #FFFFFF;
+	transition: color 0.3s ease;
 }
 
 .cerrar-sesion a:hover {
-    color: #e4795e; /* Color rojo cuando se hace hover */
+	color: #e4795e;
+}
+
+.header {
+	background-color: #4A90E2;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+.title-box {
+	background-color: #4B86FA;
+	color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	margin: 20px 0;
+}
+
+.title {
+	font-size: 2em !important;
+	margin: 0;
+}
+
+.header h1 {
+	margin: 0;
+	font-size: 2.5em;
+}
+
+.main-content {
+	padding: 80px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.about-section,
+.services-section,
+.contact-section {
+	background-color: #F0F1FF;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+h2 {
+	color: #A158F5;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form div {
+	margin-bottom: 15px;
+}
+
+label {
+	margin-bottom: 5px;
+}
+
+button {
+	background-color: #7A28CB;
+	color: #F0F1FF;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1em;
+}
+
+button:hover {
+	background-color: #7A28CB;
+}
+
+.footer {
+	text-align: center;
+	padding: 20px;
+	background-color: #7A28CB;
+	color: #F0F1FF;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+.content {
+	padding-top: 25vh;
+	width: 100%;
 }

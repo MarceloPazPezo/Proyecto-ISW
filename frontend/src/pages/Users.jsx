@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Tooltip} from 'react-tippy';
+import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css';
 import Table from '@components/Table';
 import useUsers from '@hooks/users/useGetUsers.jsx';
@@ -16,7 +16,7 @@ import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import '@styles/users.css';
+import '@styles/spreadsheet.css';
 
 const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
@@ -24,7 +24,6 @@ const Users = () => {
   const [messageCopied, setMessageCopied] = useState('');
 
   const {
-    handleAdd,
     isPopupAddOpen,
     setIsPopupAddOpen,
     handleAddUserClick
@@ -64,9 +63,9 @@ const Users = () => {
       if (row.isSelected()) {
         row.deselect();
       } else {
-        const tableRows = row.getTable().getRows(); 
-        tableRows.forEach(r => r.deselect()); 
-        row.select(); 
+        const tableRows = row.getTable().getRows();
+        tableRows.forEach(r => r.deselect());
+        row.select();
       }
     } else if (e.ctrlKey) {
       const cellValue = cell.getValue();
@@ -77,13 +76,13 @@ const Users = () => {
   };
 
   const columns = [
-    { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
-    { title: "Correo electrónico", field: "email", width: 300, responsive: 2, cellClick: handleCellClick },
     { title: "Rut", field: "rut", width: 100, responsive: 2, cellClick: handleCellClick },
-    { title: "Teléfono", field: "telefono", width: 100, responsive: 2 , cellClick: handleCellClick },
-    { title: "Rol", field: "rol", width: 100, responsive: 2, cellClick: handleCellClick },
-    { title: "Estado", field: "estado", width: 150, responsive: 2, cellClick: handleCellClick },
-    { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick }
+    { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
+    { title: "Correo electrónico", field: "email", responsive: 0, cellClick: handleCellClick },
+    { title: "Teléfono", field: "telefono", responsive: 0, cellClick: handleCellClick },
+    { title: "Rol", field: "rol", responsive: 2, cellClick: handleCellClick },
+    { title: "Estado", field: "estado", responsive: 0, cellClick: handleCellClick },
+    { title: "Creado", field: "createdAt", responsive: 0, cellClick: handleCellClick }
   ];
 
   return (
@@ -131,9 +130,21 @@ const Users = () => {
           onSelectionChange={handleSelectionChange}
         />
       </div>
-      <PopupCopiado message={messageCopied} onClose={() => setMessageCopied('')} />
-      <PopupAddUser show={isPopupAddOpen} setShow={setIsPopupAddOpen} action={handleAdd} />
-      <PopupEditUser show={isPopupEditOpen} setShow={setIsPopupEditOpen} data={dataUser} action={handleUpdate} />
+      <PopupCopiado
+        message={messageCopied}
+        onClose={() => setMessageCopied('')}
+      />
+      <PopupAddUser
+        show={isPopupAddOpen}
+        setShow={setIsPopupAddOpen}
+        dataUsers={setUsers}
+      />
+      <PopupEditUser
+        show={isPopupEditOpen}
+        setShow={setIsPopupEditOpen}
+        data={dataUser}
+        action={handleUpdate}
+      />
     </div>
   );
 };
