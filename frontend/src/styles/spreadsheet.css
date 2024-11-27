@@ -11,7 +11,7 @@
 .table-container {
     width: 90%;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 10px auto;
     margin-bottom: 4vh;
     background-color: #3e3478dc;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -19,7 +19,7 @@
 }
 
 .top-table {
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;

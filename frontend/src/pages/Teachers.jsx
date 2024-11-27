@@ -96,12 +96,12 @@ const Teachers = () => {
   };
 
   const columns = [
-    { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
-    { title: "Correo electrónico", field: "email", width: 300, responsive: 2, cellClick: handleCellClick },
-    { title: "Rut", field: "rut", width: 100, responsive: 2, cellClick: handleCellClick },
-    { title: "Teléfono", field: "telefono", width: 100, responsive: 2, cellClick: handleCellClick },
-    { title: "Estado", field: "estado", width: 150, responsive: 2, cellClick: handleCellClick },
-    { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Rut", field: "rut", width: 100, responsive: 0, cellClick: handleCellClick },
+    { title: "Nombre", field: "nombreCompleto", responsive: 2, cellClick: handleCellClick },
+    { title: "Correo electrónico", field: "email", responsive: 2, cellClick: handleCellClick },
+    { title: "Teléfono", field: "telefono", responsive: 2, cellClick: handleCellClick },
+    { title: "Estado", field: "estado", responsive: 2, cellClick: handleCellClick },
+    { title: "Creado", field: "createdAt", responsive: 2, cellClick: handleCellClick },
   ];
 
   return (
