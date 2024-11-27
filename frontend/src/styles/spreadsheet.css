@@ -12,84 +12,44 @@
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
+    margin-bottom: 4vh;
+    background-color: #3e3478dc;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 .top-table {
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 90%;
 }
 
 .title-table {
-    color: #fff;
-    margin-left: 70px;
+    color: #FFFFFF;
 }
 
 .filter-actions {
     display: flex;
+    align-items: center;
     gap: 10px;
     button {
-        border: #fff;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border: none;
+        background: #F0F1FF;
         cursor: pointer;
-        box-shadow: #7A28CB (99, 99, 99, 0.2) 0px 2px 8px 0px;
-        
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
-}
-
-.delete-user-button {
-    margin-right: 70px;
+    button img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .button-disabled {
-    opacity: 0.5;
+    opacity: 0.7;
     pointer-events: none;
-}
-@media (max-width: 767px) {
-    .title-table {
-        margin: 0;
-    }
-    .top-table {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .delete-user-button {
-        margin-right: 0;
-    }
-
-    .filter-actions {
-        margin-bottom: 10px;
-    }
-    .table-container {
-        margin: 0;
-        width: 352px;
-        height: 500px;
-    }
-    .popup {
-        width: 350px;
-        height: 600px;
-    }
-    .popup .form {
-        padding: 20px;
-    }
-
-    .popup .close {
-        margin-right: 0;
-    }
-
-    .popup .options-class {
-        width: 10px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .title-table {
-        margin-left: 35px;
-    }
-
-    .delete-user-button {
-        margin-right: 35px;
-    }
 }

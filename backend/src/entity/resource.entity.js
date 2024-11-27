@@ -41,6 +41,8 @@ const ResourceSchema = new EntitySchema({
                 referencedColumnName: "id", // Columna en "User" a la que se hace referencia
             },
             nullable: false,
+            cascade: true,
+            onDelete: "CASCADE",
         },
     },
 });
