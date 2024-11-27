@@ -10,8 +10,7 @@ export async function addClassroom(data) {
             nombre,
             estado
         });
-        const formattedData = formatClassroomData(response.data.data);
-        return formattedData;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }

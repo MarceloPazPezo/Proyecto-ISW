@@ -14,7 +14,7 @@ export async function addUser(data) {
             rol,
             password
         });
-        return response.data.data;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
@@ -60,7 +60,7 @@ export async function addTeacher(data) {
             password,
             telefono
         });
-        return response.data.data;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
@@ -78,9 +78,7 @@ export async function getTeachers() {
 
 export async function getUserRol(email){
     try {
-        const { data } = await axios.get(`/user/rol/?email=${email}`); // crear ruta y service en backend
-        
-        // console.log("Data de getUserRol:" + data);
+        const { data } = await axios.get(`/user/rol/?email=${email}`);
 
         localStorage.setItem('rol', JSON.stringify(data));
         return data;

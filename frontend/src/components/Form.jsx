@@ -1,13 +1,23 @@
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { set, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import '@styles/form.css';
 import HideIcon from '../assets/HideIcon.svg';
 import ViewIcon from '../assets/ViewIcon.svg';
+import MultiSelect from './MultiSelect';
 
 const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundColor }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm();
+    const [selectedOptions, setSelectedOptions] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
+
+    useEffect(() => {
+        fields.forEach((field) => {
+            if (field.disabled) {
+                setValue(field.name, field.defaultValue || '');
+            }
+        });
+    }, [fields, setValue]);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -17,7 +27,19 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
         setShowNewPassword(!showNewPassword);
     };
 
+    const handleMultiSelectChange = (name, selected) => {
+        setSelectedOptions((prevState) => ({
+            ...prevState,
+            [name]: selected,
+        }));
+        setValue(name, selected);
+    }; 
     const onFormSubmit = (data) => {
+        fields.forEach((field) => {
+            if (field.disabled && !data[field.name]) {
+                data[field.name] = watch(field.name);
+            }
+        });
         onSubmit(data);
     };
 
@@ -85,6 +107,16 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
                                 </option>
                             ))}
                         </select>
+                    )}
+                    {field.fieldType === 'multiselect' && (
+                        <MultiSelect
+                            options={field.options}
+                            selectedOptions={selectedOptions[field.name] || []}
+                            defaultValue
+                            onChange={handleMultiSelectChange}
+                            name={field.name}
+                            required={field.required}
+                        />
                     )}
                     {field.type === 'password' && field.name === 'password' && (
                         <span className="toggle-password-icon" onClick={togglePasswordVisibility}>
