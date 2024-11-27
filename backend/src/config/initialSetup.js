@@ -4,6 +4,7 @@ import Classroom from "../entity/classroom.entity.js";
 import Course from "../entity/course.entity.js";
 import Subject from "../entity/subject.entity.js";
 import Resource from "../entity/resource.entity.js";
+import TimeBlock from "../entity/timeblock.entity.js";
 import { AppDataSource } from "./configDb.js";
 import { encryptPassword } from "../helpers/bcrypt.helper.js";
 
@@ -50,16 +51,16 @@ async function createUsers() {
           estado: "regular",
         })
       ),
-        userRepository.save(
-          userRepository.create({
-            nombreCompleto: "Alexander Benjamín Marcelo Carrasco Fuentes",
-            rut: "20.630.735-8",
-            email: "usuario2.2024@gmail.cl",
-            password: await encryptPassword("user1234"),
-            telefono: "987654123",
-            rol: "docente",
-            estado: "regular",
-          }),
+      userRepository.save(
+        userRepository.create({
+          nombreCompleto: "Alexander Benjamín Marcelo Carrasco Fuentes",
+          rut: "20.630.735-8",
+          email: "usuario2.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "987654123",
+          rol: "docente",
+          estado: "regular",
+        }),
       ),
       userRepository.save(
         userRepository.create({
@@ -139,16 +140,16 @@ async function createUsers() {
         }),
       ),
       userRepository.save(
-          userRepository.create({
-            nombreCompleto: "Claudia Jimena Sobino Sobino",
-            rut: "20.622.042-2",
-            email: "profe5.2024@gmail.cl",
-            password: await encryptPassword("user1234"),
-            telefono: "994754167",
-            rol: "docente",
-            estado: "regular",
-          }),
-        ),
+        userRepository.create({
+          nombreCompleto: "Claudia Jimena Sobino Sobino",
+          rut: "20.622.042-2",
+          email: "profe5.2024@gmail.cl",
+          password: await encryptPassword("user1234"),
+          telefono: "994754167",
+          rol: "docente",
+          estado: "regular",
+        }),
+      ),
     ]);
     console.log("* => Usuarios creados exitosamente");
   } catch (error) {
@@ -207,7 +208,7 @@ async function createCourses() {
         courseRepository.create({
           nombre: "Primero A",
           idBossTeacher: "7",
-          idClassroom:"1",
+          idClassroom: "1",
           cantidadAlumnos: "30",
         }),
       ),
@@ -215,7 +216,7 @@ async function createCourses() {
         courseRepository.create({
           nombre: "Tercero A",
           idBossTeacher: "9",
-          idClassroom:"2",
+          idClassroom: "2",
           cantidadAlumnos: "40",
         }),
       ),
@@ -223,7 +224,7 @@ async function createCourses() {
         courseRepository.create({
           nombre: "Segundo A",
           idBossTeacher: "10",
-          idClassroom:"3",
+          idClassroom: "3",
           cantidadAlumnos: "35",
         }),
       ),
@@ -231,7 +232,7 @@ async function createCourses() {
         courseRepository.create({
           nombre: "Cuarto A",
           idBossTeacher: "12",
-          idClassroom:"4",
+          idClassroom: "4",
           cantidadAlumnos: "25",
         }),
       ),
@@ -253,43 +254,43 @@ async function createSubject() {
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Matemáticas",
-          departamento : "Matemáticas"
+          departamento: "Matemáticas"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Lenguaje",
-          departamento : "Humanista"
+          departamento: "Humanista"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Historia",
-          departamento : "Humanista"
+          departamento: "Humanista"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Biología",
-          departamento : "Ciencias"
+          departamento: "Ciencias"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Música",
-          departamento : "Artes"
+          departamento: "Artes"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Artes Visuales",
-          departamento : "Artes"
+          departamento: "Artes"
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "Química",
-          departamento : "Ciencias"
+          departamento: "Ciencias"
         }),
       ),
     ]);
@@ -309,25 +310,25 @@ async function createResource() {
     await Promise.all([
       resourceRepository.save([
         resourceRepository.create({
-          
+
           nombre: "Laboratorio de Química",
           estado: "disponible",
           manager: 9,
         }),
         resourceRepository.create({
-          
+
           nombre: "Laboratorio de Física",
           estado: "disponible",
           manager: 9,
         }),
         resourceRepository.create({
-          
+
           nombre: "Laboratorio de Computación",
           estado: "reservado",
           manager: 9,
         }),
         resourceRepository.create({
-          
+
           nombre: "Auditorio",
           estado: "disponible",
           manager: 9,
@@ -337,7 +338,32 @@ async function createResource() {
     console.log("* => Recursos creadas exitosamente");
   } catch (error) {
     console.error("Error al crear recursos:", error);
-  } 
+  }
 }
 
-export { createUsers, createClassrooms, createSubject , createResource, createCourses };
+async function createTimeblocks() {
+  try {
+    const timeBlocksRepository = AppDataSource.getRepository(TimeBlock);
+
+    const count = await timeBlocksRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      timeBlocksRepository.save(
+        timeBlocksRepository.create({
+          idTeacher: "2",
+          idCourse: "3",
+          idSubject: "1",
+          horaInicio: "08:00",
+          horaTermino: "08:45",
+          fecha: "14-11-2024",
+        }),
+      ),
+    ]);
+    // console.log("* => Cursos creados exitosamente");
+  } catch (error) {
+    console.error("Error al crear el bloque de tiempo:", error);
+  }
+}
+
+export { createUsers, createClassrooms, createSubject, createResource, createCourses, createTimeblocks };

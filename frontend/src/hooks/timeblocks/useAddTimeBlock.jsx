@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 
 const useAddTimeBlock = () => {
     const [errorHoraInicio, setErrorHoraInicio] = useState('');
+    const [inputDataHoraInicio, setInputDataHoraInicio] = useState({ horaInicio: '' });
     const [errorHoraTermino, setErrorHoraTermino] = useState('');
+    const [inputDataHoraTermino, setInputDataHoraTermino] = useState({ horaTermino: '' });
     const [errorFecha, setErrorFecha] = useState('');
-    const [inputData, setInputData] = useState({ horaInicio: '', horaTermino: '', fecha: '' });
+    const [inputDataFecha, setInputDataFecha] = useState({ fecha: '' });
 
     useEffect(() => {
-        if (inputData.horaInicio) setErrorHoraInicio('');
-        if (inputData.horaTermino) setErrorHoraTermino('');
-        if (inputData.fecha) setErrorFecha('');
-    }, [inputData.horaInicio, inputData.horaTermino, inputData.fecha]); 
+        if (inputDataHoraInicio.horaInicio) setErrorHoraInicio('');
+        if (inputDataHoraTermino.horaTermino) setErrorHoraTermino('');
+        if (inputDataFecha.fecha) setErrorFecha('');
+    }, [inputDataHoraInicio.horaInicio, inputDataHoraTermino.horaTermino, inputDataFecha.fecha]);
 
     const errorData = (dataMessage) => {
         if (dataMessage.dataInfo === 'horaInicio') {
@@ -23,17 +25,31 @@ const useAddTimeBlock = () => {
     };
 
     const handleInputChange = (field, value) => {
-        setInputData(prevState => ({
-            ...prevState,
-            [field]: value
-        }));
+        if (field === 'horaInicio') {
+            setInputDataHoraInicio(prevState => ({
+                ...prevState,
+                horaInicio: value
+            }));
+        } else if (field === 'horaTermino') {
+            setInputDataHoraTermino(prevState => ({
+                ...prevState,
+                horaTermino: value
+            }));
+        } else if (field === 'fecha') {
+            setInputDataFecha(prevState => ({
+                ...prevState,
+                fecha: value
+            }));
+        }
     };
 
     return {
         errorHoraInicio,
+        inputDataHoraInicio,
         errorHoraTermino,
+        inputDataHoraTermino,
         errorFecha,
-        inputData,
+        inputDataFecha,
         errorData,
         handleInputChange,
     };

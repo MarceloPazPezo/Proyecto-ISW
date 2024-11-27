@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getTimeBlocks } from '@services/timeblock.service.js';
 
-const useTimeBlocks = () => {
-    const [timeblocks, setTimeBlocks] = useState([]);
+const useGetTimeBlocks = () => {
+    const [timeblocks, setTimeblocks] = useState([]);
 
     const fetchTimeBlocks = async () => {
         try {
             const response = await getTimeBlocks();
+            console.log(response);
             const formattedData = response.map(timeblock => ({
                 idTeacher: timeblock.idTeacher,
                 idCourse: timeblock.idCourse,
@@ -15,7 +16,7 @@ const useTimeBlocks = () => {
                 horaTermino: timeblock.horaTermino,
                 fecha: timeblock.fecha
             }));
-            setTimeBlocks(formattedData);
+            setTimeblocks(formattedData);
         } catch (error) {
             console.error("Error: ", error);
         }
@@ -25,7 +26,7 @@ const useTimeBlocks = () => {
         fetchTimeBlocks();
     }, []);
 
-    return { timeblocks, fetchTimeBlocks, setTimeBlocks };
+    return { timeblocks, fetchTimeBlocks, setTimeblocks };
 };
 
-export default useTimeBlocks;
+export default useGetTimeBlocks;

@@ -22,7 +22,6 @@ const Users = () => {
   const { users, fetchUsers, setUsers } = useUsers();
   const [filterRut, setFilterRut] = useState('');
   const [messageCopied, setMessageCopied] = useState('');
-
   const {
     isPopupAddOpen,
     setIsPopupAddOpen,

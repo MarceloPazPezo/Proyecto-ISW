@@ -35,12 +35,55 @@ const TimeblockSchema = new EntitySchema({
       nullable: false,
     },
   },
-
+  relations: {
+    teacher: {
+      type: "many-to-one",
+      target: "User", 
+      joinColumn: {
+        name: "idTeacher", 
+        referencedColumnName: "id", 
+      },
+      nullable: true, 
+    },
+    course: {
+      type: "many-to-one",
+      target: "Course", 
+      joinColumn: {
+        name: "idCourse", 
+        referencedColumnName: "id", 
+      },
+      nullable: true,
+    },
+    subject: {
+      type: "many-to-one",
+      target: "Subject", 
+      joinColumn: {
+        name: "idSubject", 
+        referencedColumnName: "id", 
+      },
+      nullable: true,
+    },
+  },
   indices: [
     {
       name: "IDX_TIMEBLOCK",
       columns: ["id"],
       unique: true,
+    },
+    {
+      name: "IDX_TIMEBLOCK_IDTEACHER",
+      columns: ["idTeacher"],
+      unique: false,
+    },
+    {
+      name: "IDX_TIMEBLOCK_IDCOURSE",
+      columns: ["idCourse"],
+      unique: false,
+    },
+    {
+      name: "IDX_TIMEBLOCK_IDSUBJECT",
+      columns: ["idSubject"],
+      unique: false,
     }
   ],
 });

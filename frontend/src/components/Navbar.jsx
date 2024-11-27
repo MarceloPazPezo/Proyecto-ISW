@@ -103,6 +103,16 @@ const Navbar = () => {
                                         Docentes
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to="/asignarBloque" activeClassName="active" onClick={handleLinkClick}>
+                                        AgregarHorario
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/bloquesHorario" activeClassName="active" onClick={handleLinkClick}>
+                                        Bloques
+                                    </NavLink>
+                                </li>
                             </ul>
                         </li>
                     )}

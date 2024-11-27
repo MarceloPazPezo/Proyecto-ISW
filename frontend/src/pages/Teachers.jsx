@@ -27,7 +27,6 @@ const Teachers = () => {
   const [filterRut, setFilterRut] = useState("");
   const [messageCopied, setMessageCopied] = useState("");
   const [isVentanaHorarioOpen, setIsVentanaHorarioOpen] = useState(false);
-  const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
   const [isPopupTeachOpen, setIsPopupTeachOpen] = useState(false);
 
@@ -71,11 +70,6 @@ const Teachers = () => {
     return `${formattedNumber}-${dv}`;
   };
 
-  const handleOpenVentanaHorario = (horario) => {
-    setHorarioSeleccionado(horario);
-    setIsVentanaHorarioOpen(true);
-  };
-
   const handleCellClick = (e, cell) => {
     const row = cell.getRow();
     if (e.altKey) {
@@ -102,57 +96,12 @@ const Teachers = () => {
   };
 
   const columns = [
-    {
-      title: "Rut",
-      field: "rut",
-      width: 100,
-      responsive: 2,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Nombre",
-      field: "nombreCompleto",
-      responsive: 0,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Correo electrónico",
-      field: "email",
-      responsive: 0,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Teléfono",
-      field: "telefono",
-      responsive: 0,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Estado",
-      field: "estado",
-      responsive: 0,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Creado",
-      field: "createdAt",
-      responsive: 0,
-      cellClick: handleCellClick,
-    },
-    {
-      title: "Horario",
-      width: 100,
-      hozAlign: "center",
-      formatter: () => {
-        return `<img src=${HorarioIcon} alt="horario" style="width: 30px; height: 30px; cursor: pointer;" />`;
-      },
-      cellClick: (e, cell) => {
-        if (e.target.tagName === "IMG") {
-          const horario = cell.getRow().getData().horario;
-          handleOpenVentanaHorario(horario);
-        }
-      },
-    },
+    { title: "Nombre", field: "nombreCompleto", responsive: 0, cellClick: handleCellClick },
+    { title: "Correo electrónico", field: "email", width: 300, responsive: 2, cellClick: handleCellClick },
+    { title: "Rut", field: "rut", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Teléfono", field: "telefono", width: 100, responsive: 2, cellClick: handleCellClick },
+    { title: "Estado", field: "estado", width: 150, responsive: 2, cellClick: handleCellClick },
+    { title: "Creado", field: "createdAt", width: 100, responsive: 2, cellClick: handleCellClick },
   ];
 
   return (
@@ -234,6 +183,22 @@ const Teachers = () => {
                 )}
               </button>
             </Tooltip>
+            <Tooltip
+              title="Horario"
+              position="top"
+              trigger="mouseenter"
+            >
+             <button
+              className={`horario-button ${dataTeacher.length === 0 ? 'button-disabled' : ''}`}
+              onClick={() => setIsVentanaHorarioOpen(true)}
+              disabled={dataTeacher.length === 0}>
+              {dataTeacher.length === 0 ? (
+                <img src={HorarioIcon} alt="delete-disabled" />
+              ) : (
+                <img src={HorarioIcon} alt="delete" />
+              )}
+            </button>
+            </Tooltip>
           </div>
         </div>
         <Table
@@ -247,7 +212,6 @@ const Teachers = () => {
         <VentanaHorario
           isOpen={isVentanaHorarioOpen}
           onClose={() => setIsVentanaHorarioOpen(false)}
-          horario={horarioSeleccionado}
         />
       </div>
       <PopupCopiado
