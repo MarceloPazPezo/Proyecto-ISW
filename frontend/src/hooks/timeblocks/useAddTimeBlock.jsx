@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const useAddTimeBlock = () => {
+    const [errorDocente, setErrorDocente] = useState('');
+    const [inputDataDocente, setInputDataDocente] = useState({ docente: '' });
+    const [errorAsignatura, setErrorAsignatura] = useState('');
+    const [inputDataAsignatura, setInputDataAsignatura] = useState({ docente: '' });
     const [errorHoraInicio, setErrorHoraInicio] = useState('');
     const [inputDataHoraInicio, setInputDataHoraInicio] = useState({ horaInicio: '' });
     const [errorHoraTermino, setErrorHoraTermino] = useState('');
@@ -9,10 +13,12 @@ const useAddTimeBlock = () => {
     const [inputDataFecha, setInputDataFecha] = useState({ fecha: '' });
 
     useEffect(() => {
+        if (inputDataDocente.docente) setErrorDocente('');
+        if (inputDataAsignatura.asignatura) setErrorAsignatura('');
         if (inputDataHoraInicio.horaInicio) setErrorHoraInicio('');
         if (inputDataHoraTermino.horaTermino) setErrorHoraTermino('');
         if (inputDataFecha.fecha) setErrorFecha('');
-    }, [inputDataHoraInicio.horaInicio, inputDataHoraTermino.horaTermino, inputDataFecha.fecha]);
+    }, [inputDataDocente, inputDataAsignatura, inputDataHoraInicio.horaInicio, inputDataHoraTermino.horaTermino, inputDataFecha.fecha]);
 
     const errorData = (dataMessage) => {
         if (dataMessage.dataInfo === 'horaInicio') {
@@ -25,7 +31,17 @@ const useAddTimeBlock = () => {
     };
 
     const handleInputChange = (field, value) => {
-        if (field === 'horaInicio') {
+        if (field === 'docente') {
+            setInputDataDocente(prevState => ({
+                ...prevState,
+                docente: value
+            }));    
+        } else if (field === 'asignatura') {
+            setInputDataAsignatura(prevState => ({
+                ...prevState,
+                asignatura: value
+            }));
+        } else if (field === 'horaInicio') {
             setInputDataHoraInicio(prevState => ({
                 ...prevState,
                 horaInicio: value
@@ -44,6 +60,10 @@ const useAddTimeBlock = () => {
     };
 
     return {
+        errorDocente,
+        inputDataDocente,
+        errorAsignatura,
+        inputDataAsignatura,
         errorHoraInicio,
         inputDataHoraInicio,
         errorHoraTermino,
