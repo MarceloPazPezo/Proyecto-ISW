@@ -47,6 +47,7 @@ export default function PopupAddTimeBlock() {
         curso: ''
     });
 
+    // Función para manejar los cambios en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (['docentes', 'aisgnatura', 'horaInicio', 'horaTermino', 'fecha'].includes(name)) {
