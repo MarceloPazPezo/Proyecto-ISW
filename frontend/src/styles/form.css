@@ -188,17 +188,62 @@
 		flex-direction: row;
 		width: 100%;
 		.css-b62m3t-container {
+			.css-1g1jk6u-control{
+				border: 3px solid #3E3478;
+				.css-1jqq78o-placeholder {
+					padding-top: 20px;
+				}
+			}
+			.css-1g1jk6u-control:hover {
+				border: 3px solid #7A28CB;
+			}
+			.css-1g1jk6u-control:active {
+				border: 3px solid #7A28CB;
+			}
+			.css-td2qnn-control {
+				border: 3px solid #3E3478;
+			}
+			.css-td2qnn-control:hover {
+				border: 3px solid #3E3478;
+			}
+			.css-td2qnn-control:active {
+				border: 3px solid #7A28CB;
+			}
+			.css-1dyz3mf {
+				div {
+					margin: 2px;
+					width: auto;
+				}
+			}
 			.css-1nvb9zf-multiValue {
-				margin: 0 0px 0 10px;
+				margin: 0px 5px;
 				width: auto;
 				.css-10vuv5u {
-					width: 30px;
-					height: 30px;
-					background-color: #7A28CB;
-					color: #eef7ff;
-					font-size: 16px;
-					border: 5px solid #3E3478;
+					align-content: center;
+					justify-content: center;
+					width: 3vh;
+					height: 3vh;
+					background-color: #f9567c23;
+					color: #F9567D;
+					border: 3px solid #F9567D;
+					border-radius: 6px;
 				}
+				.css-10vuv5u:hover {
+					transition: 0.5s ease-out;
+					background-color: #ffffff;
+				}
+				
+			}
+			.css-1wy0on6 {
+				height: 4vh;
+			}
+
+			.css-1nmdiq5-menu {
+				max-height: 15vh;
+				overflow-y: auto;
+				display: flex;
+				/* flex-wrap: wrap; */
+				gap: 8px; 
 			}
 		}
 	}
