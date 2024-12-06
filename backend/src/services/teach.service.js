@@ -85,6 +85,7 @@ export async function getTeachesService() {
       .select([
         "teach.id",
         "teach.year",
+        "teacher.id",
         "teacher.rut",
         "teacher.nombreCompleto",
         "subject.nombre",
@@ -193,6 +194,7 @@ export async function getSubjectsByTeacherService(rutTeacher) {
       .select([
         "teach.id",
         "teach.year",
+        "teacher.id",
         "teacher.rut",
         "teacher.nombreCompleto",
         "subject.id",

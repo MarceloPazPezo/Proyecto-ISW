@@ -12,6 +12,7 @@ import { deleteReservation } from '../../services/reservation.service.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faEye, faPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
+
 const Reservation = () => {
     const [user, setUser] = useState(null);
     const [rol, setRol] = useState('');
@@ -22,8 +23,10 @@ const Reservation = () => {
     const [viewReservationId, setViewReservationId] = useState(null); // Estado para almacenar el ID de la reserva que se quiere ver
     const [filteredReservations, setFilteredReservations] = useState([]); // Estado para almacenar las reservas filtradas
     const [currentReservationPage, setCurrentReservationPage] = useState(1); // Estado para manejar la página actual de las reservas filtradas
+    const [sortCriteria, setSortCriteria] = useState({ field: 'fecha', direction: 'asc' }); // Estado para manejar el criterio de ordenación
+    const [showPastReservations, setShowPastReservations] = useState(false); // Estado para manejar la vista de reservas pasadas o futuras
     const resourcesPerPage = 4;
-    const reservationsPerPage = 2;
+    const reservationsPerPage = 4;
 
     const { resources, fetchResources, setDataResources } = useGetResources();
     const { handleDeleteRecurso } = useDeleteResource(fetchResources, setDataResources);
@@ -66,6 +69,24 @@ const Reservation = () => {
         }
     };
 
+    const sortReservations = (reservations, criteria) => {
+        return reservations.sort((a, b) => {
+            if (criteria.field === 'fecha') {
+                return criteria.direction === 'asc' ? new Date(a.fecha) - new Date(b.fecha) : new Date(b.fecha) - new Date(a.fecha);
+            } else if (criteria.field === 'horaInicio') {
+                return criteria.direction === 'asc' ? a.horaInicio.localeCompare(b.horaInicio) : b.horaInicio.localeCompare(a.horaInicio);
+            }
+            return 0;
+        });
+    };
+
+    const handleSort = (field) => {
+        setSortCriteria(prevCriteria => ({
+            field,
+            direction: prevCriteria.field === field && prevCriteria.direction === 'asc' ? 'desc' : 'asc'
+        }));
+    };
+
     useEffect(() => {
         const fetchUserRole = async () => {
             const savedUser = JSON.parse(localStorage.getItem('user'));
@@ -93,14 +114,20 @@ const Reservation = () => {
     const indexOfFirstResource = indexOfLastResource - resourcesPerPage;
     const currentResources = resources.slice(indexOfFirstResource, indexOfLastResource);
 
+    // Filtrar las reservas para mostrar solo las del día de hoy y las futuras o las pasadas
+    const today = new Date();
+    const filteredFutureReservations = filteredReservations.filter(reservation => new Date(reservation.fecha) >= today);
+    const filteredPastReservations = filteredReservations.filter(reservation => new Date(reservation.fecha) < today);
+
     // Calcular las reservas a mostrar en la página actual
+    const sortedReservations = sortReservations(showPastReservations ? filteredPastReservations : filteredFutureReservations, sortCriteria);
     const indexOfLastReservation = currentReservationPage * reservationsPerPage;
     const indexOfFirstReservation = indexOfLastReservation - reservationsPerPage;
-    const currentReservations = filteredReservations.slice(indexOfFirstReservation, indexOfLastReservation);
+    const currentReservations = sortedReservations.slice(indexOfFirstReservation, indexOfLastReservation);
 
     // Funciones para avanzar y retroceder páginas de reservas
     const nextReservationPage = () => {
-        if (currentReservationPage < Math.ceil(filteredReservations.length / reservationsPerPage)) {
+        if (currentReservationPage < Math.ceil((showPastReservations ? filteredPastReservations : filteredFutureReservations).length / reservationsPerPage)) {
             setCurrentReservationPage(currentReservationPage + 1);
         }
     };
@@ -124,10 +151,12 @@ const Reservation = () => {
         }
     };
 
+    // {`(${ROL})`}
+
     return (
         <div className="main-container">
             <div className="reservation-container">
-                <h1>Reservas de recursos {`(${ROL})`}</h1>
+                <h1>Administración de recursos</h1>
                 {canManageResources && (
                     <button onClick={handleAddResourceClick}>
                         <FontAwesomeIcon icon={faPlus} /> Crear Recurso
@@ -184,18 +213,33 @@ const Reservation = () => {
             <PopupAddResource show={isPopupAddOpen} setShow={setIsPopupAddOpen} />
             <PopupEditReservation show={isPopupEditOpen} setShow={setIsPopupEditOpen} resourceId={editResourceId} />
             {viewReservationId && (
-                <div className="reservation-details">
-                    <h2>Reservas del Recurso</h2>
-                    {currentReservations.length === 0 ? (
-                        <p>No hay reservas para este recurso.</p>
-                    ) : (
+            <div className="reservation-details">
+                <buttonClose onClick={() => setViewReservationId(null)} className="close-button">
+                    ✖
+                </buttonClose>
+                {/* <h2>Reservas del Recurso</h2> */}
+                {currentReservations.length === 0 ? (
+                    <p>No hay reservas para este recurso.</p>
+                ) : (
+                    <div className="reservation-actions">
+                        <button onClick={() => setShowPastReservations(!showPastReservations)}>
+                            {showPastReservations ? 'Mostrando Reservas Pasadas' : 'Mostrando Reservas Disponibles'}
+                        </button>
                         <table className="reservation-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Hora Inicio</th>
+                                    <th>
+                                        <button2 onClick={() => handleSort('horaInicio')}>
+                                            Hora Inicio {sortCriteria.field === 'horaInicio' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
+                                        </button2>
+                                    </th>
                                     <th>Hora Fin</th>
-                                    <th>Fecha</th>
+                                    <th>
+                                        <button2 onClick={() => handleSort('fecha')}>
+                                            Fecha {sortCriteria.field === 'fecha' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
+                                        </button2>
+                                    </th>
                                     <th>Profesor</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -209,7 +253,7 @@ const Reservation = () => {
                                         <td>{new Date(reservation.fecha).toLocaleDateString()}</td>
                                         <td>{reservation.teacher === null ? "No solicitado" : reservation.teacher}</td>
                                         <td>
-                                            <button onClick={() => handleDeleteReserva(reservation.id)}>
+                                            <button onClick={() => handleDeleteReserva(reservation)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         </td>
@@ -217,20 +261,20 @@ const Reservation = () => {
                                 ))}
                             </tbody>
                         </table>
-                    )}
-                    <div className="pagination">
-                        <buttonPag onClick={prevReservationPage} disabled={currentReservationPage === 1}>
-                            <FontAwesomeIcon icon={faArrowLeft} /> Anterior
-                        </buttonPag>
-                        <buttonPag onClick={nextReservationPage} disabled={currentReservationPage === Math.ceil(filteredReservations.length / reservationsPerPage)}>
-                            Siguiente <FontAwesomeIcon icon={faArrowRight} />
-                        </buttonPag>
                     </div>
+                )}
+                <div className="pagination">
+                    <buttonPag onClick={prevReservationPage} disabled={currentReservationPage === 1}>
+                        <FontAwesomeIcon icon={faArrowLeft} /> Anterior
+                    </buttonPag>
+                    <buttonPag onClick={nextReservationPage} disabled={currentReservationPage === Math.ceil((showPastReservations ? filteredPastReservations : filteredFutureReservations).length / reservationsPerPage)}>
+                        Siguiente <FontAwesomeIcon icon={faArrowRight} />
+                    </buttonPag>
                 </div>
-            )}
+            </div>
+        )}
         </div>
     );
 }
 
 export default Reservation;
-

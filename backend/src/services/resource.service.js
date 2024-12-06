@@ -44,6 +44,8 @@ export async function createResourceService(dataResource) {
 
         const { nombre, idManager } = dataResource;
 
+        // console.log("Data: ", nombre, idManager);
+
         const createErrorMessage = (dataInfo, message) => {
             return {
                 dataInfo,
@@ -60,9 +62,8 @@ export async function createResourceService(dataResource) {
 
         // Si hay un ID disponible, úsalo; de lo contrario, se asignará automáticamente
         const newResource = resourcesRepository.create({
-            id: dataResource.id || undefined, // Si availableId es null, se asignará automáticamente
             nombre: dataResource.nombre,
-            manager: dataResource.idManager,
+            idManager: dataResource.idManager,
             estado: "disponible",
         });
 

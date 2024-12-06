@@ -1,6 +1,7 @@
 import React from 'react';
 import AsyncSelect from 'react-select/async';
 import makeAnimated from 'react-select/animated';
+import PropTypes from 'prop-types';
 
 const animatedComponents = makeAnimated();
 
@@ -53,12 +54,11 @@ const customStyles = {
     margin: '5px',
     display: 'flex',
     justifyContent: 'center',
-    // alignItems: 'center',
   }),
   multiValueLabel: (styles) => ({
     ...styles,
     color: '#3E3478',
-    paddingRight: '6px', // Espacio entre el texto y el botón
+    paddingRight: '6px',
   }),
   multiValueRemove: (styles) => ({
     ...styles,
@@ -71,7 +71,13 @@ const customStyles = {
   }),
 };
 
-const MultiSelect = ({ options, selectedOptions, onChange, name, required }) => {
+const MultiSelect = ({
+  options = [],
+  selectedOptions = [],
+  onChange,
+  name,
+  isLoading = false,
+}) => {
   const loadOptions = (inputValue) => promiseOptions(inputValue, options);
 
   return (
@@ -82,11 +88,30 @@ const MultiSelect = ({ options, selectedOptions, onChange, name, required }) => 
       components={animatedComponents}
       loadOptions={loadOptions}
       value={selectedOptions}
-      onChange={(selected) => onChange(name, selected)}
+      isLoading={isLoading}
+      onChange={(selected) => onChange(name, selected || [])}
       name={name}
       styles={customStyles}
     />
   );
+};
+
+MultiSelect.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  selectedOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default MultiSelect;

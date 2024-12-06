@@ -31,6 +31,10 @@ const ResourceSchema = new EntitySchema({
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
         },
+        idManager: {
+            type: "int",
+            nullable: false,
+        },
     },
     relations: {
         manager: {
@@ -45,6 +49,12 @@ const ResourceSchema = new EntitySchema({
             onDelete: "CASCADE",
         },
     },
+    indices: [
+        {
+            name: "IDX_RESOURCE_MANAGER",
+            columns: ["idManager"],
+        },
+    ],
 });
 
 export default ResourceSchema;

@@ -47,6 +47,8 @@ export default function PopupAddResource({ show , setShow }) {
                 idManager: dato.data.id
             }
 
+            console.log("Recopilación:",recopilacion);
+
             const response = await createResource(recopilacion);
 
             // console.log("Response:",response);
