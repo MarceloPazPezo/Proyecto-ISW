@@ -233,7 +233,7 @@ const Teachers = () => {
         show={isPopupTeachOpen}
         setShow={setIsPopupTeachOpen}
         data={dataTeacher}
-        action={handleUpdate}
+        // action={handleTeach}
       />
     </div>
   );
