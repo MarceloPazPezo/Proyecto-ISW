@@ -4,6 +4,7 @@ import { authenticateJwt } from "../middlewares/authentication.middleware.js";
 import { authorizeRoles } from "../middlewares/authorization.middleware.js";
 import {
   createTeacher,
+  createUser,
   deleteUser,
   getTeachers,
   getUser,
@@ -18,6 +19,7 @@ router.use(authenticateJwt);
 
 router
   .get("/", authorizeRoles("administrador"), getUsers)
+  .post("/", authorizeRoles("administrador"), createUser)
   .get("/detail/", authorizeRoles("administrador"), getUser)
   .patch("/detail/", authorizeRoles("administrador"), updateUser)
   .delete("/detail/", authorizeRoles("administrador"), deleteUser)

@@ -1,6 +1,25 @@
 import axios from './root.service.js';
 import { convertirMinusculas, formatUserData } from '@helpers/formatData.js';
 
+export async function addUser(data) {
+    try {
+        const dataRegister = convertirMinusculas(data);
+        const { nombreCompleto, email, rut, telefono, rol, password } = dataRegister;
+
+        const response = await axios.post('/user/', {
+            nombreCompleto,
+            email,
+            rut,
+            telefono,
+            rol,
+            password
+        });
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export async function getUsers() {
     try {
         const { data } = await axios.get('/user/');
@@ -14,10 +33,8 @@ export async function getUsers() {
 export async function updateUser(data, rut) {
     try {
         const response = await axios.patch(`/user/detail/?rut=${rut}`, data);
-        console.log(response);
         return response.data.data;
     } catch (error) {
-        console.log(error);
         return error.response.data;
     }
 }
@@ -25,7 +42,7 @@ export async function updateUser(data, rut) {
 export async function deleteUser(rut) {
     try {
         const response = await axios.delete(`/user/detail/?rut=${rut}`);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }
@@ -61,9 +78,7 @@ export async function getTeachers() {
 
 export async function getUserRol(email){
     try {
-        const { data } = await axios.get(`/user/rol/?email=${email}`); // crear ruta y service en backend
-        
-        // console.log("Data de getUserRol:" + data);
+        const { data } = await axios.get(`/user/rol/?email=${email}`);
 
         localStorage.setItem('rol', JSON.stringify(data));
         return data;

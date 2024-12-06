@@ -16,23 +16,55 @@ import {
   handleSuccess,
 } from "../handlers/responseHandlers.js";
 
+/**
+ * La función `createClassroom` maneja la creación de un aula de clase y responde con el estado de la operación.
+ * 
+ * @param {Object} req - El objeto de solicitud que contiene la información del aula.
+ * @param {Object} res - El objeto de respuesta que se enviará al cliente.
+ * 
+ * @returns {void}
+ * 
+ * La función puede devolver las siguientes respuestas:
+ * - 201: Aula creada con éxito. El cuerpo de la respuesta contendrá los detalles del aula creada.
+ * - 400: Error de validación. El cuerpo de la respuesta contendrá detalles del error.
+ * - 500: Error del servidor. El cuerpo de la respuesta contendrá el mensaje de error.
+ */
 export async function createClassroom(req, res) {
   try {
-      const classroom = req.body;
-      console.log(classroom);
-      const { value, error } = classroomBodyValidation.validate(classroom);
+    const classroom = req.body;
 
-      if(error)
-        return handleErrorClient(res, 400, "Error de validación", error.message);
+    const { value, error } = classroomBodyValidation.validate(classroom);
 
-      const classroomSaved = await createClassroomService(value);
+    if (error)
+      return handleErrorClient(res, 400, "Error de validación", error.message);
 
-      handleSuccess(res, 201, "Aula registrada con éxito", classroomSaved);
+    const [newClassroom, errorNewClassroom] = await createClassroomService(value);
+
+    if (errorNewClassroom) return handleErrorClient(res, 400, "Error registrando el aula", errorNewClassroom);
+
+    handleSuccess(res, 201, "Aula registrada con éxito", newClassroom);
   } catch (error) {
-      handleErrorServer(res, 500, error.message);
+    handleErrorServer(res, 500, error.message);
   }
 }
 
+/**
+ * La función `getClassroom` maneja la solicitud para obtener información sobre un aula de clase
+ * basado en los parámetros de consulta proporcionados y responde con el estado de la operación.
+ * 
+ * @param {Object} req - El objeto de solicitud que contiene los parámetros de consulta `id` y `nombre`.
+ *   @param {string} req.query.id - El ID del aula.
+ *   @param {string} req.query.nombre - El nombre del aula.
+ * @param {Object} res - El objeto de respuesta que se enviará al cliente.
+ * 
+ * @returns {void}
+ * 
+ * La función puede devolver las siguientes respuestas:
+ * - 200: Aula encontrada. El cuerpo de la respuesta contendrá los detalles del aula.
+ * - 400: Error de validación. El cuerpo de la respuesta contendrá detalles del error de validación.
+ * - 404: Aula no encontrada. El cuerpo de la respuesta contendrá un mensaje indicando que no se encontró el aula.
+ * - 500: Error del servidor. El cuerpo de la respuesta contendrá un mensaje descriptivo del error.
+ */
 export async function getClassroom(req, res) {
   try {
     const { id, nombre } = req.query; 
@@ -55,6 +87,21 @@ export async function getClassroom(req, res) {
   }
 }
 
+/**
+ * La función `getClassrooms` maneja la solicitud para obtener la lista de aulas de clase
+ * y responde con el estado de la operación.
+ * 
+ * @param {Object} req - El objeto de solicitud.
+ * @param {Object} res - El objeto de respuesta que se enviará al cliente.
+ * 
+ * @returns {void}
+ * 
+ * La función puede devolver las siguientes respuestas:
+ * - 200: Aulas encontradas. El cuerpo de la respuesta contendrá los detalles de las aulas.
+ * - 204: No hay aulas. La respuesta no contendrá contenido.
+ * - 404: Aulas no encontradas. El cuerpo de la respuesta contendrá un mensaje indicando que no se encontraron aulas.
+ * - 500: Error del servidor. El cuerpo de la respuesta contendrá un mensaje descriptivo del error.
+ */
 export async function getClassrooms(req, res) {
   try {
     const [classrooms, errorClassrooms] = await getClassroomsService();
@@ -73,6 +120,25 @@ export async function getClassrooms(req, res) {
   }
 }
 
+/**
+ * La función `updateClassroom` maneja la solicitud para actualizar la información de un aula de clase
+ * basado en los parámetros de consulta y el cuerpo de la solicitud proporcionados, y responde con el estado de la operación.
+ * 
+ * @param {Object} req - El objeto de solicitud que contiene los parámetros de consulta `id` y `nombre`, y el cuerpo de la solicitud `body`.
+ *   @param {string} req.query.id - El ID del aula.
+ *   @param {string} req.query.nombre - El nombre del aula.
+ *   @param {Object} req.body - El objeto que contiene los nuevos datos del aula.
+ *     @param {string} req.body.nombre - El nuevo nombre del aula.
+ *     @param {string} [req.body.estado] - El nuevo estado del aula (opcional).
+ * @param {Object} res - El objeto de respuesta que se enviará al cliente.
+ * 
+ * @returns {void}
+ * 
+ * La función puede devolver las siguientes respuestas:
+ * - 200: Aula modificada correctamente. El cuerpo de la respuesta contendrá los detalles del aula actualizada.
+ * - 400: Error de validación. El cuerpo de la respuesta contendrá detalles del error de validación en la consulta o los datos enviados.
+ * - 500: Error del servidor. El cuerpo de la respuesta contendrá un mensaje descriptivo del error.
+ */
 export async function updateClassroom(req, res) {
   try {
     const { id, nombre } = req.query;
@@ -112,6 +178,23 @@ export async function updateClassroom(req, res) {
   }
 }
 
+/**
+ * La función `deleteClassroom` maneja la solicitud para eliminar un aula de clase
+ * basado en los parámetros de consulta proporcionados y responde con el estado de la operación.
+ * 
+ * @param {Object} req - El objeto de solicitud que contiene los parámetros de consulta `id` y `nombre`.
+ *   @param {string} req.query.id - El ID del aula.
+ *   @param {string} req.query.nombre - El nombre del aula.
+ * @param {Object} res - El objeto de respuesta que se enviará al cliente.
+ * 
+ * @returns {void}
+ * 
+ * La función puede devolver las siguientes respuestas:
+ * - 200: Aula eliminada correctamente. El cuerpo de la respuesta contendrá los detalles del aula eliminada.
+ * - 400: Error de validación. El cuerpo de la respuesta contendrá detalles del error de validación en la consulta.
+ * - 404: Aula no encontrada. El cuerpo de la respuesta contendrá un mensaje indicando que no se encontró el aula.
+ * - 500: Error del servidor. El cuerpo de la respuesta contendrá un mensaje descriptivo del error.
+ */
 export async function deleteClassroom(req, res) {
   try {
     const { id, nombre } = req.query;

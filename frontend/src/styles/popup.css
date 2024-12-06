@@ -1,48 +1,80 @@
-.bg{
+.bg {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(18, 19, 18, 0.338);
+    background: rgba(18, 19, 18, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.popup{
-    top: 30px;
-    height: 700px;
+
+.popup {
+    top: 17px;
     width: 600px;
+    max-height: 700px;
     background: white;
     position: relative;
-    border-radius: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    .popup-content {
+        height: 100%;
+        max-height: 700px;
+        overflow-y: auto;
+        padding: 20px;
+    }
+    .popup-content::-webkit-scrollbar {
+        width: 12px;
+    }
+    .popup-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .popup-content::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    .popup-content::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }
-.close{
-    position: center;
-    margin-top: 20px;
-    margin-right: 10px;
-    right: 10px;
-    cursor: pointer;
-    background-color: white;
-    border: white;
-    padding-top :50px;
 
+
+.close {
+    position: relative;
+    top: 10px;
+    left: 500px;
+    margin-bottom: -80px;
+    cursor: pointer;
+    background-color: #f9567c23;
+    border: 3px solid #F9567D;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
 }
-.title{
+.close:hover {
+    transition: 0.5s ease-out;
+    background-color: #ffffff;
+}
+.title {
     font-size: 17px;
     font-weight: 700;
 }
+
 .popup .form {
-    padding-top: 5px;
     h1 {
         margin-bottom: 30px;
     }
+
     button {
         margin-top: 0;
     }
+
     .container_inputs {
         margin-bottom: 10px;
     }
+
     .tooltip-icon {
         position: relative;
         top: 4px;
@@ -50,37 +82,41 @@
         cursor: pointer;
         display: inline-block;
     }
+
     .tooltip-icon .tooltip-text {
-    visibility: hidden;
-    width: 150px;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: #fff;
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    position: absolute;
-    font-size: 12px;
-    z-index: 1;
-    top: -3px;
-    left: 105%;
-    opacity: 0;
-    transition: opacity 0.3s;
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 4px;
+        padding: 5px;
+        position: absolute;
+        font-size: 12px;
+        z-index: 1;
+        top: -3px;
+        left: 105%;
+        opacity: 0;
+        transition: opacity 0.3s;
     }
+
     .tooltip-icon .tooltip-text::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
     }
+
     .tooltip-icon:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
+        visibility: visible;
+        opacity: 1;
     }
+
     .toggle-password-icon {
-        top: 47.5%;
+        top: 45%;
     }
 }

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-const useAddTeacher = () => {
+const useAddUser = () => {
     const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
 
     const [errorEmail, setErrorEmail] = useState('');
     const [errorRut, setErrorRut] = useState('');
     const [errorTelefono, setErrorTelefono] = useState('');
-    const [inputData, setInputData] = useState({ email: '', rut: '', telefono: '' });
+    const [inputData, setInputData] = useState({ email: '', rut: '' });
 
     useEffect(() => {
         if (inputData.email) setErrorEmail('');
@@ -31,7 +31,8 @@ const useAddTeacher = () => {
         }));
     };
 
-    const handleAddTeacherClick = () => {
+
+    const handleAddUserClick = () => {
         setIsPopupAddOpen(true);
     };
 
@@ -44,8 +45,8 @@ const useAddTeacher = () => {
         handleInputChange,
         isPopupAddOpen,
         setIsPopupAddOpen,
-        handleAddTeacherClick
+        handleAddUserClick
     };
 };
 
-export default useAddTeacher;
+export default useAddUser;

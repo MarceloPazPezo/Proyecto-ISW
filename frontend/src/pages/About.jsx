@@ -1,6 +1,3 @@
-// @pages/About.jsx
-import '../styles/about.css'; // Asegúrate de tener estilos si es necesario
-
 const About = () => {
     return (
         <>

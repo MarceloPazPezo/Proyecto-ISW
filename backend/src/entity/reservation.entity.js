@@ -42,6 +42,8 @@ const ReservationSchema = new EntitySchema({
                 referencedColumnName: "id",
             },
             nullable: true,
+            cascade: true,
+            onDelete: "CASCADE",
         },
         resource: {
             type: "many-to-one",
@@ -51,6 +53,8 @@ const ReservationSchema = new EntitySchema({
                 referencedColumnName: "id",
             },
             nullable: false,
+            cascade: true,
+            onDelete: "CASCADE",
         },
     }
 });

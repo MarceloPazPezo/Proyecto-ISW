@@ -1,12 +1,11 @@
 import axios from './root.service.js';
-import { formatClassroomData } from '@helpers/formatData.js';
-import { convertirMinusculas } from '@helpers/formatData.js';
+import { convertirMinusculas , formatClassroomData } from '@helpers/formatData.js';
 
 export async function addClassroom(data) {
     try {
         const dataRegister = convertirMinusculas(data);
-        const { nombre, estado } = dataRegister;
-
+        const estado = dataRegister.estado;
+        const nombre = dataRegister.nombre.toUpperCase();
         const response = await axios.post('/classroom', {
             nombre,
             estado
@@ -29,8 +28,7 @@ export async function getClassrooms() {
 
 export async function updateClassroom(data, nombre) {
     try {
-        const response = await axios.patch(`/classroom/detail/?nombre=${nombre}`, data);
-        console.log(response);
+        const response = await axios.patch(`/classroom/detail/?nombre=${nombre.toUpperCase()}`, data);
         return response.data.data;
     } catch (error) {
         console.log(error);
@@ -40,8 +38,8 @@ export async function updateClassroom(data, nombre) {
 
 export async function deleteClassroom(nombre) {
     try {
-        const response = await axios.delete(`/classroom/detail/?nombre=${nombre}`);
-        return response.data;
+        const response = await axios.delete(`/classroom/detail/?nombre=${nombre.toUpperCase()}`);
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }

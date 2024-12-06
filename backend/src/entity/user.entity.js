@@ -81,6 +81,15 @@ const UserSchema = new EntitySchema({
       unique: true,
     },
   ],
+  relations: {
+    teaches: {
+      type: "one-to-many",
+      target: "Teach",
+      inverseSide: "user",
+      cascade: true,
+      onDelete: "CASCADE",
+    }
+  }
 });
 
 export default UserSchema;
