@@ -50,7 +50,10 @@ const Login = () => {
                             maxLength: 30,
                             errorMessageData: errorEmail,
                             validate: {
-                                emailDomain: (value) => value.endsWith('@gmail.cl') || 'El correo debe terminar en @gmail.cl'
+                                emailDomain: (value) =>
+                                    value.endsWith("@gmail.com") ||
+                                    value.endsWith("@gmail.cl") ||
+                                    "El correo debe terminar en @gmail.cl o @gmail.com",
                             },
                             onChange: (e) => handleInputChange('email', e.target.value),
                         },
@@ -71,11 +74,11 @@ const Login = () => {
                     ]}
                     buttonText="Iniciar sesión"
                     onSubmit={loginSubmit}
-                    // footerContent={
-                    //     <p>
-                    //         <a href="/reset-password">¿Olvidaste tu contraseña?</a>
-                    //     </p>
-                    // }
+                footerContent={
+                    <p>
+                        ¿Problemas al ingresar en la plataforma? Contactanos
+                    </p>
+                }
                 />
             </main>
         </CSSTransition>
