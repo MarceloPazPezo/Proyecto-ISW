@@ -1,62 +1,88 @@
-import { useState } from 'react';
-import DatePicker from 'react-datepicker'; // Importa el DatePicker
-import 'react-datepicker/dist/react-datepicker.css'; // Importa los estilos
+import { useState, useEffect } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 import '@styles/misreservas.css';
+import useGetReservations from '../../hooks/reservations/useGetReservations';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useDeleteReservation from '../../hooks/reservations/useDeleteReservation';
 
-const MyReservation = () => {
-    const [startDate, setStartDate] = useState(new Date()); // Estado para la fecha seleccionada
+const MisReservas = () => {
+    const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [reservations, setReservations] = useState([]);
+    
+    const { fetchReservations, reservations: fetchedReservations, loading } = useGetReservations();
+    const { handleDeleteReserva } = useDeleteReservation(fetchReservations);
 
-    const reservations = [
-        {
-            id: 1,
-            fecha: '2021-09-20',
-            horaInicio: '08:00',
-            horaFin: '10:00',
-            resource: {
-                nombre: 'Proyector',
-            },
-        },
-    ];
+    // Obtén el usuario desde sessionStorage y las reservas
+    useEffect(() => {
+        const fetchUserAndReservations = async () => {
+            if (fetchedReservations.data && fetchedReservations.data.length > 0) {
+                // Filtra las reservas para el ID del usuario
+                const filteredReservations = fetchedReservations.data.filter(reservation => 
+                    reservation.idTeacher === userId
+                );
+                setReservations(filteredReservations); // Actualiza el estado con las reservas filtradas
+            }
+        };
+
+        fetchUserAndReservations();
+    }, [fetchedReservations, userId]);
+
+    useEffect(() => {
+        const savedUser = JSON.parse(sessionStorage.getItem('usuario'));
+        if (savedUser) {
+            setUser(savedUser);
+            setUserId(savedUser.id);
+            console.log('Usuario cargado:', savedUser);
+        }
+    }, []);
+
+    // Mostrar cargando si las reservas aún no están listas
+    if (loading) {
+        return <p>Cargando reservas...</p>;
+    }
 
     return (
-        <div className="my-reservations-container">
-            <h1>Mis Reservaciones</h1>
-
-            {/* DatePicker fuera del popup */}
-            <div className="date-picker-container">
-                <h2>Selecciona una fecha:</h2>
-                <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)} // Actualiza la fecha al seleccionar
-                    dateFormat="yyyy-MM-dd" // Formato de la fecha
-                    className="datepicker-input" // Estilo opcional
-                />
+        <div className="main-container">
+            <div className="reservation-container">
+                <h1>Mis Reservas</h1>
+                {user && <p>Usuario: {user.nombreCompleto}</p>}
+                {reservations.length > 0 ? (
+                    <table className="reservations-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Fin</th>
+                                <th>Recurso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reservations.map((reservation) => (
+                                <tr key={reservation.id}>
+                                    <td>{reservation.id}</td>
+                                    <td>{new Date(reservation.fecha).toLocaleDateString()}</td>
+                                    <td>{reservation.horaInicio}</td>
+                                    <td>{reservation.horaFin}</td>
+                                    <td>{reservation.resource.nombre}</td>
+                                    <td>
+                                        <button onClick={() => handleDeleteReserva(reservation)}> 
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No tienes reservas.</p>
+                )}
             </div>
-
-            <table className="reservations-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Fecha</th>
-                        <th>Hora de Inicio</th>
-                        <th>Hora de Fin</th>
-                        <th>Recurso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reservations.map((reservation) => (
-                        <tr key={reservation.id}>
-                            <td>{reservation.id}</td>
-                            <td>{reservation.fecha}</td>
-                            <td>{reservation.horaInicio}</td>
-                            <td>{reservation.horaFin}</td>
-                            <td>{reservation.resource.nombre}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
         </div>
     );
 };
 
-export default MyReservation;
+export default MisReservas;

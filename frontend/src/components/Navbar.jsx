@@ -171,7 +171,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                     )}
-                    {userRole === 'docente' && (
+                    {(userRole === 'docente' || userRole === 'director' || userRole === 'jefe de utp') && (
                         <li>
                             <NavLink
                                 to="/permisos"

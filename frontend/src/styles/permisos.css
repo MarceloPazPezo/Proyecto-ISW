@@ -1,62 +1,45 @@
 .permisos-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    padding-top: 15vh;
-  }
   
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #d787eb;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
   
-  .form-group {
-    margin-bottom: 15px;
-  }
   
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input[type="file"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .message {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 16px;
-    color: green;
-  }
+.message {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  color: green;
+}
+
+/* Estilo para la celda de la columna Motivo */
+table td.reason-cell {
+  max-width: 10px;  /* Limita el ancho de la columna */
+  overflow: hidden;  /* Oculta cualquier contenido que se desborde */
+  text-overflow: ellipsis; /* Muestra "..." cuando el texto es más largo */
+  white-space: nowrap;  /* Evita que el texto se divida en varias líneas */
+  cursor: pointer;  /* Cambia el cursor para indicar que el texto es interactivo */
+}
+
+table td.name-cell {
+  max-width: 10px;  /* Limita el ancho de la columna */
+  overflow: hidden;  /* Oculta cualquier contenido que se desborde */
+  text-overflow: ellipsis; /* Muestra "..." cuando el texto es más largo */
+  white-space: nowrap;  /* Evita que el texto se divida en varias líneas */
+  cursor: pointer;  /* Cambia el cursor para indicar que el texto es interactivo */
+}
+/* Tooltip de texto completo */
+table td.reason-cell[title]:hover {
+  background-color: #f0f0f0;  /* Cambio de color de fondo cuando se pasa el cursor */
+}
+table td.name-cell[title]:hover {
+  background-color: #f0f0f0;  /* Cambio de color de fondo cuando se pasa el cursor */
+}
+
   

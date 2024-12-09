@@ -10,8 +10,9 @@ export async function login(dataUser) {
         });
         const { status, data } = response;
         if (status === 200) {
-            const { nombreCompleto, email, rut, rol } = jwtDecode(data.data.token);
-            const userData = { nombreCompleto, email, rut, rol };
+            const { id, nombreCompleto, email, rut, rol } = jwtDecode(data.data.token);
+            const userData = { id, nombreCompleto, email, rut, rol };
+            console.log("Data: ", userData);
             sessionStorage.setItem('usuario', JSON.stringify(userData));
             axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
             cookies.set('jwt-auth', data.data.token, {path:'/'});

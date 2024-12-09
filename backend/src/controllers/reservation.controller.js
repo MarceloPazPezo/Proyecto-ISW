@@ -1,6 +1,7 @@
 import {
     createReservationService,
     deleteReservationService,
+    getReservationbyIDService,
     getReservationService,
     getReservationsService,
     updateReservationService
@@ -16,6 +17,23 @@ import {
     handleErrorServer,
     handleSuccess,
 } from "../handlers/responseHandlers.js"
+
+export async function getReservationbyID(req, res) {
+    try {
+        const { id } = req.query;
+
+        console.log("IDCONTROLLER:",id);
+
+        const { error } = reservationQueryValidation.validate({ id });
+
+        if (error) return handleErrorClient(res, 404, error);
+
+        const [reservation, errorReservation] = await getReservationbyIDService({ id });
+
+    } catch (error) {
+        handleErrorServer(res, 500, error.message);
+    }
+}
 
 export async function createReservation(req, res) {
     try {
@@ -65,6 +83,8 @@ export async function getReservation(req, res) {
         
         const { id } = req.query;
 
+        console.log("IDCONTROLLER:",id);
+        
         const { error } = reservationQueryValidation.validate({ id });
 
         if (error) return handleErrorClient(res, 404, error);
@@ -83,18 +103,36 @@ export async function getReservation(req, res) {
 export async function updateReservation(req, res) {
     try {
         
-        const { id } = req.query;
+        const { id, horaInicio, horaFin, idResource, idTeacher } = req.query;
         const { body } = req;
 
-        const { error: queryError } = reservationQueryValidation({ id });
+        console.log("IDCONTROLLER:",body);
 
-        if (queryError) return handleErrorClient(res,404,error);
+        // const { error: queryError } = reservationQueryValidation({ id });
 
-        const { error: bodyError } = reservationBodyValidation({ body });
+        // if (queryError) return handleErrorClient(res,404,error);
 
-        if (bodyError) return handleErrorClient(res,404,error);
+        // const { error: bodyError } = reservationBodyValidation.validate( body );
 
-        const [reservation, errorReservation] = await updateReservationService({ id } , body);
+        // if (bodyError) {
+            
+        //     console.log(error.details);
+            
+        //     return handleErrorClient(
+        //         res,
+        //         400,
+        //         "Error de validación en los datos enviados",
+        //         bodyError.message,
+        //     );
+        // }
+
+        console.log("Entrando al Service");
+
+        const [reservation, errorReservation] = await updateReservationService(
+            { id, horaInicio, horaFin, idResource, idTeacher } , body
+        );
+
+        console.log("Salida del Service", reservation, errorReservation);
 
         if (errorReservation) return handleErrorClient(res, 404, errorReservation);
 

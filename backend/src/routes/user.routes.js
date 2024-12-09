@@ -18,7 +18,7 @@ const router = Router();
 router.use(authenticateJwt);
 
 router
-  .get("/", authorizeRoles("administrador"), getUsers)
+  .get("/", authorizeRoles("administrador","director", "jefe de utp"), getUsers)
   .post("/", authorizeRoles("administrador"), createUser)
   .get("/detail/", authorizeRoles("administrador"), getUser)
   .patch("/detail/", authorizeRoles("administrador"), updateUser)

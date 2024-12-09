@@ -1,6 +1,20 @@
 import axios from './root.service.js';
 // import { convertirMinusculas } from '@helpers/formatData.js';
 
+export async function getReservationbyID(id) {
+    try {
+            
+        console.log("IDSERVFRONT: ", id);
+
+        const data = await axios.get(`/reservation/detailRes/?id=${id}`);
+
+        return data.data;
+
+    } catch (error) {
+        return error.response.data;       
+    }
+}
+
 export async function createReservation(reservationData) {
     try {
         
@@ -40,7 +54,9 @@ export async function getReservations() {
 export async function getReservation(id) {
     try {
         
-        const data = await axios.get(`/reservation/detail/${id}`);
+        console.log("IDSERVFRONT: ", id);
+
+        const data = await axios.get(`/reservation/detail/?id=${id}`);
 
         return data.data;
 
@@ -52,7 +68,7 @@ export async function getReservation(id) {
 export async function updateReservation(reservationData) {
     try {
 
-        console.log("Data: ", reservationData.idResource);
+        // console.log("Data: ", reservationData.idResource);
         
         const { id, idResource,  idTeacher, fecha, horaInicio, horaFin} = reservationData;
 

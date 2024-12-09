@@ -8,7 +8,10 @@ import useGetReservations from '../../hooks/reservations/useGetReservations.jsx'
 import useDeleteResource from '../../hooks/resource/useDeleteResource.jsx';
 import useDeleteReservation from '../../hooks/reservations/useDeleteReservation.jsx';
 import useGetResources from '../../hooks/resource/useGetResources.jsx';
+import useEditReservation from '../../hooks/reservations/useEditReservation.jsx';
 import { deleteReservation } from '../../services/reservation.service.js';
+// import { getReservationbyID } from '../../services/reservation.service.js';
+import { getReservations } from '../../services/reservation.service.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faEye, faPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,6 +28,8 @@ const Reservation = () => {
     const [currentReservationPage, setCurrentReservationPage] = useState(1); // Estado para manejar la página actual de las reservas filtradas
     const [sortCriteria, setSortCriteria] = useState({ field: 'fecha', direction: 'asc' }); // Estado para manejar el criterio de ordenación
     const [showPastReservations, setShowPastReservations] = useState(false); // Estado para manejar la vista de reservas pasadas o futuras
+    const [selectedResource, setSelectedResource] = useState(null);
+    const [isReservationPopupOpen, setIsReservationPopupOpen] = useState(false);
     const resourcesPerPage = 4;
     const reservationsPerPage = 4;
 
@@ -32,6 +37,32 @@ const Reservation = () => {
     const { handleDeleteRecurso } = useDeleteResource(fetchResources, setDataResources);
     const { reservations, fetchReservations } = useGetReservations();
     const { handleDeleteReserva } = useDeleteReservation(fetchReservations);
+    const [reservationsData, setReservationsData] = useState([]);
+    const [user2, setUser2] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [reservations2, setReservations] = useState([]); // Estado de las reservas
+    const {
+        handleClickUpdate,
+        handleUpdate,
+        isPopupOpen,
+        setIsPopupOpen,
+        dataReservation,
+        setDataReservation
+    } = useEditReservation(setReservations);
+
+    useEffect(() => {
+        const savedUser = JSON.parse(sessionStorage.getItem('usuario'));
+        if (savedUser) {
+            setUser2(savedUser);
+            setUserId(savedUser.id);
+            console.log('Usuario cargado:', savedUser);
+        }
+    }, []);
+    
+    const closeReservationPopup = () => {
+        setSelectedResource(null);
+        setIsReservationPopupOpen(false);
+    };
 
     const handleAddResourceClick = () => {
         setIsPopupAddOpen(true);
@@ -69,6 +100,50 @@ const Reservation = () => {
         }
     };
 
+    const handleGetClick2 = async (id) => {
+        // Suponiendo que fetchReservations es una función que obtiene todas las reservas
+        const reservations = await getReservations();
+        console.log('ReservaSSSSSSSSSSSSSSSSSSs:', reservations);
+    
+        // Verifica que `data` esté presente y sea un array
+        if (!reservations.data || !Array.isArray(reservations.data)) {
+            console.log('No se encontraron reservas o la estructura es incorrecta.');
+            return;
+        }
+    
+        // Guardamos las reservas disponibles en el estado
+        console.log('Reserva>>>>>>>>>>>>>>>>>>>:', id.id);
+        console.log(reservations.data.length);
+    
+        // Creamos un array para almacenar las reservas que coinciden
+        const matchingReservations = [];
+    
+        let found = false; // Bandera para verificar si encontramos una reserva
+        for (let i = 0; i < reservations.data.length; i++) {
+            if (reservations.data[i].idResource === id.id) {
+                console.log('ID recurso 1:', reservations.data[i].idResource);
+                console.log('ID recurso 2:', id);
+                console.log('Hay reservas disponibles para este recurso.');
+    
+                // Almacenamos todas las reservas que coinciden en el array
+                matchingReservations.push(reservations.data[i]);
+                found = true; // Indicamos que encontramos al menos una reserva
+            }
+        }
+    
+        // Guardamos las reservas encontradas en el estado
+        setReservationsData(matchingReservations);
+    
+        console.log('Reservas encontradas:', matchingReservations);
+    
+        setIsReservationPopupOpen(true);
+    
+        if (!found) {
+            console.log('No hay reservas disponibles para este recurso.');
+        }
+    };
+      
+
     const sortReservations = (reservations, criteria) => {
         return reservations.sort((a, b) => {
             if (criteria.field === 'fecha') {
@@ -104,6 +179,24 @@ const Reservation = () => {
 
         fetchUserRole();
     }, []);
+
+    const handleAssignTeacher = (id) => {
+        const idTeacher = userId;
+        console.log('Teacher:', idTeacher);
+        console.log('Reservation:', id);
+        console.log(reservations.data);
+        // Comprobar si el idTeacher ya está asignado antes de proceder
+        for (let i = 0; i < reservations.data.length; i++) {
+            if (idTeacher != null && id == reservations.data[i].id) {
+                console.log('Actualizando....');
+                const dataReservation = reservations.data[i];
+                dataReservation.idTeacher = idTeacher; // Asignar solo el idTeacher
+                handleUpdate(dataReservation); // Solo actualiza si es necesario
+                return 0;
+            }
+        }
+    };
+      
 
     const ROL = rol.data?.rol;
     const canManageResources = user && (ROL === 'admin' || ROL === 'encargado');
@@ -179,8 +272,11 @@ const Reservation = () => {
                                 <td>{element.estado}</td>
                                 <td>
                                     {canReservate && (
-                                        <button disabled={element.estado === "RESERVADO"}>
-                                            Reservar
+                                        <button
+                                            disabled={element.estado === "RESERVADO"}
+                                            onClick={() => handleGetClick2(element)}
+                                        >
+                                            Ver Horarios
                                         </button>
                                     )}
                                     {canManageResources && (
@@ -212,56 +308,98 @@ const Reservation = () => {
             </div>
             <PopupAddResource show={isPopupAddOpen} setShow={setIsPopupAddOpen} />
             <PopupEditReservation show={isPopupEditOpen} setShow={setIsPopupEditOpen} resourceId={editResourceId} />
+            {isReservationPopupOpen && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <button className="close-button" onClick={closeReservationPopup}>
+                            ✖
+                        </button>
+                        <h2>Reservas disponibles</h2>
+                        {reservationsData.length === 0 ? (
+                            <p>No hay reservas disponibles para este recurso.</p>
+                        ) : (
+                            <table className="reservation-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fecha</th>
+                                        <th>Hora Inicio</th>
+                                        <th>Hora Fin</th>
+                                        <th>Acción</th> {/* Columna adicional */}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reservationsData
+                                    .filter(reservation => reservation.idTeacher === null)
+                                    .map(reservation => (
+                                        <tr key={reservation.id}>
+                                            <td>{reservation.id}</td>
+                                            <td>{reservation.fecha}</td>
+                                            <td>{reservation.horaInicio}</td>
+                                            <td>{reservation.horaFin}</td>
+                                            <td>
+                                                <button onClick={() => handleAssignTeacher(reservation.id)}>                                                
+                                                    Reservar
+                                                </button>
+                                            </td> 
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+            )}
+
             {viewReservationId && (
             <div className="reservation-details">
-                <buttonClose onClick={() => setViewReservationId(null)} className="close-button">
-                    ✖
-                </buttonClose>
-                {/* <h2>Reservas del Recurso</h2> */}
+            <buttonClose onClick={() => setViewReservationId(null)} className="close-button">
+                ✖
+            </buttonClose>
+                <div className="reservation-actions">
+                    <button onClick={() => setShowPastReservations(!showPastReservations)}>
+                        {showPastReservations ? 'Mostrando Reservas Pasadas' : 'Mostrando Reservas Disponibles'}
+                    </button>
+                </div>
                 {currentReservations.length === 0 ? (
                     <p>No hay reservas para este recurso.</p>
                 ) : (
-                    <div className="reservation-actions">
-                        <button onClick={() => setShowPastReservations(!showPastReservations)}>
-                            {showPastReservations ? 'Mostrando Reservas Pasadas' : 'Mostrando Reservas Disponibles'}
-                        </button>
-                        <table className="reservation-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>
-                                        <button2 onClick={() => handleSort('horaInicio')}>
-                                            Hora Inicio {sortCriteria.field === 'horaInicio' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
-                                        </button2>
-                                    </th>
-                                    <th>Hora Fin</th>
-                                    <th>
-                                        <button2 onClick={() => handleSort('fecha')}>
-                                            Fecha {sortCriteria.field === 'fecha' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
-                                        </button2>
-                                    </th>
-                                    <th>Profesor</th>
-                                    <th>Acciones</th>
+                    <table className="reservation-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>
+                                    <button2 onClick={() => handleSort('horaInicio')}>
+                                        Hora Inicio {sortCriteria.field === 'horaInicio' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
+                                    </button2>
+                                </th>
+                                <th>Hora Fin</th>
+                                <th>
+                                    <button2 onClick={() => handleSort('fecha')}>
+                                        Fecha {sortCriteria.field === 'fecha' && (sortCriteria.direction === 'asc' ? '↑' : '↓')}
+                                    </button2>
+                                </th>
+                                <th>Profesor</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentReservations.map(reservation => (
+                                <tr key={reservation.id}>
+                                    <td>{reservation.id}</td>
+                                    <td>{reservation.horaInicio}</td>
+                                    <td>{reservation.horaFin}</td>
+                                    <td>{new Date(reservation.fecha).toLocaleDateString()}</td>
+                                    <td>{reservation.idTeacher === null ? "No solicitado" : reservation.idTeacher}</td>
+                                    <td>
+                                        <button onClick={() => handleDeleteReserva(reservation)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {currentReservations.map(reservation => (
-                                    <tr key={reservation.id}>
-                                        <td>{reservation.id}</td>
-                                        <td>{reservation.horaInicio}</td>
-                                        <td>{reservation.horaFin}</td>
-                                        <td>{new Date(reservation.fecha).toLocaleDateString()}</td>
-                                        <td>{reservation.teacher === null ? "No solicitado" : reservation.teacher}</td>
-                                        <td>
-                                            <button onClick={() => handleDeleteReserva(reservation)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 )}
                 <div className="pagination">
                     <buttonPag onClick={prevReservationPage} disabled={currentReservationPage === 1}>
