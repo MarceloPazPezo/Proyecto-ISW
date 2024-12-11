@@ -1,14 +1,15 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from '@services/auth.service.js';
 import '@styles/navbar.css';
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUsers, faClipboardList, faInfoCircle, faSignOutAlt, faCalendar, faFileAlt, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-// import { set } from "react-hook-form";
+import {
+    faHome, faUsers, faClipboardList, faInfoCircle,
+    faSignOutAlt, faCalendar, faFileAlt, faChevronDown
+} from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const user = JSON.parse(sessionStorage.getItem('usuario')) || '';
     const userRole = user?.rol;
     const [menuOpen, setMenuOpen] = useState(false);
@@ -28,20 +29,6 @@ const Navbar = () => {
         setMenuOpen(!menuOpen);
     };
 
-    const removeActiveClass = () => {
-        const activeLinks = document.querySelectorAll('.nav-menu ul li a.active');
-        activeLinks.forEach(link => link.classList.remove('active'));
-    };
-
-    const addActiveClass = () => {
-        const links = document.querySelectorAll('.nav-menu ul li a');
-        links.forEach(link => {
-            if (link.getAttribute('href') === location.pathname) {
-                link.classList.add('active');
-            }
-        });
-    };
-
     const toggleAdminMenu = () => {
         setAdminMenuOpen(!adminMenuOpen);
     };
@@ -54,8 +41,6 @@ const Navbar = () => {
         setMenuOpen(false);
         setAdminMenuOpen(false);
         setDocenteMenuOpen(false);
-        removeActiveClass();
-        addActiveClass();
     };
 
     return (
@@ -66,7 +51,7 @@ const Navbar = () => {
                         <NavLink
                             to="/home"
                             onClick={handleLinkClick}
-                            activeClassName="active"
+                            className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             <FontAwesomeIcon icon={faHome} /> Inicio
                         </NavLink>
@@ -85,38 +70,60 @@ const Navbar = () => {
                             </button>
                             <ul className={`submenu ${adminMenuOpen ? 'open' : ''}`}>
                                 {userRole !== 'jefe de utp' && (
-                                    <li>
-                                        <NavLink to="/subjects" activeClassName="active" onClick={handleLinkClick}>
-                                            Asignaturas
-                                        </NavLink>
-                                    </li>
-                                )}
-                                {userRole !== 'jefe de utp' && (
-                                    <li>
-                                        <NavLink to="/classrooms" activeClassName="active" onClick={handleLinkClick}>
-                                            Aulas
-                                        </NavLink>
-                                    </li>
-                                )}
-                                {userRole !== 'jefe de utp' && (
-                                    <li>
-                                        <NavLink to="/users" activeClassName="active" onClick={handleLinkClick}>
-                                            Usuarios
-                                        </NavLink>
-                                    </li>
+                                    <>
+                                        <li>
+                                            <NavLink
+                                                to="/subjects"
+                                                className={({ isActive }) => (isActive ? 'active' : '')}
+                                                onClick={handleLinkClick}
+                                            >
+                                                Asignaturas
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/classrooms"
+                                                className={({ isActive }) => (isActive ? 'active' : '')}
+                                                onClick={handleLinkClick}
+                                            >
+                                                Aulas
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/users"
+                                                className={({ isActive }) => (isActive ? 'active' : '')}
+                                                onClick={handleLinkClick}
+                                            >
+                                                Usuarios
+                                            </NavLink>
+                                        </li>
+                                    </>
                                 )}
                                 <li>
-                                    <NavLink to="/teachers" activeClassName="active" onClick={handleLinkClick}>
+                                    <NavLink
+                                        to="/teachers"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
                                         Docentes
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/asignarBloque" activeClassName="active" onClick={handleLinkClick}>
+                                    <NavLink
+                                        to="/asignarBloque"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
                                         AgregarHorario
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/bloquesHorario" activeClassName="active" onClick={handleLinkClick}>
+                                    <NavLink
+                                        to="/bloquesHorario"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
                                         Bloques
                                     </NavLink>
                                 </li>
@@ -137,13 +144,21 @@ const Navbar = () => {
                             </button>
                             <ul className={`submenu ${docenteMenuOpen ? 'open' : ''}`}>
                                 <li>
-                                <NavLink to="/reservation" activeClassName="active" onClick={handleLinkClick}>
-                                    <FontAwesomeIcon/> Disponibles
-                                </NavLink>
+                                    <NavLink
+                                        to="/reservation"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
+                                        Disponibles
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/myreservation" activeClassName="active" onClick={handleLinkClick}>
-                                        <FontAwesomeIcon/> Mis Reservas
+                                    <NavLink
+                                        to="/myreservation"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
+                                        Mis Reservas
                                     </NavLink>
                                 </li>
                             </ul>
@@ -185,8 +200,8 @@ const Navbar = () => {
                     <li>
                         <NavLink
                             to="/about"
+                            className={({ isActive }) => (isActive ? 'active' : '')}
                             onClick={handleLinkClick}
-                            activeClassName="active"
                         >
                             <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
                         </NavLink>
@@ -198,7 +213,7 @@ const Navbar = () => {
                                 logoutSubmit();
                                 setMenuOpen(false);
                             }}
-                            activeClassName="active"
+                            className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar sesión
                         </NavLink>

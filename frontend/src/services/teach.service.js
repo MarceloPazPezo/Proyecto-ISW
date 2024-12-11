@@ -33,11 +33,12 @@ export async function getTeachesByID(id) {
     }
 }
 
-export async function deleteClassroom(nombre) {
+// export async function deleteClassroom(nombre) {
+export async function deleteTeach(id) {
     try {
-        const response = await axios.delete(`/classroom/detail/?nombre=${nombre}`);
+        const response = await axios.delete(`/teach/detail/?id=${id}`);
         return response.data;
     } catch (error) {
-        return error.response.data;
+        throw new Error(error.response?.data?.message || "Error al eliminar relación");
     }
 }

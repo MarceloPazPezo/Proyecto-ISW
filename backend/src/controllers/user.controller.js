@@ -19,6 +19,7 @@ import {
   handleErrorServer,
   handleSuccess,
 } from "../handlers/responseHandlers.js";
+import { sendEmailDefault } from "../controllers/email.controller.js";
 
 export async function createUser(req, res) {
   try {
@@ -30,6 +31,21 @@ export async function createUser(req, res) {
     const [newUser, errorNewUser] = await createUserService(value);
     if (errorNewUser) 
       return handleErrorClient(res, 400, "Error de registro de usuario", errorNewUser);
+
+    const resEmail = await sendEmailDefault({ 
+      body: {
+        email: body.email,
+        subject: "Cuenta registrada en ISW 2024 - 2!",
+        message: `Bienvenido a la plataforma ${newUser.nombreCompleto}`,
+      }
+    });
+
+    console.log(resEmail);
+    console.log("hola");
+
+    if (!resEmail.success) {
+      console.error("Error enviando el correo:", resEmail.error);
+    }
 
     handleSuccess(res, 201, "Usuario agregado exitosamente", newUser);
   } catch (error) {
@@ -161,6 +177,18 @@ export async function deleteUser(req, res) {
 
     if (errorUserDelete) return handleErrorClient(res, 404, "Error eliminado al usuario", errorUserDelete);
 
+    const resEmail = await sendEmailDefault({ 
+      body: {
+        email: userDelete.email,
+        subject: "Cuenta eliminada en ISW 2024 - 2!",
+        message: `${userDelete.nombreCompleto} tu cuenta a sido eliminada de la plataforma.`,
+      }
+    });
+
+    if (!resEmail.success) {
+      console.error("Error enviando el correo:", resEmail.error);
+    }
+
     handleSuccess(res, 200, "Usuario eliminado correctamente", userDelete);
   } catch (error) {
     handleErrorServer(res, 500, error.message);
@@ -177,6 +205,18 @@ export async function createTeacher(req, res) {
     const [newTeacher, errorNewTeacher] = await createTeacherService(value);
     if (errorNewTeacher) 
       return handleErrorClient(res, 400, "Error de registro de docente", errorNewTeacher);
+
+    const resEmail = await sendEmailDefault({ 
+      body: {
+        email: teacher.email,
+        subject: "Cuenta registrada en ISW 2024 - 2!",
+        message: `Bienvenido a la plataforma ${teacher.nombreCompleto}`,
+      }
+    });
+
+    if (!resEmail.success) {
+      console.error("Error enviando el correo:", resEmail.error);
+    }
 
     handleSuccess(res, 201, "Usuario agregado exitosamente", newTeacher);
   } catch (error) {

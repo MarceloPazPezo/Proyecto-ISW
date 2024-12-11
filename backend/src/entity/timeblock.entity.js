@@ -44,6 +44,8 @@ const TimeblockSchema = new EntitySchema({
         referencedColumnName: "id", 
       },
       nullable: true, 
+      cascade: true,
+      onDelete: "CASCADE",
     },
     course: {
       type: "many-to-one",
@@ -53,6 +55,8 @@ const TimeblockSchema = new EntitySchema({
         referencedColumnName: "id", 
       },
       nullable: true,
+      cascade: true,
+      onDelete: "CASCADE",
     },
     subject: {
       type: "many-to-one",
@@ -62,6 +66,8 @@ const TimeblockSchema = new EntitySchema({
         referencedColumnName: "id", 
       },
       nullable: true,
+      cascade: true,
+      onDelete: "CASCADE",
     },
   },
   indices: [

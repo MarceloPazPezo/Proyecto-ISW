@@ -66,6 +66,15 @@ export async function addTeacher(data) {
     }
 }
 
+export async function getTeacher(rut) {
+    try {
+        const { data } = await axios.get(`/user/teacher/details/?rut=${rut}`);
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export async function getTeachers() {
     try {
         const { data } = await axios.get('/user/teacher');
