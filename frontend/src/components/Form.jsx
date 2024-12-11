@@ -1,4 +1,4 @@
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import '@styles/form.css';
 import HideIcon from '../assets/HideIcon.svg';
@@ -12,11 +12,14 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
     const [showNewPassword, setShowNewPassword] = useState(false);
 
     useEffect(() => {
+        const initialOptions = {};
         fields.forEach((field) => {
-            if (field.disabled) {
-                setValue(field.name, field.defaultValue || '');
+            if (field.fieldType === 'multiselect' && field.defaultValue) {
+                initialOptions[field.name] = field.defaultValue;
+                setValue(field.name, field.defaultValue); // Sincroniza con react-hook-form
             }
         });
+        setSelectedOptions(initialOptions);
     }, [fields, setValue]);
 
     const togglePasswordVisibility = () => {
@@ -33,7 +36,8 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
             [name]: selected,
         }));
         setValue(name, selected);
-    }; 
+    };
+
     const onFormSubmit = (data) => {
         fields.forEach((field) => {
             if (field.disabled && !data[field.name]) {
@@ -112,7 +116,6 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
                         <MultiSelect
                             options={field.options}
                             selectedOptions={selectedOptions[field.name] || []}
-                            defaultValue
                             onChange={handleMultiSelectChange}
                             name={field.name}
                             required={field.required}

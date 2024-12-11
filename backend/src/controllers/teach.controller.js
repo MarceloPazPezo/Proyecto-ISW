@@ -260,7 +260,6 @@ export async function deleteTeachRelation(req, res) {
 export async function getSubjectsByTeacher(req, res) {
   try {
     const { rut } = req.query;
-    console.log(rut);
     const { error } = userQueryValidation.validate({ rut });
 
     if (error)
