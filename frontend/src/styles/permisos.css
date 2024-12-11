@@ -42,4 +42,8 @@ table td.name-cell[title]:hover {
   background-color: #f0f0f0;  /* Cambio de color de fondo cuando se pasa el cursor */
 }
 
+.form-group {
+  height: 50px;
+}
+
   
