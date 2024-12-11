@@ -33,7 +33,6 @@ export async function getTeachesByID(id) {
     }
 }
 
-// export async function deleteClassroom(nombre) {
 export async function deleteTeach(id) {
     try {
         const response = await axios.delete(`/teach/detail/?id=${id}`);
