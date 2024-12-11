@@ -25,14 +25,11 @@ export const reservationQueryValidation = Joi.object({
     });
 
 export const reservationBodyValidation = Joi.object({
-    horaInicio: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).messages({
-        "string.pattern.base": "La hora de inicio debe estar en el formato HH:mm.",
+    horaInicio: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/).messages({
+        "string.pattern.base": "La hora de inicio debe estar en el formato HH:mm:ss.",
     }),
-    horaFin: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).messages({
-        "string.pattern.base": "La hora de fin debe estar en el formato HH:mm.",
-    }),
-    fecha: Joi.date().messages({
-        "date.base": "La fecha debe ser de tipo date.",
+    horaFin: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/).messages({
+        "string.pattern.base": "La hora de fin debe estar en el formato HH:mm:ss.",
     }),
     idTeacher: Joi.number().integer().positive().allow(null).messages({
         "number.base": "El idTeacher debe ser un número.",

@@ -24,6 +24,16 @@ export async function getTeachesByTeacher(rut) {
     }
 }
 
+export async function getTeachesByID(id) {
+    try {
+        const { data } = await axios.get(`/teach/teacher/detail/?id=${id}`);
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+// export async function deleteClassroom(nombre) {
 export async function deleteTeach(id) {
     try {
         const response = await axios.delete(`/teach/detail/?id=${id}`);
