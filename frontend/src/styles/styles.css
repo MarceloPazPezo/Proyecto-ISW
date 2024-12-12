@@ -62,8 +62,8 @@ nav ul li a:hover {
 }
 
 .title-box {
-	background-color: #4B86FA;
-	color: #fff;
+	background-color: #3e3478dc;
+	color: #FFFFFF;
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -72,7 +72,7 @@ nav ul li a:hover {
 }
 
 .title {
-	font-size: 2em !important;
+	font-size: 2em;
 	margin: 0;
 }
 
@@ -87,7 +87,6 @@ nav ul li a:hover {
 	margin: auto;
 }
 
-.about-section,
 .services-section,
 .contact-section {
 	background-color: #F0F1FF;

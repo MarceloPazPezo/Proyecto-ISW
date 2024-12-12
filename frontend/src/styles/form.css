@@ -7,6 +7,7 @@
 
     .form h1 {
         font-size: 24px;
+		color: #7A28CB;
         margin-bottom: 2vh;
     }
 
@@ -114,6 +115,7 @@
 		font-weight: light;
 	}
 	select {
+		width: 100%;
 		display: flex;
 		border: 3px solid #3E3478;
 		border-radius: 12px;
@@ -290,7 +292,7 @@ input[name='nombreCompleto'] {
 
 select[name='rol'] {
 	background-image: url('../assets/PasskeyIcon.svg');
-
+	min-width: 100%;
 }
 
 input[type="password"]::-ms-reveal,

@@ -186,15 +186,6 @@ const Navbar = () => {
                             </li>
                         </>
                     )}
-                    <li>
-                        <NavLink
-                            to="/about"
-                            className={({ isActive }) => (isActive ? 'active' : '')}
-                            onClick={handleLinkClick}
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
-                        </NavLink>
-                    </li>
                     <li className="cerrar-sesion">
                         <NavLink
                             to="/auth"
