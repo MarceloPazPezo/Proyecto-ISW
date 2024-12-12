@@ -13,9 +13,9 @@ const useEditReservation = (setReservations) => {
     };
 
     const handleUpdate = async (updatedReservationData) => {
+        console.log("DataReservationSSSSSSSSSS: ", updatedReservationData);
         if (updatedReservationData) {
             try {
-                console.log("DataReservation: ", updatedReservationData.idResource);
                 const updatedReservation = await updateReservation(updatedReservationData); //FIXME: dataReservation[0].id
                 showSuccessAlert('¡Actualizado!','La reserva ha sido actualizada correctamente.');
                 setIsPopupOpen(false);

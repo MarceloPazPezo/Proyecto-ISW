@@ -164,27 +164,38 @@ const Navbar = () => {
                             </ul>
                         </li>
                     )}
+                    {(userRole === 'encargado') && (
+                    <li>
+                        <NavLink
+                            to="/reservation"
+                            onClick={handleLinkClick}
+                            activeClassName="active"
+                        >
+                            <FontAwesomeIcon icon={faClipboardList} /> Reserva
+                        </NavLink>
+                    </li>
+                    )}
                     {userRole === 'docente' && (
-                        <>
-                            <li>
-                                <NavLink
-                                    to="/schedule"
-                                    className={({ isActive }) => (isActive ? 'active' : '')}
-                                    onClick={handleLinkClick}
-                                >
-                                    <FontAwesomeIcon icon={faCalendar} /> Horario
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/permisos"
-                                    className={({ isActive }) => (isActive ? 'active' : '')}
-                                    onClick={handleLinkClick}
-                                >
-                                    <FontAwesomeIcon icon={faFileAlt} /> Permisos
-                                </NavLink>
-                            </li>
-                        </>
+                        <li>
+                            <NavLink
+                                to="/schedule"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faCalendar} /> Horario
+                            </NavLink>
+                        </li>
+                    )}
+                    {(userRole === 'docente' || userRole === 'director' || userRole === 'jefe de utp') && (
+                        <li>
+                            <NavLink
+                                to="/permisos"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faFileAlt} /> Permisos
+                            </NavLink>
+                        </li>
                     )}
                     <li className="cerrar-sesion">
                         <NavLink
