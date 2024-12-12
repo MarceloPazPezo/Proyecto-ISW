@@ -22,8 +22,11 @@ const Classrooms = () => {
     const { classrooms, fetchClassrooms, setClassrooms } = useClassrooms();
     const [filterEstado, setFilterEstado] = useState("");
     const [messageCopied, setMessageCopied] = useState("");
-    const { isPopupAddOpen, setIsPopupAddOpen, handleAddClassroomClick } =
-        useAddClassroom();
+    const {
+        isPopupAddOpen,
+        setIsPopupAddOpen,
+        handleAddClassroomClick
+    } = useAddClassroom();
 
     const {
         handleClickUpdate,
@@ -80,6 +83,12 @@ const Classrooms = () => {
         {
             title: "Estado",
             field: "estado",
+            responsive: 0,
+            cellClick: handleCellClick,
+        },
+        {
+            title: "Capacidad",
+            field: "capacidad",
             responsive: 0,
             cellClick: handleCellClick,
         },

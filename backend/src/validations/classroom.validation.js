@@ -52,14 +52,23 @@ export const classroomBodyValidation = Joi.object({
       "string.min": "El estado debe tener como mínimo 8 caracteres.",
       "string.max": "El estado debe tener como máximo 15 caracteres.",
     }),
+  capacidad: Joi.number()
+    .integer()
+    .positive()
+    .messages({
+      "number.base": "La capacidad debe ser un número.",
+      "number.integer": "La capacidad debe ser un número entero.",
+      "number.positive": "La capacidad debe ser un número positivo.",
+    }),
 })
   .or(
     "nombre",
-    "estado"
+    "estado",
+    "capacidad"
   )
   .unknown(false)
   .messages({
     "object.unknown": "No se permiten propiedades adicionales.",
     "object.missing":
-      "Debes proporcionar al menos un campo: nombre o estado.",
+      "Debes proporcionar los campos: nombre, estado y capacidad.",
   });
