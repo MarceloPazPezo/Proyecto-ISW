@@ -52,7 +52,6 @@ const MisReservas = () => {
                     <table className="reservations-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Fecha</th>
                                 <th>Hora Inicio</th>
                                 <th>Hora Fin</th>
@@ -63,7 +62,6 @@ const MisReservas = () => {
                         <tbody>
                             {reservations.map((reservation) => (
                                 <tr key={reservation.id}>
-                                    <td>{reservation.id}</td>
                                     <td>{new Date(reservation.fecha).toLocaleDateString()}</td>
                                     <td>{reservation.horaInicio}</td>
                                     <td>{reservation.horaFin}</td>
