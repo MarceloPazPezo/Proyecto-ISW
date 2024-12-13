@@ -12,11 +12,26 @@
 
 /* Mensaje de éxito */
 .permisos-message {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 16px;
-  color: green;
+  text-align: center;     /* Centrado horizontalmente */
+  margin-top: 1px;       /* Mueve el mensaje más arriba */
+  font-size: 24px;        /* Aumenta el tamaño del texto */
+  font-weight: bold;      /* Texto en negrita */
+  color: green;           /* Color verde */
+  line-height: 1.5;       /* Espaciado entre líneas */
 }
+
+.button-delete {
+  background-color: red; /* Color de fondo rojo */
+  color: white;          /* Color de texto blanco */
+  border: none;          /* Sin borde */
+  padding: 10px 20px;     /* Espaciado dentro del botón */
+  width: 50%;
+  font-size: 16px;        /* Tamaño de fuente */
+  cursor: pointer;       /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px;     /* Bordes redondeados */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar el color */
+}
+
 
 /* Título principal */
 .permisos-container h2 {

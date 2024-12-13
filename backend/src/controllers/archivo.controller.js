@@ -12,11 +12,11 @@ export async function uploadArchive(req, res) {
             archivoPath = req.body.archivo;
         }
 
-        console.log("Body:" , req.body);
-        console.log("Nombre: ", nombre);
-        console.log("idTeacher: ", idTeacher);
-        console.log("Mensaje: ", mensaje);
-        console.log("Archivo: ", archivoPath);
+        // console.log("Body:" , req.body);
+        // console.log("Nombre: ", nombre);
+        // console.log("idTeacher: ", idTeacher);
+        // console.log("Mensaje: ", mensaje);
+        // console.log("Archivo: ", archivoPath);
 
         if (!mensaje || mensaje === "" || mensaje === null) {
             mensaje = "Sin mensaje adjunto";

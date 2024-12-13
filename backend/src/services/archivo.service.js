@@ -9,7 +9,7 @@ export async function subirArchivoService(dataArchivo){
 
         const { nombre, archivoBase64, idTeacher, mensaje } = dataArchivo;
 
-        console.log("dataArchivo", dataArchivo);
+        // console.log("dataArchivo", dataArchivo);
 
         const newArchivo = archivoRepository.create({
             nombre,

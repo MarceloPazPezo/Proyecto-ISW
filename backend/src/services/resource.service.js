@@ -68,7 +68,7 @@ export async function createResourceService(dataResource) {
             estado: "disponible",
         });
 
-        console.log("New Resource: ", newResource.id);
+        // console.log("New Resource: ", newResource.id);
 
         const resourceSaved = await resourcesRepository.save(newResource);
 
@@ -88,7 +88,7 @@ export async function updateResourceService(data) {
         // data
         const { id, nombre, idManager, estado } = data;
 
-        console.log("Data: ", id, nombre, idManager, estado);
+        // console.log("Data: ", id, nombre, idManager, estado);
 
 
         const resourceFound = await resourcesRepository.findOne({

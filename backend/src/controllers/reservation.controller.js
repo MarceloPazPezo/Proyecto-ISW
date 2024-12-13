@@ -40,7 +40,7 @@ export async function createReservation(req, res) {
         
         const reservationBody = req.body;
 
-        console.log("Controller body:",reservationBody);
+        // console.log("Controller body:",reservationBody);
 
         // const { error } = reservationBodyValidation.validate(reservationBody);
 

@@ -20,7 +20,7 @@ const Permisos = () => {
         if (savedUser) {
             setUser(savedUser);
             setUserId(savedUser.id);
-            console.log('Usuario cargado:', savedUser);
+            // console.log('Usuario cargado:', savedUser);
 
             // Si el usuario es director o jefe de UTP, obtenemos las licencias
             if (savedUser.rol === 'director' || savedUser.rol === 'jefe de utp') {
@@ -33,7 +33,7 @@ const Permisos = () => {
     const fetchLicencias = async () => {
         try {
             const response = await getArchivos();  // Obtener las licencias
-            console.log('Licencias obtenidas:', response.data);
+            // console.log('Licencias obtenidas:', response.data);
             const sortedLicencias = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             setLicencias(sortedLicencias);  // Guardar las licencias ordenadas por fecha
         } catch (error) {
@@ -45,22 +45,22 @@ const Permisos = () => {
         try {
             const response = await getUsers();  // Obtener los profesores
             const licencias = await getArchivos(); 
-            console.log('Profesores obtenidos:', response);
+            // console.log('Profesores obtenidos:', response);
 
             if (!licencias) {
                 console.log("No hay licencias");
             }
-            console.log("Licencias:", licencias);
+            // console.log("Licencias:", licencias);
 
             // Creamos una nueva lista de profesores
             const updatedTeachers = [];
 
             // Ahora mapeamos las licencias para encontrar el profesor correspondiente
             licencias.data.map((licencia) => {
-                console.log("Licencia:", licencia);
+                // console.log("Licencia:", licencia);
                 for (let i = 0; i < response.length; i++) {
                     if (licencia.idTeacher === response[i].id) {
-                        console.log("Profesor encontrado:", response[i]);
+                        // console.log("Profesor encontrado:", response[i]);
                         const data = { id: licencia.id, responseData: response[i] };
                         updatedTeachers.push(data);  // Añadimos el profesor al array
                     }
@@ -68,7 +68,7 @@ const Permisos = () => {
             });
 
             setTeacher(updatedTeachers);  // Actualizamos el estado con todos los profesores encontrados
-            console.log("Teachers:", updatedTeachers);
+            // console.log("Teachers:", updatedTeachers);
 
         } catch (error) {
             console.error("Error al obtener los profesores:", error);
@@ -123,10 +123,12 @@ const Permisos = () => {
             const nombreArchivo = file.name;
             const response = uploadArchive({ nombreArchivo, file, userId, reason });
             if (response) {
-                setMessage('¡Licencia subida y ausencia notificada con éxito!');
+                setMessage('¡Licencia subida !' );
+                alert('¡Licencia ["' + nombreArchivo + '"] subida !');
                 setTimeout(() => setMessage(''), 5000);
             } else {
-                setMessage('¡Error al subir la licencia y notificar la ausencia!');
+                setMessage('¡Error al subir la licencia!');
+                alert('¡Error al subir la licencia!');
                 setTimeout(() => setMessage(''), 5000);
             }
         } else {
@@ -173,14 +175,14 @@ const Permisos = () => {
                                     id="file"
                                     onChange={handleFileChange}
                                 />
-                                {file && (
+                                {/* {file && (
                                     <div>
                                         <p>Documento cargado: {file.name}</p>
-                                        <button type="button" onClick={handleRemoveFile}>
+                                        <button className="button-delete" type="button" onClick={handleRemoveFile}>
                                             Eliminar Documento
                                         </button>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="reason">Motivo de Ausencia:</label>
@@ -287,7 +289,7 @@ const Permisos = () => {
                         </div>
                     )}
                 </div>
-                {message && <div className="message">{message}</div>}
+                {message && <div className="permisos-message">{message}</div>}
             </main>
         </>
     );

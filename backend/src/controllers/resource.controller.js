@@ -87,7 +87,7 @@ export async function updateResource (req,res){
         // const { id , nombre } = req.query;
         const { body } = req;
 
-        console.log("Body:", body);
+        // console.log("Body:", body);
 
         // const { error: queryError } = sourceQueryValidation({ id, nombre });
 
@@ -99,8 +99,8 @@ export async function updateResource (req,res){
 
         const { id, nombre } = body;
 
-        console.log("ControllerID:", id);
-        console.log("ControllerNombre:", nombre);
+        // console.log("ControllerID:", id);
+        // console.log("ControllerNombre:", nombre);
 
         const [resource, errorResource] = await updateResourceService(body);
 
