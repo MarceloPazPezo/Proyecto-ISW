@@ -83,18 +83,26 @@ export async function getResource (req,res){
 
 export async function updateResource (req,res){
     try {
-        const { id , nombre } = req.query;
+
+        // const { id , nombre } = req.query;
         const { body } = req;
 
-        const { error: queryError } = sourceQueryValidation({ id, nombre });
+        console.log("Body:", body);
 
-        if (queryError) return handleErrorClient(res,404,error);
+        // const { error: queryError } = sourceQueryValidation({ id, nombre });
 
-        const { error: bodyError } = sourceBodyValidation({ body });
+        // if (queryError) return handleErrorClient(res,404,error);
 
-        if (bodyError) return handleErrorClient(res,404,error);
+        // const { error: bodyError } = sourceBodyValidation({ body });
 
-        const [resource, errorResource] = await updateResourceService({ id, nombre } , body);
+        // if (bodyError) return handleErrorClient(res,404,error);
+
+        const { id, nombre } = body;
+
+        console.log("ControllerID:", id);
+        console.log("ControllerNombre:", nombre);
+
+        const [resource, errorResource] = await updateResourceService(body);
 
         if (errorResource) return handleErrorClient(res,404,errorResource);
 

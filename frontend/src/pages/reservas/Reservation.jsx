@@ -12,6 +12,7 @@ import useEditReservation from '../../hooks/reservations/useEditReservation.jsx'
 import { deleteReservation } from '../../services/reservation.service.js';
 // import { getReservationbyID } from '../../services/reservation.service.js';
 import { getReservations } from '../../services/reservation.service.js';
+import { updateResource } from '../../services/resource.service.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faEye, faPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -50,6 +51,8 @@ const Reservation = () => {
         setDataReservation
     } = useEditReservation(setReservations);
 
+
+
     useEffect(() => {
         const savedUser = JSON.parse(sessionStorage.getItem('usuario'));
         if (savedUser) {
@@ -58,6 +61,61 @@ const Reservation = () => {
             console.log('Usuario cargado:', savedUser);
         }
     }, []);
+
+    useEffect(() => {
+        fetchAndModifyResources();
+    }, [reservations]); // Se ejecuta cada vez que cambian las reservas
+
+    const fetchAndModifyResources = async () => {
+        try {
+            // Llamamos a fetchResources para obtener los datos
+            await fetchResources();
+    
+            // Recorremos todos los recursos
+            // resources.map(resource => {
+            for (let i = 0; i < resources.length; i++) {
+                let count = 0; // Contador para verificar si todas las reservas tienen idTeacher nulo
+                let tieneReservaDisponible = false; // Inicialmente asumimos que todas las reservas son nulas (sin idTeacher)
+                // Recorre todas las reservas
+                    console.log('RecursoID:', resources[i].id, 'Nombre:', resources[i].nombre);
+                    // console.log('Reservas:', reservations.data);
+                    for (let j = 0; j < reservations.data.length; j++) {
+                        console.log('ReservaID:', reservations.data[j].idResource);
+                        if (resources[i].id === reservations.data[j].idResource) {
+                            console.log('SONIGUALESSSSSSSSSSSS:', reservations.data);
+                        // Verifica si la reserva corresponde al recurso actual
+                        // if (reservations.data[i].resourceId === resource.id) {
+                            // Si encuentra una reserva con un idTeacher válido, cambia la bandera
+                            if (reservations.data[i].idTeacher == null) {
+                                tieneReservaDisponible = true;
+                                // count++;
+                                break; // Ya no es necesario seguir buscando
+                            }
+                        // }
+                        }
+                    }
+
+                console.log('Contador:', count);
+
+                // Lógica para modificar el estado según las reservas
+                if (tieneReservaDisponible) {
+                    // Si todas las reservas del recurso no tienen idTeacher nulo
+                    resources[i].estado = 'DISPONIBLE';
+                    console.log('Recurso disponible (existe alguna con idTeacher nulo):', resources[i].nombre);
+                } else {
+                    // Si hay al menos una reserva con idTeacher nulo
+                    resources[i].estado = 'RESERVADO';
+                    console.log('Recurso reservado (ninguna reserva con idTeacher nulo):', resources[i].nombre);
+                }
+
+                // Actualizamos el recurso
+                updateResource(resources[i]);  
+            }
+        } catch (error) {
+            console.error('Error al obtener los recursos:', error);
+        }
+    };
+    
     
     const closeReservationPopup = () => {
         setSelectedResource(null);
@@ -207,6 +265,8 @@ const Reservation = () => {
     const indexOfFirstResource = indexOfLastResource - resourcesPerPage;
     const currentResources = resources.slice(indexOfFirstResource, indexOfLastResource);
 
+    console.log('Recursos:', resources);
+
     // Filtrar las reservas para mostrar solo las del día de hoy y las futuras o las pasadas
     const today = new Date();
     const filteredFutureReservations = filteredReservations.filter(reservation => new Date(reservation.fecha) >= today);
@@ -217,6 +277,12 @@ const Reservation = () => {
     const indexOfLastReservation = currentReservationPage * reservationsPerPage;
     const indexOfFirstReservation = indexOfLastReservation - reservationsPerPage;
     const currentReservations = sortedReservations.slice(indexOfFirstReservation, indexOfLastReservation);
+
+        // Calcular los tiempos a mostrar en la página actual
+    const sortedTimes = sortReservations(showPastReservations ? filteredPastReservations : filteredFutureReservations, sortCriteria);
+    const indexOfLastTime = currentReservationPage * reservationsPerPage;
+    const indexOfFirstTime = indexOfLastTime - reservationsPerPage;
+    const currentTimes = sortedTimes.slice(indexOfFirstTime, indexOfLastTime);
 
     // Funciones para avanzar y retroceder páginas de reservas
     const nextReservationPage = () => {
@@ -230,6 +296,33 @@ const Reservation = () => {
             setCurrentReservationPage(currentReservationPage - 1);
         }
     };
+
+    // const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; // Número de reservas por página
+
+    // Cálculo de los datos paginados
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = reservationsData
+    .filter(item => item.idTeacher === null)
+    .slice(indexOfFirstItem, indexOfLastItem);
+
+
+
+    const goToPreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+    
+    const goToNextPage = () => {
+        const maxPages = Math.ceil(
+            reservationsData.filter(item => item.idTeacher === null).length / itemsPerPage
+        );
+        if (currentPage < maxPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };    
 
     // Funciones para avanzar y retroceder páginas de recursos
     const nextPage = () => {
@@ -273,7 +366,7 @@ const Reservation = () => {
                                 <td>
                                     {canReservate && (
                                         <button
-                                            disabled={element.estado === "RESERVADO"}
+                                            disabled={element.estado == "RESERVADO"}
                                             onClick={() => handleGetClick2(element)}
                                         >
                                             Ver Horarios
@@ -309,7 +402,7 @@ const Reservation = () => {
             <PopupAddResource show={isPopupAddOpen} setShow={setIsPopupAddOpen} />
             <PopupEditReservation show={isPopupEditOpen} setShow={setIsPopupEditOpen} resourceId={editResourceId} />
             {isReservationPopupOpen && (
-                <div className="popup">
+                <div className="popup-reserva">
                     <div className="popup-content">
                         <button className="close-button" onClick={closeReservationPopup}>
                             ✖
@@ -329,24 +422,37 @@ const Reservation = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {reservationsData
-                                    .filter(reservation => reservation.idTeacher === null)
-                                    .map(reservation => (
-                                        <tr key={reservation.id}>
-                                            <td>{reservation.id}</td>
-                                            <td>{reservation.fecha}</td>
-                                            <td>{reservation.horaInicio}</td>
-                                            <td>{reservation.horaFin}</td>
+                                    {currentItems.map(item => (
+                                        <tr key={item.id}>
+                                            <td>{item.id}</td>
+                                            <td>{item.fecha}</td>
+                                            <td>{item.horaInicio}</td>
+                                            <td>{item.horaFin}</td>
                                             <td>
-                                                <button onClick={() => handleAssignTeacher(reservation.id)}>                                                
+                                                <button onClick={() => handleAssignTeacher(item.id)}>
                                                     Reservar
                                                 </button>
-                                            </td> 
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         )}
+                        <div className="pagination">
+                            <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+                                <FontAwesomeIcon icon={faArrowLeft} /> Anterior
+                            </button>
+                            <button
+                                onClick={goToNextPage}
+                                disabled={
+                                    currentPage === Math.ceil(
+                                        reservationsData.filter(item => item.idTeacher === null).length / itemsPerPage
+                                    )
+                                }
+                            >
+                                Siguiente <FontAwesomeIcon icon={faArrowRight} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
