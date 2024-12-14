@@ -9,7 +9,7 @@ const useGetReservations = () => {
     const fetchReservations = async () => {
         try {
             const response = await getReservations();
-            console.log("Reservas:", response);
+            // console.log("Reservas:", response);
             if (response && response.data) {
                 setReservations(response); // Asegúrate de que se guarda la estructura completa
             }

@@ -13,7 +13,7 @@ const useEditReservation = (setReservations) => {
     };
 
     const handleUpdate = async (updatedReservationData) => {
-        console.log("DataReservationSSSSSSSSSS: ", updatedReservationData);
+        // console.log("DataReservationSSSSSSSSSS: ", updatedReservationData);
         if (updatedReservationData) {
             try {
                 const updatedReservation = await updateReservation(updatedReservationData); //FIXME: dataReservation[0].id

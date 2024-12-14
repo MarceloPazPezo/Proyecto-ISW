@@ -9,7 +9,7 @@ const useGetReservation = (id) => {
     useEffect(() => {
         // Solo ejecuta fetchReservation si el ID es válido
 
-        console.log("IDUSE:", id);
+        // console.log("IDUSE:", id);
 
         if (!id) return;
 
@@ -18,9 +18,9 @@ const useGetReservation = (id) => {
             setError(null);
 
             try {
-                console.log("Obteniendo reservas para el ID:", id);
+                // console.log("Obteniendo reservas para el ID:", id);
                 const response = await getReservation(id);
-                console.log("Respuesta:", response);
+                // console.log("Respuesta:", response);
                 setReservation(response);
             } catch (err) {
                 console.error("Error al obtener reservas:", err);

@@ -20,6 +20,6 @@ router
     .get("/", authorizeRoles("administrador", "encargado", "docente"),getResources)
     .get("/detail/", authorizeRoles("administrador", "encargado", "docente"),getResource)
     .post("/detail/", authorizeRoles("administrador", "encargado"),createResource)
-    .put("/detail/", authorizeRoles("administrador", "encargado"),updateResource)
+    .put("/detail/", authorizeRoles("administrador", "encargado", "docente"),updateResource)
     .delete("/detail", authorizeRoles("administrador", "encargado"),deleteResource);
 export default router;

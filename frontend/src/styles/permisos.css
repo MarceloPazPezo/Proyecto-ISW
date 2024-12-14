@@ -1,5 +1,5 @@
+/* Contenedor principal de permisos */
 .permisos-container {
-  
   max-width: 700px;
   margin: 50px auto;
   padding: 20px;
@@ -9,16 +9,138 @@
   padding-top: 30px;
   padding-bottom: 50px;
 }
-  
-  
-.message {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 16px;
-  color: green;
+
+/* Mensaje de éxito */
+.permisos-message {
+  text-align: center;     /* Centrado horizontalmente */
+  margin-top: 1px;       /* Mueve el mensaje más arriba */
+  font-size: 24px;        /* Aumenta el tamaño del texto */
+  font-weight: bold;      /* Texto en negrita */
+  color: green;           /* Color verde */
+  line-height: 1.5;       /* Espaciado entre líneas */
 }
 
-/* Estilo para la celda de la columna Motivo */
+.button-delete {
+  background-color: red; /* Color de fondo rojo */
+  color: white;          /* Color de texto blanco */
+  border: none;          /* Sin borde */
+  padding: 10px 20px;     /* Espaciado dentro del botón */
+  width: 50%;
+  font-size: 16px;        /* Tamaño de fuente */
+  cursor: pointer;       /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 5px;     /* Bordes redondeados */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar el color */
+}
+
+
+/* Título principal */
+.permisos-container h2 {
+  font-size: 24px;
+  color: #5a008d;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Formulario de docente */
+.permisos-form {
+  margin-top: 20px;
+}
+
+/* Grupo de formularios */
+.permisos-form-group {
+  margin-bottom: 15px;
+}
+
+/* Etiquetas dentro del formulario */
+.permisos-form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Entrada de archivos */
+.permisos-file-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+}
+
+/* Textarea para motivo */
+.permisos-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+  resize: none;
+}
+
+/* Botón enviar */
+.permisos-submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #5a008d;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.permisos-submit-button:hover {
+  background-color: #7200b6;
+}
+
+/* Tabla de licencias */
+.permisos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.permisos-table th,
+.permisos-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+.permisos-table th {
+  background-color: #5a008d;
+  color: white;
+}
+
+.permisos-table td.name-cell,
+/* .permisos-table td.reason-cell {
+  max-width: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+} */
+
+.form-group textarea{
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  width: 100%;
+}
+
+.filter-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  max-width: 550px;
+}
+
+table td.name-cell,
 table td.reason-cell {
   max-width: 10px;  /* Limita el ancho de la columna */
   overflow: hidden;  /* Oculta cualquier contenido que se desborde */
@@ -27,23 +149,47 @@ table td.reason-cell {
   cursor: pointer;  /* Cambia el cursor para indicar que el texto es interactivo */
 }
 
-table td.name-cell {
-  max-width: 10px;  /* Limita el ancho de la columna */
-  overflow: hidden;  /* Oculta cualquier contenido que se desborde */
-  text-overflow: ellipsis; /* Muestra "..." cuando el texto es más largo */
-  white-space: nowrap;  /* Evita que el texto se divida en varias líneas */
-  cursor: pointer;  /* Cambia el cursor para indicar que el texto es interactivo */
-}
-/* Tooltip de texto completo */
-table td.reason-cell[title]:hover {
-  background-color: #f0f0f0;  /* Cambio de color de fondo cuando se pasa el cursor */
-}
-table td.name-cell[title]:hover {
-  background-color: #f0f0f0;  /* Cambio de color de fondo cuando se pasa el cursor */
+/* Tooltip */
+.permisos-table td[title]:hover {
+  background-color: #f0f0f0;
 }
 
-.form-group {
-  height: 50px;
+/* Controles de paginación */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
 
-  
+.pagination-controls button {
+  padding: 5px 10px;
+  font-size: 14px 5px;
+  width: 150px;
+  border: 1px solid #5a008d;
+  background-color: rgb(100, 16, 168);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+  background-color: #5a008d;
+  color: white;
+}
+
+.pagination-controls button:disabled {
+  background-color: #22032c94;
+  cursor: not-allowed;
+}
+
+/* Campo de búsqueda */
+.permisos-search-group {
+  margin-bottom: 15px;
+}
+
+.permisos-search-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+}
