@@ -45,14 +45,18 @@
 			.admin-menu-button {
 				font-weight: bold;
 				display: flex;
+				gap: 5px;
 				align-items: center;
+				justify-content: center;
 				background-color: #7A28CB;
 				color: #F0F1FF;
 				border: none;
 				padding: 0 25px 0px 18px;
-				height: 9vh;
+				height: 8.9vh;
 				border-radius: 20px 20px 0px 0px;
 				cursor: pointer;
+				width: 166px;
+				min-width: 100px;
 			}
 			.admin-menu-button:hover {
 				color: #F9567D;
@@ -64,7 +68,7 @@
 			.admin-menu-button.open:hover {
 				color: #F9567D;
 			}
-			.submenu {
+			.admin-submenu {
 				display: none;
 				position: absolute;
 				left: 10;
@@ -74,7 +78,7 @@
 				padding: 0px;
 				z-index: 1000;
 			}
-			.submenu.open {
+			.admin-submenu.open {
 				display: block;
 				border-radius: 0px 0px 20px 20px ;
 				height: auto;
@@ -83,7 +87,7 @@
 				box-shadow: 5px 10px 5px 0px #272C4C;
 				padding: 0 0px;
 			}
-			.submenu.open a {
+			.admin-submenu.open a {
 				color: #F0F1FF;
 				margin: 0;
 				padding: 0 0px;
@@ -91,7 +95,64 @@
 				height: 100%;
 				line-height: 4.5vh;
 			}
-			.submenu.open a:hover {
+			.admin-submenu.open a:hover {
+				color: #F9567D;
+			}
+			.docente-menu-button {
+				font-weight: bold;
+				display: flex;
+				gap: 5px;
+				align-items: center;
+				justify-content: center;
+				background-color: #7A28CB;
+				color: #F0F1FF;
+				border: none;
+				padding: 0 25px 0px 18px;
+				height: 8.9vh;
+				border-radius: 20px 20px 0px 0px;
+				cursor: pointer;
+				width: 166px;
+				min-width: 100px;
+			}
+			.docente-menu-button:hover {
+				color: #F9567D;
+			}
+			.docente-menu-button.open {
+				background-color: #3E3478;
+				color: #F0F1FF;
+			}
+			.docente-menu-button.open:hover {
+				color: #F9567D;
+			}
+			.docente-submenu {
+				min-width: 166px;
+				display: none;
+				position: absolute;
+				left: 10;
+				top: 100%;
+				background-color: #3E3478;
+				list-style: none;
+				padding: 0px;
+				z-index: 1000;
+			}
+			.docente-submenu.open {
+				display: block;
+				border-radius: 0px 0px 20px 20px ;
+				height: auto;
+				align-items: center;
+				background-color: #3E3478;
+				box-shadow: 5px 10px 5px 0px #272C4C;
+				padding: 0 0px;
+			}
+			.docente-submenu.open a {
+				color: #F0F1FF;
+				margin: 0;
+				padding: 0 0px;
+				padding-bottom: 0;
+				height: 100%;
+				line-height: 4.5vh;
+			}
+			.docente-submenu.open a:hover {
 				color: #F9567D;
 			}
 		}

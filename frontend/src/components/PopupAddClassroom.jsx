@@ -9,6 +9,7 @@ import { formatClassroomData } from "@helpers/formatData.js";
 export default function PopupAddClassroom({ show, setShow, dataClassrooms }) {
     const {
         errorNombre,
+        errorCapacidad,
         errorData,
         handleInputChange
     } = useAddClassroom();
@@ -17,6 +18,9 @@ export default function PopupAddClassroom({ show, setShow, dataClassrooms }) {
         try {
             const response = await addClassroom(addedClassroomData);
             if (response.status === "Client error") {
+                if (response.details.includes("capacidad debe")) {
+                    errorData({ dataInfo: 'capacidad', message: response.details });
+                }
                 errorData(response.details);
             } else {
                 const formattedData = formatClassroomData(response.data);
@@ -71,6 +75,18 @@ export default function PopupAddClassroom({ show, setShow, dataClassrooms }) {
                                         onChange: (e) =>
                                             handleInputChange("estado", e.target.value),
                                     },
+                                    {
+                                        label: "Capacidad",
+                                        name: "capacidad",
+                                        placeholder: "25",
+                                        fieldType: "input",
+                                        type: "number",
+                                        errorMessageData: errorCapacidad,
+                                        required: true,
+                                        tValue: "",
+                                        onChange: (e) =>
+                                            handleInputChange("capacidad", e.target.value),
+                                    }
                                 ]}
                                 buttonText="Agregar aula"
                                 onSubmit={handleSubmit}

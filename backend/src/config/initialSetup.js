@@ -19,7 +19,7 @@ async function createUsers() {
     await Promise.all([
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Diego Alexis Salazar Jara",
+          nombreCompleto: "diego alexis salazar jara",
           rut: "21.308.770-3",
           email: "administrador2024@gmail.cl",
           password: await encryptPassword("admin1234"),
@@ -30,29 +30,29 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Diego Sebastián Ampuero Belmar",
+          nombreCompleto: "diego sebastián ampuero belmar",
           rut: "21.151.897-9",
           email: "usuario1.2024@gmail.cl",
           password: await encryptPassword("user1234"),
           telefono: "987654312",
           rol: "usuario",
           estado: "regular",
-        })
+        }),
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Nicolas Gomez Morgado",
+          nombreCompleto: "nicolas jesus gomez morgado",
           rut: "21.279.536-4",
           email: "profe.2024@gmail.cl",
           password: await encryptPassword("profe1234"),
           telefono: "912375312",
           rol: "docente",
           estado: "regular",
-        })
+        }),
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Alexander Benjamín Marcelo Carrasco Fuentes",
+          nombreCompleto: "alexander benjamín marcelo carrasco fuentes",
           rut: "20.630.735-8",
           email: "usuario2.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -63,7 +63,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Pablo Andrés Castillo Fernández",
+          nombreCompleto: "pablo andrés castillo fernández",
           rut: "20.738.450-K",
           email: "usuario3.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -74,7 +74,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Felipe Andrés Henríquez Zapata",
+          nombreCompleto: "felipe andrés henríquez zapata",
           rut: "20.976.635-3",
           email: "usuario4.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -85,7 +85,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Diego Alexis Meza Ortega",
+          nombreCompleto: "diego alexis meza ortega",
           rut: "21.172.447-1",
           email: "usuario5.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -96,7 +96,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Juan Pablo Rosas Martin",
+          nombreCompleto: "juan pablo rosas martin",
           rut: "20.738.415-1",
           email: "usuario6.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -107,7 +107,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Bastián Alexis Rodríguez Campusano",
+          nombreCompleto: "bastián alexis rodríguez campusano",
           rut: "20.300.745-9",
           email: "profe2.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -118,7 +118,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Marcelo Alfredo Paz Pezo",
+          nombreCompleto: "marcelo alfredo paz pezo",
           rut: "21.756.745-0",
           email: "profe3.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -129,7 +129,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Maria Jesus Sobino Sobino",
+          nombreCompleto: "maria jesus sobino sobino",
           rut: "21.566.241-1",
           email: "profe4.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -140,7 +140,7 @@ async function createUsers() {
       ),
       userRepository.save(
         userRepository.create({
-          nombreCompleto: "Claudia Jimena Sobino Sobino",
+          nombreCompleto: "claudia jimena sobino sobino",
           rut: "20.622.042-2",
           email: "profe5.2024@gmail.cl",
           password: await encryptPassword("user1234"),
@@ -168,24 +168,56 @@ async function createClassrooms() {
         classroomRepository.create({
           nombre: "A101AA",
           estado: "ocupada",
+          capacidad: 30,
         }),
       ),
       classroomRepository.save(
         classroomRepository.create({
           nombre: "A102AA",
           estado: "ocupada",
+          capacidad: 30,
         }),
       ),
       classroomRepository.save(
         classroomRepository.create({
           nombre: "A103AA",
-          estado: "disponible",
+          estado: "ocupada",
+          capacidad: 30,
         }),
       ),
       classroomRepository.save(
         classroomRepository.create({
           nombre: "A104AA",
-          estado: "ocupada",
+          estado: "disponible",
+          capacidad: 30,
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A101AB",
+          estado: "disponible",
+          capacidad: 45,
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A102AB",
+          estado: "disponible",
+          capacidad: 45,
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A103AB",
+          estado: "disponible",
+          capacidad: 45,
+        }),
+      ),
+      classroomRepository.save(
+        classroomRepository.create({
+          nombre: "A104AB",
+          estado: "disponible",
+          capacidad: 45,
         }),
       ),
     ]);
@@ -205,7 +237,7 @@ async function createCourses() {
     await Promise.all([
       courseRepository.save(
         courseRepository.create({
-          nombre: "Primero A",
+          nombre: "primero a",
           idBossTeacher: "7",
           idClassroom: "1",
           cantidadAlumnos: "30",
@@ -213,7 +245,7 @@ async function createCourses() {
       ),
       courseRepository.save(
         courseRepository.create({
-          nombre: "Tercero A",
+          nombre: "tercero a",
           idBossTeacher: "9",
           idClassroom: "2",
           cantidadAlumnos: "40",
@@ -221,7 +253,7 @@ async function createCourses() {
       ),
       courseRepository.save(
         courseRepository.create({
-          nombre: "Segundo A",
+          nombre: "segundo a",
           idBossTeacher: "10",
           idClassroom: "3",
           cantidadAlumnos: "35",
@@ -229,7 +261,7 @@ async function createCourses() {
       ),
       courseRepository.save(
         courseRepository.create({
-          nombre: "Cuarto A",
+          nombre: "cuarto a",
           idBossTeacher: "12",
           idClassroom: "4",
           cantidadAlumnos: "25",
@@ -253,49 +285,49 @@ async function createSubject() {
       subjectRepository.save(
         subjectRepository.create({
           nombre: "matematicas",
-          departamento: "matematica"
+          departamento: "matematica",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "lenguaje",
-          departamento: "humanista"
+          departamento: "humanista",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "historia",
-          departamento: "humanista"
+          departamento: "humanista",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "biologia",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "musica",
-          departamento: "artes"
+          departamento: "artes",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "artes visuales",
-          departamento: "artes"
+          departamento: "artes",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "quimica",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "fisica",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
     ]);
@@ -315,17 +347,17 @@ async function createResource() {
     await Promise.all([
       resourceRepository.save([
         resourceRepository.create({
-          nombre: "Laboratorio de Química",
+          nombre: "laboratorio de química",
           estado: "disponible",
           idManager: 8,
         }),
         resourceRepository.create({
-          nombre: "Laboratorio de Física",
+          nombre: "laboratorio de física",
           estado: "disponible",
           idManager: 8,
         }),
         resourceRepository.create({
-          nombre: "Laboratorio de Computación",
+          nombre: "laboratorio de computación",
           estado: "reservado",
           idManager: 8,
         }),
@@ -387,30 +419,40 @@ async function createTeach() {
     await Promise.all([
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "1",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "1",
+          year: "2024",
         }),
       ),
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "2",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "2",
+          year: "2024",
         }),
       ),
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "3",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "3",
+          year: "2024",
         }),
       ),
     ]);
-    console.log("* => Relaciones entre docente y asignaturas creados exitosamente");
+    console.log(
+      "* => Relaciones entre docente y asignaturas creados exitosamente",
+    );
   } catch (error) {
     console.error("Error al crear el bloque de tiempo:", error);
   }
 }
 
-export { createUsers, createClassrooms, createSubject, createResource, createCourses, createTimeblocks, createTeach };
+export {
+  createUsers,
+  createClassrooms,
+  createSubject,
+  createResource,
+  createCourses,
+  createTimeblocks,
+  createTeach,
+};

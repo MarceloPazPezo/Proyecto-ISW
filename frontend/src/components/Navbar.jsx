@@ -68,7 +68,7 @@ const Navbar = () => {
                                 Panel
                                 <FontAwesomeIcon icon={faChevronDown} className={`chevron ${adminMenuOpen ? 'rotate' : ''}`} />
                             </button>
-                            <ul className={`submenu ${adminMenuOpen ? 'open' : ''}`}>
+                            <ul className={`admin-submenu ${adminMenuOpen ? 'open' : ''}`}>
                                 {userRole !== 'jefe de utp' && (
                                     <>
                                         <li>
@@ -136,13 +136,13 @@ const Navbar = () => {
                                 onClick={toggleDocenteMenu}
                                 tabIndex="0"
                                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleDocenteMenu(); }}
-                                className={`admin-menu-button ${docenteMenuOpen ? 'open' : ''}`}
+                                className={`docente-menu-button ${docenteMenuOpen ? 'open' : ''}`}
                             >
                                 <FontAwesomeIcon icon={faClipboardList} />
                                 Reservas
                                 <FontAwesomeIcon icon={faChevronDown} className={`chevron ${docenteMenuOpen ? 'rotate' : ''}`} />
                             </button>
-                            <ul className={`submenu ${docenteMenuOpen ? 'open' : ''}`}>
+                            <ul className={`docente-submenu ${docenteMenuOpen ? 'open' : ''}`}>
                                 <li>
                                     <NavLink
                                         to="/reservation"
@@ -197,15 +197,6 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                     )}
-                    <li>
-                        <NavLink
-                            to="/about"
-                            className={({ isActive }) => (isActive ? 'active' : '')}
-                            onClick={handleLinkClick}
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
-                        </NavLink>
-                    </li>
                     <li className="cerrar-sesion">
                         <NavLink
                             to="/auth"

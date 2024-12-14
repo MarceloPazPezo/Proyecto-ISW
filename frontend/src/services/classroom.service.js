@@ -6,9 +6,11 @@ export async function addClassroom(data) {
         const dataRegister = convertirMinusculas(data);
         const estado = dataRegister.estado;
         const nombre = dataRegister.nombre.toUpperCase();
+        const capacidad = dataRegister.capacidad;
         const response = await axios.post('/classroom', {
             nombre,
-            estado
+            estado,
+            capacidad
         });
         return response.data;
     } catch (error) {

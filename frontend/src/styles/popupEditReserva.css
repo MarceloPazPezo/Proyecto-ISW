@@ -1,6 +1,7 @@
 .bg {
-    position: fixed;  /*Opciones: absolute, fixed, relative, static, sticky*/
-    top: 0 ;
+    position: fixed;
+    /*Opciones: absolute, fixed, relative, static, sticky*/
+    top: 0;
     padding-bottom: 50px;
     bottom: 0;
     left: 0;
@@ -9,20 +10,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Asegura que el popup esté por encima de otros elementos */
+    z-index: 1000;
+    /* Asegura que el popup esté por encima de otros elementos */
 }
 
-.popup {
-    max-height: 80vh; /* Limitar la altura máxima del popup */
+/* .popup {
+    max-height: 80vh;
     width: 600px;
     background: white;
     position: relative;
     border-radius: 12px;
-    overflow-y: auto; /* Permitir el desplazamiento vertical */
-    padding: 20px; /* Agregar padding para el contenido */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
-    z-index: 1001; /* Asegura que el popup esté por encima del fondo */
-}
+    overflow-y: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+} */
 
 /* .close {
     position: flex;
@@ -39,7 +41,8 @@
     font-weight: 700;
     margin-bottom: 0px;
     text-align: center;
-    margin-top: 0px; /* Agregar margen superior para separar del botón de cierre */
+    margin-top: 0px;
+    /* Agregar margen superior para separar del botón de cierre */
 }
 
 .form-group {
@@ -83,7 +86,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #b300aa;
+    background-color: #ffffff;
 }
 
 .checkbox-actions {
@@ -145,16 +148,14 @@ button[type="submit"]:hover {
     opacity: 1;
 }
 
-.toggle-password-icon {
-    top: 47.5%;
-}
-
 /* Estilos para los elementos de checkbox */
 
 .checkbox-container {
     display: flex;
-    flex-wrap: wrap; /* Permitir que los elementos se ajusten a una nueva línea si es necesario */
-    gap: 10px; /* Espacio entre los checkboxes */
+    flex-wrap: wrap;
+    /* Permitir que los elementos se ajusten a una nueva línea si es necesario */
+    gap: 10px;
+    /* Espacio entre los checkboxes */
 }
 
 .checkbox-item {
@@ -162,10 +163,11 @@ button[type="submit"]:hover {
     align-items: center;
     padding: 4px 1px;
     border-radius: 12px;
-    
+
     transition: background-color 0.3s;
     border: 1px solid #401474;
-    width: 20%; /* Ajustar el ancho automáticamente al contenido */
+    width: 20%;
+    /* Ajustar el ancho automáticamente al contenido */
 }
 
 .checkbox-item:hover {

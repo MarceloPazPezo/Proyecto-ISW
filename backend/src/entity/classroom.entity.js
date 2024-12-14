@@ -21,6 +21,10 @@ const ClassroomSchema = new EntitySchema({
       length: 50,
       nullable: false,
     },
+    capacidad: {
+      type: "int",
+      nullable: false,
+    },
     createdAt: {
       type: "timestamp with time zone",
       default: () => "CURRENT_TIMESTAMP",

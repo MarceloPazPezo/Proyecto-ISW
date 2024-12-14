@@ -27,6 +27,7 @@ export function formatClassroomData(classroom) {
         ...classroom,
         nombre: classroom.nombre.toUpperCase(),
         estado: startCase(classroom.estado),
+        capacidad: classroom.capacidad,
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
     };
 }
@@ -86,6 +87,7 @@ export function formatPostUpdateClassroom(classroom) {
     return {
         nombre: classroom.nombre.toUpperCase(),
         estado: startCase(classroom.estado),
+        capacidad: classroom.capacidad,
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
     };
 }

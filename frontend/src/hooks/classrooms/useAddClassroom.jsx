@@ -4,15 +4,20 @@ const useAddClassroom = () => {
     const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
 
     const [errorNombre, setErrorNombre] = useState('');
+    const [errorCapacidad, setErrorCapacidad] = useState('');
     const [inputData, setInputData] = useState({ nombre: ''});
 
     useEffect(() => {
         if (inputData.nombre) setErrorNombre('');
-    }, [inputData.nombre]);
+        if (inputData.capacidad) setErrorCapacidad('');
+    }, [inputData.nombre, inputData.capacidad]);
 
     const errorData = (dataMessage) => {
         if (dataMessage.dataInfo === 'nombre') {
             setErrorNombre(dataMessage.message);
+        }
+        if (dataMessage.dataInfo === 'capacidad') {
+            setErrorCapacidad(dataMessage.message);
         }
     };
 
@@ -29,6 +34,7 @@ const useAddClassroom = () => {
 
     return {
         errorNombre,
+        errorCapacidad,
         inputData,
         errorData,
         handleInputChange,
