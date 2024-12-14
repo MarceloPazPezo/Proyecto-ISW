@@ -1,6 +1,6 @@
 "use strict"
 
-import Archivo from "../entity/archivo.entity.js";
+import Archivo from "../entity/archive.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
 export async function subirArchivoService(dataArchivo){

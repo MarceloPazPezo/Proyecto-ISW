@@ -1,6 +1,6 @@
 import path from "path";
 import { HOST, PORT } from "../config/configEnv.js";
-import { getArchivosService, subirArchivoService  } from "../services/archivo.service.js";
+import { getArchivosService, subirArchivoService  } from "../services/archive.service.js";
 import { handleErrorClient, handleErrorServer, handleSuccess } from "../handlers/responseHandlers.js";
 import fs from "fs";
 

@@ -37,7 +37,7 @@ async function createUsers() {
           telefono: "987654312",
           rol: "usuario",
           estado: "regular",
-        })
+        }),
       ),
       userRepository.save(
         userRepository.create({
@@ -48,7 +48,7 @@ async function createUsers() {
           telefono: "912375312",
           rol: "docente",
           estado: "regular",
-        })
+        }),
       ),
       userRepository.save(
         userRepository.create({
@@ -285,49 +285,49 @@ async function createSubject() {
       subjectRepository.save(
         subjectRepository.create({
           nombre: "matematicas",
-          departamento: "matematica"
+          departamento: "matematica",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "lenguaje",
-          departamento: "humanista"
+          departamento: "humanista",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "historia",
-          departamento: "humanista"
+          departamento: "humanista",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "biologia",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "musica",
-          departamento: "artes"
+          departamento: "artes",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "artes visuales",
-          departamento: "artes"
+          departamento: "artes",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "quimica",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
       subjectRepository.save(
         subjectRepository.create({
           nombre: "fisica",
-          departamento: "ciencias"
+          departamento: "ciencias",
         }),
       ),
     ]);
@@ -419,30 +419,40 @@ async function createTeach() {
     await Promise.all([
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "1",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "1",
+          year: "2024",
         }),
       ),
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "2",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "2",
+          year: "2024",
         }),
       ),
       teachRepository.save(
         teachRepository.create({
-          "idTeacher": "2",
-          "idSubject": "3",
-          "year": "2024"
+          idTeacher: "2",
+          idSubject: "3",
+          year: "2024",
         }),
       ),
     ]);
-    console.log("* => Relaciones entre docente y asignaturas creados exitosamente");
+    console.log(
+      "* => Relaciones entre docente y asignaturas creados exitosamente",
+    );
   } catch (error) {
     console.error("Error al crear el bloque de tiempo:", error);
   }
 }
 
-export { createUsers, createClassrooms, createSubject, createResource, createCourses, createTimeblocks, createTeach };
+export {
+  createUsers,
+  createClassrooms,
+  createSubject,
+  createResource,
+  createCourses,
+  createTimeblocks,
+  createTeach,
+};
