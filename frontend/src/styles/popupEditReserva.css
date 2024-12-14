@@ -148,10 +148,6 @@ button[type="submit"]:hover {
     opacity: 1;
 }
 
-.toggle-password-icon {
-    top: 47.5%;
-}
-
 /* Estilos para los elementos de checkbox */
 
 .checkbox-container {

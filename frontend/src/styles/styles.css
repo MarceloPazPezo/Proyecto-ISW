@@ -11,7 +11,8 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	font-family: "Montserrat", sans-serif;
-	background-image: url('../assets/images/background.svg');
+	background-image: url('../assets/Background.svg');
+	background-color: #C7AFEA;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
