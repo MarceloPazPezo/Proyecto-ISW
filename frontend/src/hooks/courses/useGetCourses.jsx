@@ -10,8 +10,12 @@ const useCourses = () => {
             const formattedData = response.map(course => ({
                 id: course.id,
                 nombre: course.nombre,
-                idBossTeacher: course.idBossTeacher, 
+                idBossTeacher: course.idBossTeacher,
+                rut: course.teacher.rut,
+                nombreCompleto: course.teacher.nombreCompleto,
                 idClassroom: course.idClassroom,
+                nombreSala: course.classroom.nombre,
+                cantidadAlumnos: course.cantidadAlumnos,
                 createdAt: course.createdAt
             }));
             setCourses(formattedData);

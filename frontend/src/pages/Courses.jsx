@@ -12,7 +12,7 @@ import UpdateIconDisable from '../assets/updateIconDisabled.svg';
 import DeleteIconDisable from '../assets/deleteIconDisabled.svg';
 import useAddCourse from '@hooks/courses/useAddCourse';
 import useEditCourse from '@hooks/courses/useEditCourse';
-import useDeleteCourse from '@hooks/c/useDeleteCourse';
+import useDeleteCourse from '@hooks/courses/useDeleteCourse';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import '@styles/spreadsheet.css';
@@ -48,10 +48,12 @@ const Courses = () => {
   }, [setDataCourse]);
 
   const columns = [
-    { title: "Nombre", field: "nombre", responsive: 0 },
-    { title: "Profesor", field: "idBossTeacher", width: 200, responsive: 2 },
-    { title: "Sala", field: "idClassroom", width: 200, responsive: 2 },
-    { title: "Creado", field: "createdAt", width: 200, responsive: 2 }
+    { title: "Nombre", field: "nombre", responsive: 2 },
+    { title: "Rut Profesor Jefe", field: "rut", responsive: 0 },
+    { title: "Profesor Jefe", field: "nombreCompleto", responsive: 0 },
+    { title: "Sala", field: "nombreSala", responsive: 0 },
+    { title: "Cantidad alumnos", field: "cantidadAlumnos", responsive: 0 },
+    { title: "Creado", field: "createdAt", responsive: 0 }
   ];
 
   return (
@@ -62,7 +64,7 @@ const Courses = () => {
                 <div className='filter-actions'>
                     <Search value={filterNombre} onChange={handleNombreFilterChange} placeholder={'Filtrar por nombre'} />
                     <Tooltip title="Agregar curso" position="top" trigger="mouseenter">
-                        <button className={`add-subject-button ${dataSubject.length !== 0 ? 'button-disabled' : ''}`} onClick={handleAddCourseClick} disabled={dataCourse.length !== 0}>
+                        <button className={`add-subject-button ${dataCourse.length !== 0 ? 'button-disabled' : ''}`} onClick={handleAddCourseClick} disabled={dataCourse.length !== 0}>
                             {dataCourse.length !== 0 ? (
                                 <FontAwesomeIcon icon={faPlus} style={{ color: "#3E3478" }} />
                             ) : (
@@ -71,7 +73,7 @@ const Courses = () => {
                         </button>
                     </Tooltip>
                     <Tooltip title="Editar curso" position="top" trigger="mouseenter">
-                        <button className={`edit-subject-button ${dataSubject.length === 0 ? 'button-disabled' : ''}`} onClick={handleClickUpdate} disabled={dataCourse.length === 0}>
+                        <button className={`edit-subject-button ${dataCourse.length === 0 ? 'button-disabled' : ''}`} onClick={handleClickUpdate} disabled={dataCourse.length === 0}>
                             {dataCourse.length === 0 ? (
                                 <img src={UpdateIconDisable} alt="edit-disabled" />
                             ) : (
@@ -80,7 +82,7 @@ const Courses = () => {
                         </button>
                     </Tooltip>
                     <Tooltip title="Eliminar curso" position="top" trigger="mouseenter">
-                        <button className={`delete-user-button ${dataSubject.length === 0 ? 'button-disabled' : ''}`} onClick={() => handleDelete(dataCourse)} disabled={dataCourse.length === 0}>
+                        <button className={`delete-user-button ${dataCourse.length === 0 ? 'button-disabled' : ''}`} onClick={() => handleDelete(dataCourse)} disabled={dataCourse.length === 0}>
                             {dataCourse.length === 0 ? (
                                 <img src={DeleteIconDisable} alt="delete-disabled" />
                             ) : (

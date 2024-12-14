@@ -1,7 +1,7 @@
 import Form from "./Form";
 import "@styles/popup.css";
 import CloseIcon from "@assets/XIcon.svg";
-import useAddCourse from "@hooks/course/useAddCourse.jsx";
+import useAddCourse from "@hooks/courses/useAddCourse.jsx";
 import { addCourse } from "@services/course.service.js";
 import { showErrorAlert, showSuccessAlert } from "@helpers/sweetAlert.js";
 import { formatCourseData } from "@helpers/formatData.js";
@@ -45,7 +45,7 @@ export default function PopupAddCourse({ show, setShow, dataCourses }) {
                                     {
                                         label: "Nombre",
                                         name: "nombre",
-                                        placeholder: "1 medio",
+                                        placeholder: "Primero medio",
                                         fieldType: "input",
                                         type: "text",
                                         required: true,

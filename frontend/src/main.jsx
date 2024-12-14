@@ -16,6 +16,7 @@ import Subjects from '@pages/Subjects';
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
 import About from '@pages/About';
+import Courses from '@pages/Courses';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
           <Teachers />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/courses',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
+          <Courses />
         </ProtectedRoute>
         ),
       },

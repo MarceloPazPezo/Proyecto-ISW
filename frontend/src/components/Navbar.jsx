@@ -91,6 +91,15 @@ const Navbar = () => {
                                         </li>
                                         <li>
                                             <NavLink
+                                                to="/courses"
+                                                className={({ isActive }) => (isActive ? 'active' : '')}
+                                                onClick={handleLinkClick}
+                                            >
+                                                Cursos
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
                                                 to="/users"
                                                 className={({ isActive }) => (isActive ? 'active' : '')}
                                                 onClick={handleLinkClick}

@@ -107,7 +107,7 @@ export function formatPostUpdateSubject(subject) {
     };
 }
 
-export function formatPostUpdateSCourse(course) {
+export function formatPostUpdateCourse(course) {
     return {
         nombre: startCase(course.nombre),
         idBossTeacher: startCase(course.idBossTeacher),
