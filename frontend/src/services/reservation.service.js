@@ -65,12 +65,12 @@ export async function getReservation(id) {
     }
 }
 
-export async function updateReservation(reservationData) {
+export async function updateReservation(Datareservation) {
     try {
 
-        // console.log("Data: ", reservationData.idResource);
+        // console.log("Data: ", Datareservation.idResource);
         
-        const { id, idResource,  idTeacher, fecha, horaInicio, horaFin} = reservationData;
+        const { id, idResource,  idTeacher, fecha, horaInicio, horaFin} = Datareservation;
 
         const response = await axios.put(`/reservation/detail/`, {
             id,

@@ -22,7 +22,7 @@ export async function getReservationbyID(req, res) {
     try {
         const { id } = req.query;
 
-        console.log("IDCONTROLLER:",id);
+        // console.log("IDCONTROLLER:",id);
 
         const { error } = reservationQueryValidation.validate({ id });
 
@@ -40,13 +40,13 @@ export async function createReservation(req, res) {
         
         const reservationBody = req.body;
 
-        console.log("Controller body:",reservationBody);
+        // console.log("Controller body:",reservationBody);
 
-        const { error } = reservationBodyValidation.validate(reservationBody);
+        // const { error } = reservationBodyValidation.validate(reservationBody);
 
         // console.log("Controller error1:",error);
 
-        if (error) return handleErrorClient(res, 404, error);
+        // if (error) return handleErrorClient(res, 404, error);
 
         const [reservation, errorReservation] = await createReservationService(reservationBody);
 
@@ -83,7 +83,7 @@ export async function getReservation(req, res) {
         
         const { id } = req.query;
 
-        console.log("IDCONTROLLER:",id);
+        // console.log("IDCONTROLLER:",id);
         
         const { error } = reservationQueryValidation.validate({ id });
 
@@ -106,7 +106,7 @@ export async function updateReservation(req, res) {
         const { id, horaInicio, horaFin, idResource, idTeacher } = req.query;
         const { body } = req;
 
-        console.log("IDCONTROLLER:",body);
+        // console.log("IDCONTROLLER:",body);
 
         // const { error: queryError } = reservationQueryValidation({ id });
 
@@ -126,13 +126,13 @@ export async function updateReservation(req, res) {
         //     );
         // }
 
-        console.log("Entrando al Service");
+        // console.log("Entrando al Service");
 
         const [reservation, errorReservation] = await updateReservationService(
             { id, horaInicio, horaFin, idResource, idTeacher } , body
         );
 
-        console.log("Salida del Service", reservation, errorReservation);
+        // console.log("Salida del Service", reservation, errorReservation);
 
         if (errorReservation) return handleErrorClient(res, 404, errorReservation);
 

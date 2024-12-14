@@ -14,6 +14,8 @@ const useGetResources = () => {
             //     // setElementsToReserve(response.data); // Solo guardamos los datos, no el resto
             //     console.log('Recursos:', response.data); // Ver los datos de recursos
             // }       
+
+            // if( resource.estad)
             
             const formattedResources = response.data.map(resource => ({
                 id: resource.id,

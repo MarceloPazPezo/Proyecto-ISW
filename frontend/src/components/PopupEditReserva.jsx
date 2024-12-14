@@ -54,7 +54,7 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
         e.preventDefault();
         try {
             const recopilaciones = [];
-            console.log('Selected slots:', selectedSlots.length);
+            // console.log('Selected slots:', selectedSlots.length);
 
             if (selectedSlots.length === 0) {
                 showErrorAlert('Error', 'Debe seleccionar al menos un horario.');
@@ -64,8 +64,8 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
             for (let i = 0; i < selectedSlots.length; i += 1) {
                 const horaInicio = selectedSlots[i].slice(0, 5);
                 const horaFin = selectedSlots[i].slice(-5);
-                console.log('Hora inicio:', horaInicio);
-                console.log('Hora fin:', horaFin);
+                // console.log('Hora inicio:', horaInicio);
+                // console.log('Hora fin:', horaFin);
                 if (horaInicio && horaFin) {
                     if (dateType === 'specific') {
                         const recopilacion = {
@@ -97,7 +97,7 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
             }
 
             for (const recopilacion of recopilaciones) {
-                console.log('RecopilaciónPOPU:', recopilacion);
+                // console.log('RecopilaciónPOPU:', recopilacion);
                 const response = await createReservation(recopilacion);
                 if (response.status !== 'Success') {
                     errorData('Error', response.details);

@@ -11,7 +11,7 @@ export async function getReservationbyIDService(query) {
     try {
         const { id } = query;
 
-        console.log("IDSERVBACK:", id);
+        // console.log("IDSERVBACK:", id);
 
         const reservationRepository = AppDataSource.getRepository(Reservation);
 
@@ -38,7 +38,7 @@ export async function getReservationService(query) {
 
         const { id } = query;
 
-        console.log("IDSERVBACK:", id);
+        // console.log("IDSERVBACK:", id);
         
         const reservationRepository = AppDataSource.getRepository(Reservation);
 
@@ -65,7 +65,7 @@ export async function getReservationsService() {
             relations: ["resource","teacher"], // Para devolver todos los datos de la relación
         })
 
-        console.log("Reservas encontradas:", reservationsFound);
+        // console.log("Reservas encontradas:", reservationsFound);
 
         if (!reservationsFound) return [null, "No se encontraron reservas."];
 
@@ -84,7 +84,7 @@ export async function createReservationService(dataReservation) {
 
         const { horaInicio, horaFin, fecha, idUsuario, idResource } = dataReservation;
 
-        console.log("Data: ", horaInicio, horaFin, fecha, idUsuario, idResource);
+        // console.log("Data: ", horaInicio, horaFin, fecha, idUsuario, idResource);
 
         // Verificar que idResource no sea nulo o indefinido
         if (!idResource) {

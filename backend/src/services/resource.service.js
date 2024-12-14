@@ -1,4 +1,5 @@
 "use strict";
+import { Not } from "typeorm";
 import Source from "../entity/resource.entity.js";
 import { AppDataSource } from "../config/configDb.js";
 
@@ -67,7 +68,7 @@ export async function createResourceService(dataResource) {
             estado: "disponible",
         });
 
-        console.log("New Resource: ", newResource.id);
+        // console.log("New Resource: ", newResource.id);
 
         const resourceSaved = await resourcesRepository.save(newResource);
 
@@ -79,38 +80,43 @@ export async function createResourceService(dataResource) {
 }
 
 
-export async function updateResourceService(query, body) {
+export async function updateResourceService(data) {
     try {
 
-        const { id , nombre , idManager } = query;
-
+        // const { id , nombre , idManager } = query;
         const resourcesRepository = AppDataSource.getRepository(Source);
+        // data
+        const { id, nombre, idManager, estado } = data;
+
+        // console.log("Data: ", id, nombre, idManager, estado);
+
 
         const resourceFound = await resourcesRepository.findOne({
-            where: [{ id }, { nombre }, { idManager }],
-            relations: ["manager"],
+            where: { id }
         });
 
         if (!resourceFound) return [null, "No se encontró el recurso solicitado."]
 
-        const existingResource = await resourcesRepository.findOne({ 
-            where : { nombre : body.nombre }
-        });
+        const existingResource = await resourcesRepository.findOne({
+            where: { nombre: nombre, id: Not(resourceFound.id) }
+        });        
 
         if (existingResource && existingResource.id !== resourceFound.id){ 
             return [null, "El recurso ya existe."];
         }
 
         const dataResource = {
-            nombre : body.nombre,
-            manager : body.idManager,
-            estado : body.estado,
+            nombre : nombre,
+            idManager : idManager,
+            estado : estado,
             updatedAt: new Date(),
         }
 
         await resourcesRepository.update({ id : resourceFound.id }, dataResource );
 
-        const resourceUpdated = await resourcesRepository.findOne({ id : resourceFound.id });
+        const resourceUpdated = await resourcesRepository.findOne({
+            where: { id: resourceFound.id }
+        });        
 
         if (!resourceUpdated) return [null, "No se pudo actualizar el recurso."];
 
