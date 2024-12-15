@@ -34,7 +34,7 @@ const customStyles = {
       : isSelected
       ? '#3E3478'
       : isFocused
-      ? '#eef7ff'
+      ? '#F0F1FF'
       : undefined,
     color: isDisabled ? '#ccc' : isSelected ? 'white' : '#3E3478',
     cursor: isDisabled ? 'not-allowed' : 'default',
@@ -43,13 +43,13 @@ const customStyles = {
       backgroundColor: !isDisabled
         ? isSelected
           ? '#3E3478'
-          : '#eef7ff'
+          : '#F0F1FF'
         : undefined,
     },
   }),
   multiValue: (styles) => ({
     ...styles,
-    backgroundColor: '#eef7ff',
+    backgroundColor: '#F0F1FF',
     borderRadius: '8px',
     margin: '5px',
     display: 'flex',

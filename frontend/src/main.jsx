@@ -109,10 +109,6 @@ const router = createBrowserRouter([
       {
         path: '/permisos', 
         element: <Permisos /> 
-      },
-      {
-        path: '/about',
-        element: <About/>
       }
     ]
   },

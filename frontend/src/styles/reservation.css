@@ -62,6 +62,22 @@
     cursor: pointer;
 }
 
+.popup-reserva {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: black;
+    padding: 18px;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* opacity: 0.9; */
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
 .reservation-table button1{
     padding: 8px 8px;
     /* padding-top: 6px; */
@@ -78,6 +94,16 @@
 }
 
 .reservation-container buttonPag{
+    padding: 3px 5px;
+    padding-top: 1px;
+    background-color: #460e5c; 
+    color: white;
+    border: black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button{
     padding: 3px 5px;
     padding-top: 1px;
     background-color: #460e5c; 
@@ -140,7 +166,6 @@
 } */
 
 /* .reservation-container button{
-    font-family: inherit;
     padding: 8px 10px;
     background-color: #460e5c;
     color: white;
@@ -158,6 +183,14 @@
     cursor: not-allowed;
 }
 
+.reservation-actions button3{
+    padding: 8px 10px;
+    background-color: #460e9c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 /* .confirm-popup {
     position: fixed;

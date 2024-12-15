@@ -9,6 +9,7 @@ import courseRoutes from "./course.routes.js";
 import resourceRoutes from "./resource.routes.js";
 import reservationRoutes from "./reservation.routes.js";
 import timeBlockRoutes from "./timeblock.routes.js";
+import archiveRoutes from "./archive.routes.js";
 
 const router = Router();
 
@@ -21,6 +22,6 @@ router
     .use("/timeblock", timeBlockRoutes)
     .use("/teach", teachRoutes)
     .use("/subject", subjectRoutes)
-    .use("/user", userRoutes);
-
+    .use("/user", userRoutes)
+    .use("/archive", archiveRoutes);
 export default router;
