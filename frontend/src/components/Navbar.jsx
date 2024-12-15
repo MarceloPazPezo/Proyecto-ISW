@@ -111,20 +111,11 @@ const Navbar = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/asignarBloque"
-                                        className={({ isActive }) => (isActive ? 'active' : '')}
-                                        onClick={handleLinkClick}
-                                    >
-                                        AgregarHorario
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
                                         to="/bloquesHorario"
                                         className={({ isActive }) => (isActive ? 'active' : '')}
                                         onClick={handleLinkClick}
                                     >
-                                        Bloques
+                                        Bloques&nbsp;de&nbsp;Horario
                                     </NavLink>
                                 </li>
                             </ul>

@@ -352,22 +352,22 @@ async function createTimeblocks() {
     await Promise.all([
       timeBlocksRepository.save(
         timeBlocksRepository.create({
-          idTeacher: "3",
+          idTeacher: "9",
           idCourse: "3",
           idSubject: "1",
           horaInicio: "08:00",
           horaTermino: "08:45",
-          fecha: "14-11-2024",
+          diaSemana: "Lunes"
         }),
       ),
       timeBlocksRepository.save(
         timeBlocksRepository.create({
-          idTeacher: "3",
+          idTeacher: "10",
           idCourse: "3",
           idSubject: "1",
           horaInicio: "08:45",
           horaTermino: "09:30",
-          fecha: "14-11-2024",
+          diaSemana: "Miercoles"
         }),
       ),
     ]);

@@ -40,20 +40,20 @@ export const timeBlockQueryValidation = Joi.object({
             "string.empty": "La hora de termino no puede estar vacía.",
             "string.pattern.base": "La hora de término debe estar en formato HH:MM de 24 horas.",
         }),
-    fecha: Joi.string()
+    diaSemana: Joi.string()
         .required()
-        .pattern(/^\d{2}-\d{2}-\d{4}$/)
+        .pattern(/^[a-zA-Z]{5,12}$/)
         .messages({
-            "string.empty": "La fecha no puede estar vacía.",
-            "string.pattern.base": "La fecha debe estar en formato DD-MM-YYYY.",
+            "string.empty": "El dia de la semana no puede estar vacío.",
+            "string.pattern.base": "El día de la semana debe contener entre 3 y 9 letras.",
         }),
 })
-    .or("idTeacher", "idCourse", "idSubject", "fecha")
+    .or("idTeacher", "idCourse", "idSubject", "diaSemana")
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
         "object.missing":
-            "Debes proporcionar al menos: idTeacher, idCourse, idSubject o fecha",
+            "Debes proporcionar al menos: idTeacher, idCourse, idSubject o dia de la semana",
     });
 
 export const timeBlockBodyValidation = Joi.object({
@@ -99,17 +99,17 @@ export const timeBlockBodyValidation = Joi.object({
             "string.empty": "La hora de termino no puede estar vacía.",
             "string.pattern.base": "La hora de término debe estar en formato HH:MM de 24 horas.",
         }),
-    fecha: Joi.string()
+    diaSemana: Joi.string()
         .required()
-        .pattern(/^\d{2}-\d{2}-\d{4}$/)
+        .pattern(/^[a-zA-Z]{5,12}$/)
         .messages({
-            "string.empty": "La fecha no puede estar vacía.",
-            "string.pattern.base": "La fecha debe estar en formato DD-MM-YYYY.",
+            "string.empty": "El dia de la semana no puede estar vacío.",
+            "string.pattern.base": "El día de la semana debe contener entre 3 y 9 letras.",
         }),
 })
     .unknown(false)
     .messages({
         "object.unknown": "No se permiten propiedades adicionales.",
         "object.missing":
-            "Debes proporcionar al menos: idTeacher, idCourse, idSubject, horaInicio, horaTermino y fecha",
+            "Debes proporcionar al menos: idTeacher, idCourse, idSubject, horaInicio, horaTermino y diaSemana",
     });

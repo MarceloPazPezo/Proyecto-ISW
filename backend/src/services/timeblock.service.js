@@ -33,11 +33,11 @@ export async function createTimeBlockService(body) {
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = body;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = body;
 
         const existingTimeBlock = await timeBlockRepository.findOne({
             where: {
-                idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha
+                idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana
             },
         });
 
@@ -49,7 +49,7 @@ export async function createTimeBlockService(body) {
             idSubject: body.idSubject,
             horaInicio: body.horaInicio,
             horaTermino: body.horaTermino,
-            fecha: body.fecha
+            diaSemana: body.diaSemana
         });
 
         const timeBlockSaved = await timeBlockRepository.save(newTimeBlock);
@@ -64,12 +64,12 @@ export async function createTimeBlockService(body) {
 
 export async function updateTimeBlockService(query, body) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha },
+            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana },
         });
 
         if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
@@ -80,7 +80,7 @@ export async function updateTimeBlockService(query, body) {
             idSubject: body.idSubject,
             horaInicio: body.horaInicio,
             horaTermino: body.horaTermino,
-            fecha: body.fecha
+            diaSemana: body.diaSemana
         };
 
         const timeBlockUpdatedFound = await timeBlockRepository.findOne({
@@ -109,12 +109,12 @@ export async function updateTimeBlockService(query, body) {
 
 export async function deleteTimeBlockService(query) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha },
+            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana },
         });
 
         if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
@@ -139,7 +139,7 @@ export async function deleteTimeBlockService(query) {
 
 export async function getTimeBlockService(query) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
@@ -149,7 +149,7 @@ export async function getTimeBlockService(query) {
         if (idSubject) whereClause.idSubject = idSubject;
         if (horaInicio) whereClause.horaInicio = horaInicio;
         if (horaTermino) whereClause.horaTermino = horaTermino;
-        if (fecha) whereClause.fecha = fecha;
+        if (diaSemana) whereClause.diaSemana = diaSemana;
 
         const timeBlockFound = await timeBlockRepository.findOne({
             where: whereClause

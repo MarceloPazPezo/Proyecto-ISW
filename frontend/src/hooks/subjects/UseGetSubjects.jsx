@@ -8,6 +8,7 @@ const useSubjects = () => {
         try {
             const response = await getSubjects();
             const formattedData = response.map(subject => ({
+                id: subject.id,
                 nombre: subject.nombre,
                 departamento: subject.departamento,
                 createdAt: subject.createdAt

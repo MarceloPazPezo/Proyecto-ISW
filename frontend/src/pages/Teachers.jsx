@@ -18,7 +18,9 @@ import useDeleteTeacher from "@hooks/users/useDeleteTeacher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faBook } from "@fortawesome/free-solid-svg-icons";
 import HorarioIcon from "../assets/horarioIcon.svg";
+
 import VentanaHorario from "@components/VentanaHorario";
+
 import "@styles/spreadsheet.css";
 
 const Teachers = () => {
@@ -27,7 +29,7 @@ const Teachers = () => {
   const [filterRut, setFilterRut] = useState("");
   const [messageCopied, setMessageCopied] = useState("");
   const [isVentanaHorarioOpen, setIsVentanaHorarioOpen] = useState(false);
-
+  const [selectedIdTeacher, setSelectedIdTeacher] = useState("");
   const [isPopupTeachOpen, setIsPopupTeachOpen] = useState(false);
 
   const {
@@ -92,6 +94,15 @@ const Teachers = () => {
   const handleClickTeach = () => {
     if (dataTeacher.length > 0) {
       setIsPopupTeachOpen(true);
+    }
+  };
+
+  const handleVentanaHorarioOpen = () => {
+    if (dataTeacher.length > 0) {
+      const selectedID = dataTeacher[0].id;
+      console.log("ID seleccionado", selectedID);
+      setSelectedIdTeacher(selectedID);
+      setIsVentanaHorarioOpen(true);
     }
   };
 
@@ -188,16 +199,16 @@ const Teachers = () => {
               position="top"
               trigger="mouseenter"
             >
-             <button
-              className={`horario-button ${dataTeacher.length === 0 ? 'button-disabled' : ''}`}
-              onClick={() => setIsVentanaHorarioOpen(true)}
-              disabled={dataTeacher.length === 0}>
-              {dataTeacher.length === 0 ? (
-                <img src={HorarioIcon} alt="delete-disabled" />
-              ) : (
-                <img src={HorarioIcon} alt="delete" />
-              )}
-            </button>
+              <button
+                className={`horario-button ${dataTeacher.length === 0 ? 'button-disabled' : ''}`}
+                onClick={handleVentanaHorarioOpen}
+                disabled={dataTeacher.length === 0}>
+                {dataTeacher.length === 0 ? (
+                  <img src={HorarioIcon} alt="delete-disabled" />
+                ) : (
+                  <img src={HorarioIcon} alt="delete" />
+                )}
+              </button>
             </Tooltip>
           </div>
         </div>
@@ -209,11 +220,12 @@ const Teachers = () => {
           initialSortName={"nombreCompleto"}
           onSelectionChange={handleSelectionChange}
         />
-        <VentanaHorario
-          isOpen={isVentanaHorarioOpen}
-          onClose={() => setIsVentanaHorarioOpen(false)}
-        />
       </div>
+      <VentanaHorario
+        isOpen={isVentanaHorarioOpen}
+        onClose={() => setIsVentanaHorarioOpen(false)}
+        teacherID={selectedIdTeacher}
+      />
       <PopupCopiado
         message={messageCopied}
         onClose={() => setMessageCopied("")}
