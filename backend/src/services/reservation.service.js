@@ -7,16 +7,44 @@ import  Usuario from "../entity/user.entity.js";
 import  Resource from "../entity/resource.entity.js";
 import { format, parse } from "date-fns"; // npm install date-fns
 
+export async function getReservationbyIDService(query) {
+    try {
+        const { id } = query;
+
+        // console.log("IDSERVBACK:", id);
+
+        const reservationRepository = AppDataSource.getRepository(Reservation);
+
+        // Buscar la reserva cuyo idResource coincida con el id proporcionado
+        const reservationFound = await reservationRepository.findOne({
+            where: {
+                idResource: id,
+            },
+        });
+
+        // Si no se encuentra la reserva, retornar un mensaje apropiado
+        if (!reservationFound) return [null, "No se encontró la reserva solicitada."];
+
+        return [reservationFound, null];
+    } catch (error) {
+        console.error("Error al obtener la reserva: ", error);
+        return [null, "Error interno del servidor."];
+    }
+}
+
+
 export async function getReservationService(query) {
     try {
 
         const { id } = query;
 
+        // console.log("IDSERVBACK:", id);
+        
         const reservationRepository = AppDataSource.getRepository(Reservation);
 
         const reservationFound = await reservationRepository.findOne({
-            where: [{ id }],
-            relations: ["manager"],
+            where: [{ idTeacher: id }],
+            relations: ["resource","teacher"],
         });
 
         if (!reservationFound) return [null, "No se encontró la reserva solicitada."]
@@ -37,7 +65,7 @@ export async function getReservationsService() {
             relations: ["resource","teacher"], // Para devolver todos los datos de la relación
         })
 
-        console.log("Reservas encontradas:", reservationsFound);
+        // console.log("Reservas encontradas:", reservationsFound);
 
         if (!reservationsFound) return [null, "No se encontraron reservas."];
 
@@ -56,7 +84,7 @@ export async function createReservationService(dataReservation) {
 
         const { horaInicio, horaFin, fecha, idUsuario, idResource } = dataReservation;
 
-        console.log("Data: ", horaInicio, horaFin, fecha, idUsuario, idResource);
+        // console.log("Data: ", horaInicio, horaFin, fecha, idUsuario, idResource);
 
         // Verificar que idResource no sea nulo o indefinido
         if (!idResource) {
@@ -109,27 +137,35 @@ export async function createReservationService(dataReservation) {
 
 export async function updateReservationService(query, body) {
     try {
+        console.log("Body:", body);
 
         const reservationRepository = AppDataSource.getRepository(Reservation);
 
-        const { id } = query;
+        // Extrae el ID directamente del body
+        const { id } = body;
 
+        // Busca la reserva existente
         const reservationFound = await reservationRepository.findOne({
-            where: { id },
+            where: { id: id },
         });
 
         if (!reservationFound) return [null, "Reserva no encontrada"];
 
+        // Construye el objeto de actualización dinámicamente
         const reservationData = {
-            horaInicio : body.horaInicio,
-            horaFin : body.horaFin,
-            fecha : body.fecha,
-            idTeacher : body.idTeacher,
-            idResource : body.idResource,
-            updatedAt : new Date()
-        }
+            horaInicio: body.horaInicio || reservationFound.horaInicio,
+            horaFin: body.horaFin || reservationFound.horaFin,
+            fecha: body.fecha || reservationFound.fecha,
+            idTeacher: body.idTeacher ?? reservationFound.idTeacher, // Si viene vacío, conserva el valor original
+            idResource: body.idResource || reservationFound.idResource,
+            updatedAt: new Date(),
+        };
 
-        const reservationUpdated = await reservationRepository.save(reservationData);
+        // Realiza la actualización
+        await reservationRepository.update({ id: id }, reservationData);
+
+        // Recupera la reserva actualizada (opcional, si necesitas devolverla)
+        const reservationUpdated = await reservationRepository.findOne({ where: { id: id } });
 
         return [reservationUpdated, null];
     } catch (error) {
@@ -137,6 +173,7 @@ export async function updateReservationService(query, body) {
         return [null, "Error interno del servidor."];
     }
 }
+
 
 export async function deleteReservationService(query) {
     try {

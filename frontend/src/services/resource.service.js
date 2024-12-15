@@ -56,6 +56,8 @@ export async function deleteResource(id) {
 
 export async function updateResource(resourceData) {
     try {
+        console.log("Resource Data: ", resourceData);
+        
         const data = convertirMinusculas(resourceData);
         const { id, nombre, estado, idManager } = data;
 

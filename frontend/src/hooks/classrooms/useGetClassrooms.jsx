@@ -10,6 +10,7 @@ const useClassrooms = () => {
             const formattedData = response.map(classroom => ({
                 nombre: classroom.nombre,
                 estado: classroom.estado,
+                capacidad: classroom.capacidad,
                 createdAt: classroom.createdAt
             }));
             setClassrooms(formattedData);

@@ -68,7 +68,7 @@ const Navbar = () => {
                                 Panel
                                 <FontAwesomeIcon icon={faChevronDown} className={`chevron ${adminMenuOpen ? 'rotate' : ''}`} />
                             </button>
-                            <ul className={`submenu ${adminMenuOpen ? 'open' : ''}`}>
+                            <ul className={`admin-submenu ${adminMenuOpen ? 'open' : ''}`}>
                                 {userRole !== 'jefe de utp' && (
                                     <>
                                         <li>
@@ -127,13 +127,13 @@ const Navbar = () => {
                                 onClick={toggleDocenteMenu}
                                 tabIndex="0"
                                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleDocenteMenu(); }}
-                                className={`admin-menu-button ${docenteMenuOpen ? 'open' : ''}`}
+                                className={`docente-menu-button ${docenteMenuOpen ? 'open' : ''}`}
                             >
                                 <FontAwesomeIcon icon={faClipboardList} />
                                 Reservas
                                 <FontAwesomeIcon icon={faChevronDown} className={`chevron ${docenteMenuOpen ? 'rotate' : ''}`} />
                             </button>
-                            <ul className={`submenu ${docenteMenuOpen ? 'open' : ''}`}>
+                            <ul className={`docente-submenu ${docenteMenuOpen ? 'open' : ''}`}>
                                 <li>
                                     <NavLink
                                         to="/reservation"
@@ -155,37 +155,39 @@ const Navbar = () => {
                             </ul>
                         </li>
                     )}
-                    {userRole === 'docente' && (
-                        <>
-                            <li>
-                                <NavLink
-                                    to="/schedule"
-                                    className={({ isActive }) => (isActive ? 'active' : '')}
-                                    onClick={handleLinkClick}
-                                >
-                                    <FontAwesomeIcon icon={faCalendar} /> Horario
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/permisos"
-                                    className={({ isActive }) => (isActive ? 'active' : '')}
-                                    onClick={handleLinkClick}
-                                >
-                                    <FontAwesomeIcon icon={faFileAlt} /> Permisos
-                                </NavLink>
-                            </li>
-                        </>
-                    )}
+                    {(userRole === 'encargado') && (
                     <li>
                         <NavLink
-                            to="/about"
-                            className={({ isActive }) => (isActive ? 'active' : '')}
+                            to="/reservation"
                             onClick={handleLinkClick}
+                            activeClassName="active"
                         >
-                            <FontAwesomeIcon icon={faInfoCircle} /> Acerca de
+                            <FontAwesomeIcon icon={faClipboardList} /> Reserva
                         </NavLink>
                     </li>
+                    )}
+                    {userRole === 'docente' && (
+                        <li>
+                            <NavLink
+                                to="/schedule"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faCalendar} /> Horario
+                            </NavLink>
+                        </li>
+                    )}
+                    {(userRole === 'docente' || userRole === 'director' || userRole === 'jefe de utp') && (
+                        <li>
+                            <NavLink
+                                to="/permisos"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faFileAlt} /> Permisos
+                            </NavLink>
+                        </li>
+                    )}
                     <li className="cerrar-sesion">
                         <NavLink
                             to="/auth"

@@ -8,7 +8,7 @@ import passport from "passport";
 import express, { json, urlencoded } from "express";
 import { cookieKey, HOST, PORT } from "./config/configEnv.js";
 import { connectDB } from "./config/configDb.js";
-import { createClassrooms, createCourses, createResource, createSubject, createTimeblocks, createTeach, createUsers } 
+import { createClassrooms, createCourses, createResource, createSubject, createTimeblocks, createTeach , createUsers } 
 from "./config/initialSetup.js";
 import { passportJwtSetup } from "./auth/passport.auth.js";
 
@@ -59,7 +59,7 @@ async function setupServer() {
     app.use(passport.session());
 
     passportJwtSetup();
-
+    app.use("/api/src/uploads", express.static("src/uploads"));
     app.use("/api", indexRoutes);
 
     app.listen(PORT, () => {
