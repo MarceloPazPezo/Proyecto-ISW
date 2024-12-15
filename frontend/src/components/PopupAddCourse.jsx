@@ -5,6 +5,8 @@ import useAddCourse from "@hooks/courses/useAddCourse.jsx";
 import { addCourse } from "@services/course.service.js";
 import { showErrorAlert, showSuccessAlert } from "@helpers/sweetAlert.js";
 import { formatCourseData } from "@helpers/formatData.js";
+import useTeachers from "@hooks/users/useGetTeachers.jsx";
+
 
 export default function PopupAddCourse({ show, setShow, dataCourses }) {
     const {
@@ -12,7 +14,8 @@ export default function PopupAddCourse({ show, setShow, dataCourses }) {
         errorData,
         handleInputChange
     } = useAddCourse();
-
+    const { teachers } = useTeachers();
+    
     const handleSubmit = async (addedCourseData) => {
         try {
             const response = await addCourse(addedCourseData);
@@ -60,19 +63,16 @@ export default function PopupAddCourse({ show, setShow, dataCourses }) {
                                     },
                                     {
                                         label: "Profesor",
-                                        name: "idBossTeacher",
-                                        placeholder: "20",
-                                        fieldType: "input",
-                                        type: "text",
+                                        name: "nombreCompleto",
+                                        fieldType: "select",
+                                        options: teachers.map((teacher) => ({
+                                            value: teacher.id, 
+                                            label: teacher.nombreCompleto,
+                                        })),
                                         required: true,
-                                        minLength: 1,
-                                        maxLength: 5,
-                                        pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\d]+$/,
-                                        errorMessageData: errorNombre,
-                                        patternMessage:
-                                            "Debe contener solo letras, espacios y números.",
+                                        defaultValue: "",
                                         onChange: (e) =>
-                                            handleInputChange("idBossTeacher", e.target.value),
+                                            handleInputChange("nombreCompleto", e.target.value),
                                     },
                                     {
                                         label: "Curso",
