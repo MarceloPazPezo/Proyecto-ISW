@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 const useAddCourse = () => {
-
     const [errorNombre, setErrorNombre] = useState('');
     const [inputDataNombre, setInputDataNombre] = useState({ nombre: '' });
     const [errorIdBossteacher, setErrorIdBossteacher] = useState('');
@@ -10,7 +9,6 @@ const useAddCourse = () => {
     const [inputDataIdClassroom, setInputDataIdClassroom] = useState({ idClassroom: '' });
     const [errorCantidadAlumnos, setErrorCantidadAlumnos] = useState('');
     const [inputDataCantidadAlumnos, setInputDataCantidadAlumnos] = useState({ cantidadAlumnos: '' });
-
 
     useEffect(() => {
         if (inputDataNombre.nombre) setErrorNombre('');
