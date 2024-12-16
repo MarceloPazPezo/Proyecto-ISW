@@ -30,8 +30,20 @@ const TimeblockSchema = new EntitySchema({
       type: "time",
       nullable: false,
     },
-    fecha: {
-      type: "date",
+    diaSemana: {
+      type: "varchar",
+      length: 15,
+      nullable: false
+    },
+    createdAt: {
+      type: "timestamp with time zone",
+      default: () => "CURRENT_TIMESTAMP",
+      nullable: false,
+    },
+    updatedAt: {
+      type: "timestamp with time zone",
+      default: () => "CURRENT_TIMESTAMP",
+      onUpdate: "CURRENT_TIMESTAMP",
       nullable: false,
     },
   },

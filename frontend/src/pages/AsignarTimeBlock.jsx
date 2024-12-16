@@ -10,7 +10,6 @@ const AsignarHorario = () => {
 
     return (
         <div className='main-container'>
-            <h1 className='title-table'>Asignar Horario</h1>
             <PopupAddTimeBlock onSave={handleSave} />
         </div>
     );

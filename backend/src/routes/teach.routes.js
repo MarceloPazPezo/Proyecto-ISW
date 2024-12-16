@@ -19,7 +19,7 @@ router
   .post("/", authorizeRoles("administrador", "director"), createTeachRelation)
   .get("/", authorizeRoles("administrador", "director"), getTeachesRelation)
   .get("/detail/", authorizeRoles("administrador", "director"), getTeachRelation)
-  .get("/teacher/detail/", authorizeRoles("administrador", "director"), getSubjectsByTeacher)
+  .get("/teacher/detail/", authorizeRoles("administrador", "director", "jefe de utp"), getSubjectsByTeacher)
   .patch("/detail/", authorizeRoles("administrador", "director"), updateTeachRelation)
   .delete("/detail/", authorizeRoles("administrador", "director"), deleteTeachRelation);
 

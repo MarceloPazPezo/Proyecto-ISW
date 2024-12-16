@@ -5,7 +5,7 @@ import Home from '@pages/Home';
 import Users from '@pages/Users';
 import Error404 from '@pages/Error404';
 import Teachers from '@pages/Teachers';
-import AsignarTimeBlock from '@pages/AsignarTimeBlock.jsx';
+// import AsignarTimeBlock from '@pages/AsignarTimeBlock.jsx';
 import Horarios from '@pages/Horarios';
 // import CopyTeacher from '@pages/TeachersCopy';
 import Root from '@pages/Root';
@@ -15,6 +15,8 @@ import Classrooms from '@pages/Classrooms';
 import Subjects from '@pages/Subjects';
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
+import About from '@pages/About';
+import Courses from '@pages/Courses';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
           <Teachers />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/courses',
+        element: (
+        <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
+          <Courses />
         </ProtectedRoute>
         ),
       },

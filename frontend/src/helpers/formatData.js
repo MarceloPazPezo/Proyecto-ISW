@@ -41,6 +41,16 @@ export function formatSubjectData(subject) {
     };
 }
 
+export function formatCourseData(course) {
+    return {
+        ...course,
+        nombre: startCase(course.nombre),
+        idBossTeacher: startCase(course.idBossTeacher),
+        idClassroom: startCase(course.idClassroom),
+        createdAt: formatTempo(course.createdAt, "DD-MM-YYYY")
+    };
+}
+
 export function formatTimeBlockData(timeblock) {
     return {
         ...timeblock,
@@ -49,7 +59,7 @@ export function formatTimeBlockData(timeblock) {
         idSubject: timeblock.idSubject,
         horaInicio: timeblock.horaInicio,
         horaTermino: timeblock.horaTermino,
-        fecha: formatTempo(timeblock.fecha, "DD-MM-YYYY")
+        diaSemana: startCase(timeblock.diaSemana)
     };
 }
 
@@ -98,6 +108,15 @@ export function formatPostUpdateSubject(subject) {
         nombre: startCase(subject.nombre),
         departamento: startCase(subject.departamento),
         createdAt: formatTempo(subject.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateCourse(course) {
+    return {
+        nombre: startCase(course.nombre),
+        idBossTeacher: startCase(course.idBossTeacher),
+        idClassroom: startCase(course.idClassroom),
+        createdAt: formatTempo(course.createdAt, "DD-MM-YYYY")
     };
 }
 
