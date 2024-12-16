@@ -76,7 +76,8 @@ const Login = () => {
                     onSubmit={loginSubmit}
                 footerContent={
                     <p>
-                        ¿Problemas al ingresar en la plataforma? Contactanos
+                        ¿Problemas al ingresar en la plataforma?{' '}
+                        <a href="mailto:administrador2024@gmail.cl">Contáctanos</a>
                     </p>
                 }
                 />

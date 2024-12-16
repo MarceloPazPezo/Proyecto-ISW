@@ -30,7 +30,7 @@ export async function getClassrooms() {
 
 export async function updateClassroom(data, nombre) {
     try {
-        const response = await axios.patch(`/classroom/detail/?nombre=${nombre.toUpperCase()}`, data);
+        const response = await axios.patch(`/classroom/detail/?nombre=${nombre}`, data);
         return response.data.data;
     } catch (error) {
         console.log(error);

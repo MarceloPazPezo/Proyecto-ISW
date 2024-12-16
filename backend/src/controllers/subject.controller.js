@@ -66,7 +66,7 @@ export async function createSubject(req, res) {
 
         const [subject, errorSubject] = await createSubjectService({ nombre, departamento });
 
-        if (errorSubject) return handleErrorClient(res, 404, errorSubject);
+        if (errorSubject) return handleErrorClient(res, 400, errorSubject);
 
         handleSuccess(res, 201, "Asignatura creada", subject);
     } catch (error) {
@@ -104,7 +104,7 @@ export async function updateSubject(req, res) {
         const [subject, errorSubject] = await updateSubjectsService({ id, nombre }, body);
 
         if (errorSubject)
-            return handleErrorClient(res, 404, "Error modificando la asignatura", errorSubject);
+            return handleErrorClient(res, 400, "Error modificando la asignatura", errorSubject);
 
         handleSuccess(res, 200, "Asignatura modificada correctamente", subject);
     } catch (error) {

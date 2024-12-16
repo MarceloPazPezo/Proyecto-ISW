@@ -83,7 +83,8 @@ export default function PopupAddClassroom({ show, setShow, dataClassrooms }) {
                                         type: "number",
                                         errorMessageData: errorCapacidad,
                                         required: true,
-                                        tValue: "",
+                                        min: 1,
+                                        max: 500,
                                         onChange: (e) =>
                                             handleInputChange("capacidad", e.target.value),
                                     }

@@ -25,7 +25,7 @@ export function formatResourceData (resource) {
 export function formatClassroomData(classroom) {
     return {
         ...classroom,
-        nombre: classroom.nombre.toUpperCase(),
+        nombre: classroom.nombre,
         estado: startCase(classroom.estado),
         capacidad: classroom.capacidad,
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")
@@ -73,6 +73,7 @@ export function quitarAcentos(obj) {
 
 export function formatPostUpdate(user) {
     return {
+        ...user,
         nombreCompleto: startCase(user.nombreCompleto),
         rol: startCase(user.rol),
         rut: formatRut(user.rut),
@@ -85,7 +86,7 @@ export function formatPostUpdate(user) {
 
 export function formatPostUpdateClassroom(classroom) {
     return {
-        nombre: classroom.nombre.toUpperCase(),
+        nombre: classroom.nombre,
         estado: startCase(classroom.estado),
         capacidad: classroom.capacidad,
         createdAt: formatTempo(classroom.createdAt, "DD-MM-YYYY")

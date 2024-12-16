@@ -44,7 +44,7 @@ export default function PopupEditTeacher({ show, setShow, data, action }) {
                     defaultValue: teacherData.email || "",
                     fieldType: "input",
                     type: "email",
-                    disabled: true,
+                    readOnly: true,
                   },
                   {
                     label: "Rut",
@@ -57,7 +57,7 @@ export default function PopupEditTeacher({ show, setShow, data, action }) {
                     maxLength: 12,
                     pattern: patternRut,
                     patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
-                    disabled: true,
+                    readOnly: true,
                   },
                   {
                     label: "Teléfono",
@@ -66,7 +66,7 @@ export default function PopupEditTeacher({ show, setShow, data, action }) {
                     placeholder: "912345678",
                     fieldType: "input",
                     type: "tel",
-                    disabled: true,
+                    readOnly: true,
                     minLength: 9,
                     maxLength: 9,
                     pattern: /^\d{9}$/,

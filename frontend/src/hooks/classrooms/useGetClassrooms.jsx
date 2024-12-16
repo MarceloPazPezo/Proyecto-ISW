@@ -8,6 +8,7 @@ const useClassrooms = () => {
         try {
             const response = await getClassrooms();
             const formattedData = response.map(classroom => ({
+                id: classroom.id,
                 nombre: classroom.nombre,
                 estado: classroom.estado,
                 capacidad: classroom.capacidad,

@@ -205,6 +205,9 @@ export async function createCourseService(dataCourse) {
       
       if (!existingIdClassroom) return [null, createErrorMessage("idClassroom", "La sala no existe")];
       
+      if (existingIdClassroom.capacidad < dataCourse.cantidadAlumnos)
+        return [null, createErrorMessage("cantidadAlumnos", "La cantidad de alumnos supera la capacidad de la sala")];
+
       const newCourse = courseRepository.create({
           nombre: dataCourse.nombre,
           idBossTeacher: dataCourse.idBossTeacher, 

@@ -42,11 +42,11 @@ export async function createReservation(req, res) {
 
         // console.log("Controller body:",reservationBody);
 
-        // const { error } = reservationBodyValidation.validate(reservationBody);
+        const { error } = reservationBodyValidation.validate(reservationBody);
 
         // console.log("Controller error1:",error);
 
-        // if (error) return handleErrorClient(res, 404, error);
+        if (error) return handleErrorClient(res, 404, error);
 
         const [reservation, errorReservation] = await createReservationService(reservationBody);
 
@@ -54,7 +54,7 @@ export async function createReservation(req, res) {
 
         // console.log("Controller reservation:1",reservation);
 
-        if (errorReservation) return handleErrorClient(res, 404, errorReservation);
+        if (errorReservation) return handleErrorClient(res, 400, errorReservation);
 
         handleSuccess(res, 201, "Reserva creada", reservation);
 
@@ -134,7 +134,7 @@ export async function updateReservation(req, res) {
 
         // console.log("Salida del Service", reservation, errorReservation);
 
-        if (errorReservation) return handleErrorClient(res, 404, errorReservation);
+        if (errorReservation) return handleErrorClient(res, 400, errorReservation);
 
         handleSuccess(res, 201, "Reserva actualizada", reservation);
 
@@ -162,4 +162,3 @@ export async function deleteReservation(req, res) {
         handleErrorServer(res, 500, error.message);
     }
 }
-
