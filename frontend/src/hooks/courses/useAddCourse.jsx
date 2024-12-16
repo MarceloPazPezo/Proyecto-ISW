@@ -1,40 +1,73 @@
 import { useState, useEffect } from 'react';
 
 const useAddCourse = () => {
-    const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
     const [errorNombre, setErrorNombre] = useState('');
-    const [inputData, setInputData] = useState({ nombre: ''});
+    const [inputDataNombre, setInputDataNombre] = useState({ nombre: '' });
+    const [errorIdBossteacher, setErrorIdBossteacher] = useState('');
+    const [inputDataIdBossteacher, setInputDataIdBossteacher] = useState({ idBossteacher: '' });
+    const [errorIdClassroom, setErrorIdClassroom] = useState('');
+    const [inputDataIdClassroom, setInputDataIdClassroom] = useState({ idClassroom: '' });
+    const [errorCantidadAlumnos, setErrorCantidadAlumnos] = useState('');
+    const [inputDataCantidadAlumnos, setInputDataCantidadAlumnos] = useState({ cantidadAlumnos: '' });
 
     useEffect(() => {
-        if (inputData.nombre) setErrorNombre('');
-    }, [inputData.nombre]);
+        if (inputDataNombre.nombre) setErrorNombre('');
+        if (inputDataIdBossteacher.idBossteacher) setErrorIdBossteacher('');
+        if (inputDataIdClassroom.idClassroom) setErrorIdClassroom('');
+        if (inputDataCantidadAlumnos.cantidadAlumnos) setErrorCantidadAlumnos('');
+    }, [inputDataNombre, inputDataIdBossteacher, inputDataIdClassroom, inputDataCantidadAlumnos]);
 
     const errorData = (dataMessage) => {
         if (dataMessage.dataInfo === 'nombre') {
-            console.log(dataMessage.message);
             setErrorNombre(dataMessage.message);
+        }
+        if (dataMessage.dataInfo === 'idBossteacher') {
+            setErrorIdBossteacher(dataMessage.message);
+        }
+        if (dataMessage.dataInfo === 'idClassroom') {
+            setErrorIdClassroom(dataMessage.message);
+        }
+        if (dataMessage.dataInfo === 'cantidadAlumnos') {
+            setErrorCantidadAlumnos(dataMessage.message);
         }
     };
 
     const handleInputChange = (field, value) => {
-        setInputData(prevState => ({
-            ...prevState,
-            [field]: value
-        }));
-    };
+        if (field === 'nombre') {
+            setInputDataNombre(prevState => ({
+                ...prevState,
+                nombre: value
+            }));
+        } else if (field === 'idBossteacher') {
+            setInputDataIdBossteacher(prevState => ({
+                ...prevState,
+                idBossteacher: value
+            }));
+        } else if (field === 'idClassroom') {
+            setInputDataIdClassroom(prevState => ({
+                ...prevState,
+                idClassroom: value
+            }));
+        } else if (field === 'cantidadAlumnos') {
+            setInputDataCantidadAlumnos(prevState => ({
+                ...prevState,
+                cantidadAlumnos: value
+            }));
 
-    const handleAddCourseClick = () => {
-        setIsPopupAddOpen(true);
+        };
     };
 
     return {
         errorNombre,
-        inputData,
+        inputDataNombre,
+        errorIdBossteacher,
+        inputDataIdBossteacher,
+        errorIdClassroom,
+        inputDataIdClassroom,
+        errorCantidadAlumnos,
+        inputDataCantidadAlumnos,
         errorData,
         handleInputChange,
-        isPopupAddOpen,
-        setIsPopupAddOpen,
-        handleAddCourseClick
     };
 };
 

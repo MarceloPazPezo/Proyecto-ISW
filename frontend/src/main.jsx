@@ -5,7 +5,7 @@ import Home from '@pages/Home';
 import Users from '@pages/Users';
 import Error404 from '@pages/Error404';
 import Teachers from '@pages/Teachers';
-import AsignarTimeBlock from '@pages/AsignarTimeBlock.jsx';
+// import AsignarTimeBlock from '@pages/AsignarTimeBlock.jsx';
 import Horarios from '@pages/Horarios';
 // import CopyTeacher from '@pages/TeachersCopy';
 import Root from '@pages/Root';

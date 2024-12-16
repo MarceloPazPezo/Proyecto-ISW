@@ -3,7 +3,10 @@ import { formatTimeBlockData } from '@helpers/formatData.js';
 
 export async function addTimeBlock(data) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+
+        const formattedData = formatTimeBlockData(data);
+
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = formattedData;
 
         const response = await axios.post('/timeblock/timeBlock/', {
             idTeacher,
@@ -11,7 +14,7 @@ export async function addTimeBlock(data) {
             idSubject,
             horaInicio,
             horaTermino,
-            fecha
+            diaSemana
         });
 
         return response.data;
@@ -20,31 +23,22 @@ export async function addTimeBlock(data) {
     }
 }
 
-export async function updateTimeBlockCopy(data, idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha) {
-    try {
-        const response = await axios.patch(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
-            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`, data);
-        console.log(response);
-        return response.data.data;
-    } catch (error) {
-        console.log(error);
-        return error.response.data;
-    }
-}
-
 export async function updateTimeBlock(data) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+
+        const formattedData = formatTimeBlockData(data);
+
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = formattedData;
 
         const response = await axios.patch(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
-            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`,
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&diaSemana=${diaSemana}`,
             {
                 idTeacher,
                 idCourse,
                 idSubject,
                 horaInicio,
                 horaTermino,
-                fecha
+                diaSemana
             });
 
         return response.data.data;
@@ -55,10 +49,10 @@ export async function updateTimeBlock(data) {
 
 export async function deleteTimeBlock(data) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = data;
 
         const response = await axios.delete(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
-            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`, data);
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&diaSemana=${diaSemana}`, data);
 
         return response.data.data;
     } catch (error) {
@@ -69,9 +63,9 @@ export async function deleteTimeBlock(data) {
 export async function getTimeBlocks() {
     try {
         const { data } = await axios.get('/timeblock/');
-        console.log(data);
+        // console.log(data);
         const formattedData = data.data.map(formatTimeBlockData);
-        console.log(formattedData);
+        // console.log(formattedData);
         return formattedData;
     } catch (error) {
         return error.response.data;
@@ -80,9 +74,9 @@ export async function getTimeBlocks() {
 
 export async function getTimeBlock() {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = data;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = data;
         const { data } = await axios.get(`/timeblock/detail/?detail?idTeacher=${idTeacher}&
-            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&fecha=${fecha}`);
+            IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio}horaTermino=${horaTermino}&diaSemana=${diaSemana}`);
         const formattedData = data.data.map(formatTimeBlockData);
         return formattedData;
     } catch (error) {

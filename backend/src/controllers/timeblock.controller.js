@@ -36,7 +36,7 @@ export async function createTimeBlock(req, res) {
 
 export async function updateTimeBlock(req, res) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = req.query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = req.query;
         const { body } = req;
 
         const { error: queryError } = timeBlockQueryValidation.validate({
@@ -45,7 +45,7 @@ export async function updateTimeBlock(req, res) {
             idSubject,
             horaInicio,
             horaTermino,
-            fecha
+            diaSemana
         });
 
         if (queryError) {
@@ -68,7 +68,7 @@ export async function updateTimeBlock(req, res) {
             );
 
         const [timeBlockUpdate, timeBlockError] = await updateTimeBlockService({
-            idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha
+            idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana
         }, body);
 
         if (timeBlockError) return handleErrorClient(res, 400, "Error al modificar el bloque de tiempo",
@@ -82,7 +82,7 @@ export async function updateTimeBlock(req, res) {
 
 export async function deleteTimeBlock(req, res) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = req.query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = req.query;
 
         const { error: queryError } = timeBlockQueryValidation.validate({
             idTeacher,
@@ -90,7 +90,7 @@ export async function deleteTimeBlock(req, res) {
             idSubject,
             horaInicio,
             horaTermino,
-            fecha
+            diaSemana
         });
 
         if (queryError) {
@@ -103,7 +103,7 @@ export async function deleteTimeBlock(req, res) {
         }
 
         const [timeBlockDeleted, timeBlockError] = await deleteTimeBlockService({
-            idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha
+            idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana
         });
 
         if (timeBlockError) return handleErrorClient(res, 404, "Error al eliminar el bloque de tiempo",
@@ -117,7 +117,7 @@ export async function deleteTimeBlock(req, res) {
 
 export async function getTimeBlock(req, res) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, fecha } = req.query;
+        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = req.query;
 
         const { error: queryError } = timeBlockQueryValidation.validate({
             idTeacher,
@@ -125,7 +125,7 @@ export async function getTimeBlock(req, res) {
             idSubject,
             horaInicio,
             horaTermino,
-            fecha
+            diaSemana
         });
 
         if (queryError) {
@@ -139,7 +139,7 @@ export async function getTimeBlock(req, res) {
 
         const [timeBlock, timeBlockError] = await getTimeBlockService({
             idTeacher, idCourse, idSubject, horaInicio,
-            horaTermino, fecha
+            horaTermino, diaSemana
         });
 
         if (timeBlockError) return handleErrorClient(res, 404, timeBlockError);
