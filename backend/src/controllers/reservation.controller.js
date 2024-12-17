@@ -42,11 +42,11 @@ export async function createReservation(req, res) {
 
         // console.log("Controller body:",reservationBody);
 
-        const { error } = reservationBodyValidation.validate(reservationBody);
+        // const { error } = reservationBodyValidation.validate(reservationBody);
 
         // console.log("Controller error1:",error);
 
-        if (error) return handleErrorClient(res, 404, error);
+        // if (error) return handleErrorClient(res, 404, error);
 
         const [reservation, errorReservation] = await createReservationService(reservationBody);
 

@@ -46,7 +46,11 @@ export function formatCourseData(course) {
         ...course,
         nombre: startCase(course.nombre),
         idBossTeacher: startCase(course.idBossTeacher),
+        nombreCompleto: course.teacher?.nombreCompleto ? startCase(course.teacher.nombreCompleto) : null,
+        rut: course.teacher?.rut ? formatRut(course.teacher.rut) : null,
         idClassroom: startCase(course.idClassroom),
+        nombreSala: course.classroom?.nombre ? course.classroom.nombre : null,
+        cantidadAlumnos: course.cantidadAlumnos,
         createdAt: formatTempo(course.createdAt, "DD-MM-YYYY")
     };
 }
@@ -115,7 +119,11 @@ export function formatPostUpdateCourse(course) {
     return {
         nombre: startCase(course.nombre),
         idBossTeacher: startCase(course.idBossTeacher),
+        rut: course.teacher.rut,
+        nombreCompleto: startCase(course.teacher.nombreCompleto),
         idClassroom: startCase(course.idClassroom),
+        nombreSala: course.classroom.nombre,
+        cantidadAlumnos: course.cantidadAlumnos,
         createdAt: formatTempo(course.createdAt, "DD-MM-YYYY")
     };
 }
