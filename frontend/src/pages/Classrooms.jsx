@@ -47,24 +47,16 @@ const Classrooms = () => {
         setFilterEstado(value);
     };
 
-    const handleSelectionChange = useCallback(
-        (selectedClassrooms) => {
-            setDataClassroom(selectedClassrooms);
-        },
-        [setDataClassroom]
-    );
+    const handleSelectionChange = useCallback((selectedClassroom) => {
+        if (selectedClassroom.length > 0) {
+            setDataClassroom([selectedClassroom[0]]);
+        } else {
+            setDataClassroom([]);
+        }
+    }, [setDataClassroom]);
 
     const handleCellClick = (e, cell) => {
-        const row = cell.getRow();
-        if (e.altKey) {
-            if (row.isSelected()) {
-                row.deselect();
-            } else {
-                const tableRows = row.getTable().getRows();
-                tableRows.forEach((r) => r.deselect());
-                row.select();
-            }
-        } else if (e.ctrlKey) {
+        if (e.ctrlKey) {
             const cellValue = cell.getValue();
             navigator.clipboard
                 .writeText(cellValue)
@@ -143,7 +135,7 @@ const Classrooms = () => {
                             <button
                                 className={`delete-user-button ${dataClassroom.length === 0 ? "button-disabled" : ""
                                     }`}
-                                onClick={() => handleDelete(dataClassroom)}
+                                onClick={() => {handleDelete(dataClassroom); setDataClassroom([]); }}
                                 disabled={dataClassroom.length === 0}
                             >
                                 {dataClassroom.length === 0 ? (

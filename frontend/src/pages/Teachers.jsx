@@ -57,12 +57,13 @@ const Teachers = () => {
     setFilterRut(formattedRut);
   };
 
-  const handleSelectionChange = useCallback(
-    (selectedTeachers) => {
-      setDataTeacher(selectedTeachers);
-    },
-    [setDataTeacher]
-  );
+  const handleSelectionChange = useCallback((selectedTeacher) => {
+    if (selectedTeacher.length > 0) {
+      setDataTeacher([selectedTeacher[0]]);
+    } else {
+      setDataTeacher([]);
+    }
+}, [setDataTeacher]);
 
   const formatRut = (rut) => {
     const cleanRut = rut.replace(/[.-]/g, "");
@@ -73,16 +74,7 @@ const Teachers = () => {
   };
 
   const handleCellClick = (e, cell) => {
-    const row = cell.getRow();
-    if (e.altKey) {
-      if (row.isSelected()) {
-        row.deselect();
-      } else {
-        const tableRows = row.getTable().getRows();
-        tableRows.forEach((r) => r.deselect());
-        row.select();
-      }
-    } else if (e.ctrlKey) {
+    if (e.ctrlKey) {
       const cellValue = cell.getValue();
       navigator.clipboard
         .writeText(cellValue)
@@ -166,7 +158,7 @@ const Teachers = () => {
               <button
                 className={`delete-button ${dataTeacher.length === 0 ? "button-disabled" : ""
                   }`}
-                onClick={() => handleDelete(dataTeacher)}
+                onClick={() => {handleDelete(dataTeacher); setDataTeacher([]); }}
                 disabled={dataTeacher.length === 0}
               >
                 {dataTeacher.length === 0 ? (

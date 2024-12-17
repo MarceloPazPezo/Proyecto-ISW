@@ -81,7 +81,7 @@ export default function PopupEditTeacher({ show, setShow, data, action }) {
                       { value: "desvinculado", label: "Desvinculado" },
                     ],
                     required: true,
-                    defaultValue: teacherData.estado || "",
+                    defaultValue: teacherData.estado.toLowerCase() || "",
                   },
                   {
                     label: (

@@ -52,9 +52,7 @@ const Courses = () => {
             setDataCourse([]);
         }
     }, [setDataCourse]);
-    
-
-    
+      
     const handleCellClick = (e, cell) => {
         if (e.ctrlKey) {
             const cellValue = cell.getValue();

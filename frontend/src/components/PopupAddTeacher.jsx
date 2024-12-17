@@ -8,9 +8,11 @@ import { formatPostUpdate } from '@helpers/formatData.js';
 
 export default function PopupAddTeacher({ show, setShow, dataTeachers }) {
   const {
+    errorNombreCompleto,
     errorEmail,
     errorRut,
     errorTelefono,
+    errorPassword,
     errorData,
     handleInputChange
   } = useAddTeacher();
@@ -62,6 +64,9 @@ export default function PopupAddTeacher({ show, setShow, dataTeachers }) {
                     maxLength: 50,
                     pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                     patternMessage: "Debe contener solo letras y espacios",
+                    errorMessageData: errorNombreCompleto,
+                    onChange: (e) =>
+                      handleInputChange("nombreCompleto", e.target.value),
                   },
                   {
                     label: "Correo electrónico",
@@ -121,6 +126,9 @@ export default function PopupAddTeacher({ show, setShow, dataTeachers }) {
                     maxLength: 26,
                     pattern: /^[a-zA-Z0-9]+$/,
                     patternMessage: "Debe contener solo letras y números",
+                    errorMessageData: errorPassword,
+                    onChange: (e) =>
+                      handleInputChange("password", e.target.value),
                   },
                 ]}
                 buttonText="Crear Docente"

@@ -9,6 +9,7 @@ import { formatPostUpdateSubject } from '../helpers/formatData';
 export default function PopupAddSubject({ show, setShow, dataSubjects }) {
     const {
         errorNombre,
+        errorDepartamento,
         errorData,
         handleInputChange
     } = useAddSubject();
@@ -65,12 +66,14 @@ export default function PopupAddSubject({ show, setShow, dataSubjects }) {
                                     { value: 'artes', label: 'Artes' },
                                     { value: 'ciencias', label: 'Ciencias' },
                                     { value: 'deportes', label: 'Deportes' },
+                                    { value: 'humanista', label: 'Humanista' },
                                     { value: 'idiomas', label: 'Idiomas' },
                                     { value: 'religion', label: 'Religión' },
                                     { value: 'tecnologia', label: 'Tecnología' },
                                 ],
                                 required: true,
                                 defaultValue: "",
+                                errorMessageData: errorDepartamento,
                             }
                         ]}
                         buttonText="Agregar asignatura"

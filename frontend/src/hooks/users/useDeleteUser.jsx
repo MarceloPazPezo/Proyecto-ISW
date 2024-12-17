@@ -14,9 +14,9 @@ const useDeleteUser = (fetchUsers, setDataUser) => {
                 showSuccessAlert('¡Eliminado!','El usuario ha sido eliminado correctamente.');
                 await fetchUsers();
                 setDataUser([]);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 1000);
             } else {
                 showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
             }

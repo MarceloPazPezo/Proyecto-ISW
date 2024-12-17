@@ -41,12 +41,13 @@ export default function PopupEditSubject({ show, setShow, data, action }) {
                                     { value: 'artes', label: 'Artes' },
                                     { value: 'ciencias', label: 'Ciencias' },
                                     { value: 'deportes', label: 'Deportes' },
+                                    { value: 'humanista', label: 'Humanista' },
                                     { value: 'idiomas', label: 'Idiomas' },
                                     { value: 'religion', label: 'Religión' },
                                     { value: 'tecnologia', label: 'Tecnología' },
                                 ],
                                 required: true,
-                                defaultValue: subjectData.departamento || "",
+                                defaultValue: subjectData.departamento.toLowerCase() || "",
                             }
                         ]}
                         onSubmit={handleSubmit}
