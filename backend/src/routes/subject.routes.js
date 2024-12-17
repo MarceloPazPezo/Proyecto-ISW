@@ -16,7 +16,7 @@ router.use(authenticateJwt);
 
 // Asignar a admin crear asignaturas y ver al jefe de UTP
 router
-    .get("/", authorizeRoles("administrador" , "jefe de utp"), getSubjects) 
+    .get("/", authorizeRoles("administrador" , "jefe de utp", "docente"), getSubjects) 
     .post("/", authorizeRoles("administrador"), createSubject) 
     .get("/detail/", authorizeRoles("administrador" , "jefe de utp"), getSubject) 
     .patch("/detail/",authorizeRoles("administrador"), updateSubject) 

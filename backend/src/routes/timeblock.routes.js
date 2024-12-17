@@ -16,7 +16,7 @@ router.use(authenticateJwt);
 
 router
     .post("/timeBlock", authorizeRoles("administrador", "jefe de utp"), createTimeBlock)
-    .get("/", authorizeRoles("administrador", "jefe de utp"), getTimeBlocks)
+    .get("/", authorizeRoles("administrador", "jefe de utp", "docente"), getTimeBlocks)
     .get("/detail/", authorizeRoles("administrador", "jefe de utp"), getTimeBlock)
     .patch("/detail/", authorizeRoles("administrador", "jefe de utp"), updateTimeBlock)
     .delete("/detail/", authorizeRoles("administrador"), deleteTimeBlock);
