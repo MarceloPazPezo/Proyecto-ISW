@@ -54,6 +54,7 @@ export function formatCourseData(course) {
 export function formatTimeBlockData(timeblock) {
     return {
         ...timeblock,
+        id: timeblock.id,
         idTeacher: timeblock.idTeacher,
         idCourse: timeblock.idCourse,
         idSubject: timeblock.idSubject,
@@ -62,6 +63,7 @@ export function formatTimeBlockData(timeblock) {
         diaSemana: startCase(timeblock.diaSemana)
     };
 }
+
 
 export function convertirMinusculas(obj) {
     for (let key in obj) {
@@ -125,5 +127,16 @@ export function formatPostUpdateResource(resource) {
         estado: startCase(resource.estado),
         idManager: resource.idManager,
         createdAt: formatTempo(resource.createdAt, "DD-MM-YYYY")
+    };
+}
+
+export function formatPostUpdateTimeBlock(timeblock) {
+    return {
+        idTeacher: timeblock.idTeacher,
+        idCourse: timeblock.idCourse,
+        idSubject: timeblock.idSubject,
+        horaInicio: timeblock.horaInicio,
+        horaTermino: timeblock.horaTermino,
+        diaSemana: startCase(timeblock.diaSemana)
     };
 }

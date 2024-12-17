@@ -394,12 +394,22 @@ async function createTimeblocks() {
       ),
       timeBlocksRepository.save(
         timeBlocksRepository.create({
-          idTeacher: "10",
-          idCourse: "3",
-          idSubject: "1",
+          idTeacher: "9",
+          idCourse: "2",
+          idSubject: "4",
           horaInicio: "08:45",
           horaTermino: "09:30",
           diaSemana: "Miercoles"
+        }),
+      ),
+      timeBlocksRepository.save(
+        timeBlocksRepository.create({
+          idTeacher: "9",
+          idCourse: "4",
+          idSubject: "3",
+          horaInicio: "17:10",
+          horaTermino: "17:55",
+          diaSemana: "Viernes"
         }),
       ),
     ]);

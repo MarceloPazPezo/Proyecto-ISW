@@ -64,17 +64,18 @@ export async function createTimeBlockService(body) {
 
 export async function updateTimeBlockService(query, body) {
     try {
-        const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = query;
+        const { id, idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = query;
 
         const timeBlockRepository = AppDataSource.getRepository(TimeBlock);
 
         const timeBlockFound = await timeBlockRepository.findOne({
-            where: { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana },
+            where: [{ id: id }],
         });
 
         if (!timeBlockFound) return [null, "Bloque de tiempo no encontrado"];
 
         const updatedTimeBlockData = {
+            id: body.id,
             idTeacher: body.idTeacher,
             idCourse: body.idCourse,
             idSubject: body.idSubject,
