@@ -6,7 +6,7 @@ import { AppDataSource } from "../config/configDb.js";
 
 export async function getCourseService(query) {
   try {
-    const { id, nombre, idBossTeacher, idClassroom} = query;
+    const { id, nombre, idBossTeacher, idClassroom } = query;
 
     const courseRepository = AppDataSource.getRepository(Course);
 
@@ -27,7 +27,21 @@ export async function getCoursesService() {
   try {
     const courseRepository = AppDataSource.getRepository(Course);
 
-    const coursesFound = await courseRepository.find();
+    const coursesFound = await courseRepository
+      .createQueryBuilder("course")
+      .leftJoinAndSelect("course.teacher", "teacher")
+      .leftJoinAndSelect("course.classroom", "classroom")
+      .select([
+        "course.id",
+        "course.nombre",
+        "course.idBossTeacher",
+        "teacher.nombreCompleto",
+        "teacher.rut",
+        "course.idClassroom",
+        "classroom.nombre",
+        "course.cantidadAlumnos"
+      ])
+      .getMany();
 
     if (!coursesFound || coursesFound.length === 0) return [null, "No hay cursos"];
 
@@ -41,7 +55,7 @@ export async function getCoursesService() {
 export async function updateCourseService(query, body) {
   try {
     //Datos que son unicos(indices)
-    const { id, nombre, idBossTeacher, idClassroom} = query;
+    const { id, nombre, idBossTeacher, idClassroom } = query;
 
     const courseRepository = AppDataSource.getRepository(Course);
     const userRepository = AppDataSource.getRepository(User);
@@ -130,7 +144,7 @@ export async function updateCourseService(query, body) {
 
 export async function deleteCourseService(query) {
   try {
-    const { id, nombre, idBossTeacher, idClassroom} = query;
+    const { id, nombre, idBossTeacher, idClassroom } = query;
 
     const courseRepository = AppDataSource.getRepository(Course);
 

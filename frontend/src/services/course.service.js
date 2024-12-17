@@ -1,9 +1,11 @@
+import { quitarAcentos } from '../helpers/formatData.js';
 import axios from './root.service.js';
-import { formatCourseData } from '@helpers/formatData.js';
+import { convertirMinusculas , formatCourseData } from '@helpers/formatData.js';
 
 export async function addCourse(data) {
     try {
-        const { nombre, idBossTeacher, idClassrom, cantidadAlumnos } = data;
+        const dataRegister = quitarAcentos(convertirMinusculas(data));
+        const { nombre, idBossTeacher, idClassrom, cantidadAlumnos } = dataRegister;
 
         const response = await axios.post('/course/', {
             nombre,
@@ -17,24 +19,18 @@ export async function addCourse(data) {
     }
 }
 
-export async function updateCourse(data) {
+export async function updateCourse(data, nombre) {
     try {
-        const { nombre, idBossTeacher, idClassrom, cantidadAlumnos } = data;
-
-        const response = await axios.patch(`/course/detail/?detail?nombre=${nombre}&
-            idBossTeacher=${idBossTeacher}&idClassrom=${idClassrom}&cantidadAlumnos=${cantidadAlumnos}`, data)
-        return response.data.data;
+        const response = await axios.patch(`/course/detail/?nombre=${nombre}`, data);
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
 }
 
-export async function deleteCourse(data) {
+export async function deleteCourse(nombre) {
     try {
-        const { nombre, idBossTeacher, idClassrom, cantidadAlumnos } = data;
-
-        const response = await axios.delete(`/course/detail/?detail?nombre=${nombre}&
-            idBossTeacher=${idBossTeacher}&idClassrom=${idClassrom}&cantidadAlumnos=${cantidadAlumnos}`, data);
+        const response = await axios.delete(`/course/detail/?nombre=${nombre}`);
         return response.data.data;
     } catch (error) {
         return error.response.data;
