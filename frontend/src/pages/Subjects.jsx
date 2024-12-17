@@ -120,7 +120,7 @@ const Subjects = () => {
             </div>
             <PopupAddSubject show={isPopupAddOpen} setShow={setIsPopupAddOpen} dataSubjects={setSubjects} />
             <PopupEditSubject show={isPopupEditOpen} setShow={setIsPopupEditOpen} data={dataSubject} action={handleUpdate} />
-            <PopupCopiado message={messageCopied} setMessage={setMessageCopied} />
+            <PopupCopiado message={messageCopied} onClose={() => setMessageCopied("")} />
         </div>
     );
 };

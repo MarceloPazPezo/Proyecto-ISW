@@ -1,5 +1,5 @@
-.popup-overlay {
-    position: fixed; 
+/* .popup-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -17,14 +17,13 @@
     border-radius: 10px;
     width: 500px;
     max-width: 90%;
-    position: relative; 
-    font-size: 20px; /* Tamaño general del texto */
-    line-height: 1.5; /* Espaciado entre líneas */
-    
+    position: relative;
+    font-size: 20px;
+    line-height: 1.5;
 }
 
 .popup-content select {
-    background-color: #d9d9d9; 
+    background-color: #d9d9d9;
 }
 
 .popup-content input {
@@ -32,23 +31,20 @@
 }
 
 .popup-content option {
-    font-size: 18px; /* Tamaño del texto dentro de cada opción */
+    font-size: 18px;
 }
 
 .form-container select {
-    font-size: 18px; /* Tamaño del texto en todo el select, incluidas las opciones por defecto */
+    font-size: 18px;
 }
 
 .close-button {
     background: #ffffff;
-	line-height: 25px;
-	position: absolute;
-	right: 10px;
-	text-align: center;
-	top: 6px;
-	width: 40px;
-	border-radius: 8px;
-}
-
-
-
+    line-height: 25px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 6px;
+    width: 40px;
+    border-radius: 8px;
+} */

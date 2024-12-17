@@ -1,14 +1,16 @@
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '@services/auth.service.js';
 import Form from '@components/Form';
 import useLogin from '@hooks/auth/useLogin.jsx';
 import '@styles/form.css';
-import { CSSTransition } from 'react-transition-group'; // npm install react-transition-group
-import { useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [inProp, setInProp] = useState(true); // Inicialmente true para mostrar el formulario
+    const [inProp, setInProp] = useState(true);
+    const nodeRef = useRef(null);
+
     const {
         errorEmail,
         errorPassword,
@@ -21,10 +23,10 @@ const Login = () => {
             const response = await login(data);
             if (response.status === 'Success') {
                 localStorage.setItem('user', JSON.stringify({ email: data.email }));
-                setInProp(false); // Cambia a false para iniciar la transición de salida
+                setInProp(false); 
                 setTimeout(() => {
                     navigate('/home');
-                }, 300); // Duración de la animación
+                }, 300);
             } else if (response.status === 'Client error') {
                 errorData(response.details);
             }
@@ -34,8 +36,14 @@ const Login = () => {
     };
 
     return (
-        <CSSTransition in={inProp} timeout={300} classNames="fade" unmountOnExit>
-            <main className="login-page">
+        <CSSTransition
+            in={inProp}
+            timeout={300}
+            classNames="fade"
+            unmountOnExit
+            nodeRef={nodeRef}
+        >
+            <main ref={nodeRef} className="login-page"> {}
                 <Form
                     title="Iniciar sesión"
                     fields={[
@@ -74,12 +82,12 @@ const Login = () => {
                     ]}
                     buttonText="Iniciar sesión"
                     onSubmit={loginSubmit}
-                footerContent={
-                    <p>
-                        ¿Problemas al ingresar en la plataforma?{' '}
-                        <a href="mailto:administrador2024@gmail.cl">Contáctanos</a>
-                    </p>
-                }
+                    footerContent={
+                        <p>
+                            ¿Problemas al ingresar en la plataforma?{' '}
+                            <a href="mailto:administrador2024@gmail.cl">Contáctanos</a>
+                        </p>
+                    }
                 />
             </main>
         </CSSTransition>
