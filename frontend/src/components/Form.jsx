@@ -73,8 +73,12 @@ const Form = ({ title, fields, buttonText, onSubmit, footerContent, backgroundCo
                                 field.type === 'password' && field.name === 'newPassword' ? (showNewPassword ? 'text' : 'password') :
                                 field.type}
                             defaultValue={field.defaultValue || ''}
+                            readOnly={field.readOnly || false}
                             disabled={field.disabled}
                             onChange={field.onChange}
+                            min={field.min}
+                            max={field.max}
+                            className={field.readOnly ? 'readonly-field' : ''}
                         />
                     )}
                     {field.fieldType === 'textarea' && (

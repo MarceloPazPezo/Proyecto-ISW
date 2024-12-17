@@ -31,7 +31,7 @@ export default function PopupEditSubject({ show, setShow, data, action }) {
                                 maxLength: 50,
                                 pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\d]+$/,
                                 patternMessage: "Debe contener solo letras, espacios y números.",
-                                disabled: true,
+                                readOnly: true,
                             },
                             {
                                 label: "Departamento",

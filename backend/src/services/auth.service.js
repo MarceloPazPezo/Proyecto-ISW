@@ -23,6 +23,10 @@ export async function loginService(user) {
       return [null, createErrorMessage("email", "El correo electrónico es incorrecto")];
     }
 
+    if (userFound.estado === "desvinculado") {
+      return [null, createErrorMessage("email", "Su cuenta está desvinculada y no puede iniciar sesión.")];
+    }
+
     const isMatch = await comparePassword(password, userFound.password);
 
     if (!isMatch) {

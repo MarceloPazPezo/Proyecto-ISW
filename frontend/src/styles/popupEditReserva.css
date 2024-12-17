@@ -14,7 +14,7 @@
     /* Asegura que el popup esté por encima de otros elementos */
 }
 
-/* .popup {
+.popup-edit-reserva {
     max-height: 80vh;
     width: 600px;
     background: white;
@@ -24,17 +24,99 @@
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-} */
+}
 
-/* .close {
-    position: flex;
-    top: 10px;
-    padding-top: 0px ;
-    right: 10px;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-} */
+.popup-edit-reserva {
+    top: 2vh;
+    width: 600px;
+    max-height: 700px;
+    background: white;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    overflow-x: hidden;
+    
+    .popup-content {
+        margin: 0px 20px;
+        height: 100%;
+        max-height: 700px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 20px 20px -20px 20px;
+    }
+    .popup-content::-webkit-scrollbar {
+        width: 12px;
+        right: 10px;
+
+    }
+    .popup-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .popup-content::-webkit-scrollbar-thumb {
+        background: #3E3478;
+        border-radius: 10px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb:hover {
+        background: #7A28CB;
+    }
+}
+
+.popup-reserva .form-group {
+    h1 {
+        margin-bottom: 30px;
+    }
+
+    button {
+        margin-top: 0;
+    }
+
+    .container_inputs {
+        margin-bottom: 10px;
+    }
+
+    .tooltip-icon {
+        position: relative;
+        top: 4px;
+        margin-left: 3px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .tooltip-icon .tooltip-text {
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 4px;
+        padding: 5px;
+        position: absolute;
+        font-size: 12px;
+        z-index: 1;
+        top: -3px;
+        left: 105%;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip-icon .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
+    }
+
+    .tooltip-icon:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+}
 
 .title {
     font-size: 24px;
@@ -42,32 +124,31 @@
     margin-bottom: 0px;
     text-align: center;
     margin-top: 0px;
-    /* Agregar margen superior para separar del botón de cierre */
 }
 
+
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: 600;
-    width: fit-content;
 }
 
 .form-group select,
 .form-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 3px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .form-group select:focus,
 .form-group input:focus {
-    border-color: #007bff;
+    border: 3px solid #7A28CB;
     outline: none;
 }
 
@@ -75,9 +156,9 @@ button[type="submit"] {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #401474;
+    border: 3px solid #7A28CB;
+    background-color: #7A28CB;
     color: white;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
@@ -86,33 +167,33 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
+    border: 3px solid #7A28CB;
+    transition: 0.3s;
     background-color: #ffffff;
 }
 
 .checkbox-actions {
-    display: auto;
-    justify-content: space-between;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
     align-items: center;
     margin-top: 10px !important;
     margin-bottom: 10px !important;
-}
-
-.checkbox-actions button5 {
-    display: center;
-    width: 20%;
-    padding: 10px;
-    background-color: #401474;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 0px;
-}
-
-.checkbox-actions button5:hover {
-    background-color: #b300aa;
+    button5 {
+        display: center;
+        width: 100%;
+        padding: 10px;
+        background-color: #401474;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    button5:hover {
+        background-color: #b300aa;
+    }
 }
 
 .tooltip-icon .tooltip-text {
@@ -163,11 +244,10 @@ button[type="submit"]:hover {
     align-items: center;
     padding: 4px 1px;
     border-radius: 12px;
-
+    margin: 10px;
     transition: background-color 0.3s;
     border: 1px solid #401474;
     width: 20%;
-    /* Ajustar el ancho automáticamente al contenido */
 }
 
 .checkbox-item:hover {
@@ -189,5 +269,17 @@ button[type="submit"]:hover {
 
 .fecha {
     display: flex;
+    width: 100%;
     justify-content: space-between;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
 }

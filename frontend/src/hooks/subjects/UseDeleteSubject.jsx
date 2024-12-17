@@ -14,6 +14,9 @@ const useDeleteSubject = (fetchSubjects, setDataSubject) => {
                 showSuccessAlert('¡Eliminada!','La asignatura ha sido eliminada correctamente.');
                 await fetchSubjects();
                 setDataSubject([]);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
             }

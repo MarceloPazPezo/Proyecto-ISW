@@ -14,7 +14,9 @@ const useDeleteTeacher = (fetchTeachers, setDataTeacher) => {
                 showSuccessAlert('¡Eliminado!','El docente ha sido eliminado correctamente.');
                 await fetchTeachers();
                 setDataTeacher([]);
-                window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
             }

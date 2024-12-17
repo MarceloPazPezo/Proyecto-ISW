@@ -3,6 +3,10 @@ import { emailConfig } from "../config/configEnv.js";
 
 export const sendEmail = async (to, subject, text, html) => {
     try {
+        if (!emailConfig.service || !emailConfig.user || !emailConfig.pass) {
+            throw new Error("Faltan credenciales de configuración de correo.");
+        }
+
         const transporter = nodemailer.createTransport({
             service: emailConfig.service,
             auth: {
@@ -13,16 +17,17 @@ export const sendEmail = async (to, subject, text, html) => {
 
         const mailOptions = {
             from: `"Ingeniería de Software 2024 - 2" <${emailConfig.user}>`,
-            to: to,
-            subject: subject,
-            text: text,
-            html: html,
+            to,
+            subject,
+            text: text || "",
+            html: html || "",
         };
-        await transporter.sendMail(mailOptions);
 
-        return mailOptions;
+        const result = await transporter.sendMail(mailOptions);
+
+        return result;
     } catch (error) {
-        console.error("Error enviando el correo: %s", error.message);
+        console.error("Error enviando el correo: %s", error.stack || error.message);
         throw new Error("Error enviando el correo: " + error.message);
     }
 };
