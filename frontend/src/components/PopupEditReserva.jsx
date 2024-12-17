@@ -54,20 +54,23 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
         e.preventDefault();
         try {
             const recopilaciones = [];
-            // console.log('Selected slots:', selectedSlots.length);
-
+    
             if (selectedSlots.length === 0) {
                 showErrorAlert('Error', 'Debe seleccionar al menos un horario.');
                 return;
             }
-
+    
             for (let i = 0; i < selectedSlots.length; i += 1) {
                 const horaInicio = selectedSlots[i].slice(0, 5);
                 const horaFin = selectedSlots[i].slice(-5);
-                // console.log('Hora inicio:', horaInicio);
-                // console.log('Hora fin:', horaFin);
+    
                 if (horaInicio && horaFin) {
                     if (dateType === 'specific') {
+                        const dayOfWeek = new Date(startDate).getDay();
+                        if (dayOfWeek === 0 || dayOfWeek === 6) {
+                            showErrorAlert('Error', 'No se pueden realizar reservas los fines de semana.');
+                            return;
+                        }
                         const recopilacion = {
                             idResource: resourceId,
                             horaInicio,
@@ -76,14 +79,17 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                         };
                         recopilaciones.push(recopilacion);
                     } else {
-
                         if (startDate > endDate) {
                             showErrorAlert('Error', 'La fecha de inicio no puede ser mayor a la fecha de fin.');
                             return;
                         }
-
+    
                         const dates = generateDateRange(startDate, endDate);
                         for (const date of dates) {
+                            const dayOfWeek = new Date(date).getDay();
+                            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                                continue; // Salta sábados y domingos
+                            }
                             const recopilacion = {
                                 idResource: resourceId,
                                 horaInicio,
@@ -96,21 +102,30 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                 }
             }
 
+            if (recopilaciones.length === 0) {
+                showErrorAlert('Error', 'No se han seleccionado horarios válidos.');
+                return;
+            }
+    
             for (const recopilacion of recopilaciones) {
-                // console.log('RecopilaciónPOPU:', recopilacion);
                 const response = await createReservation(recopilacion);
+                if (response.status === 'Error') {
+                    errorData('Error', response.details);
+                    break;
+                } 
                 if (response.status !== 'Success') {
                     errorData('Error', response.details);
                     break;
                 }
             }
-
+    
             showSuccessAlert('¡Agregado!', 'El recurso ha sido agregado correctamente.');
         } catch (error) {
             console.error('Error al agregar el recurso:', error);
             showErrorAlert('Cancelado', 'Ocurrió un error al agregar el recurso.');
         }
     };
+    
 
     const timeSlots = [
         '08:00 - 08:45',
