@@ -13,12 +13,12 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
     const [endDate, setEndDate] = useState(new Date());
     const [selectedSlots, setSelectedSlots] = useState([]);
 
-    const { 
+    const {
         // errorFecha, 
         // errorHoraIngreso, 
         // errorHoraSalida, 
         // inputData, 
-        errorData, 
+        errorData,
         // handleInputChange 
     } = useAddReservation();
 
@@ -136,55 +136,44 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
         <div>
             {show && (
                 <div className="bg">
-                    <div className="popup">
-                        <button className='close' onClick={() => setShow(false)}>
-                            <img src={CloseIcon} alt="Close" />
-                        </button>
-                        <h2>Crear Reserva y Periodos</h2>
-                        <form onSubmit={editSubmit}>
-                            <div className="form-group">
-                                <label>Hora/s de disponibilidad recurso/s</label>
-                                <div className="checkbox-actions">
-                                    <button5 type="button" onClick={handleSelectAll}>Seleccionar todas</button5>
-                                    <button5 type="button" onClick={handleDeselectAll}>Eliminar selección</button5>
-                                </div>
-                                {timeSlots.map(slot => (
-                                    <div key={slot} className="checkbox-item">
-                                        <label>
-                                            <input 
-                                                type="checkbox" 
-                                                name="horario" 
-                                                value={slot} 
-                                                checked={selectedSlots.includes(slot)}
-                                                onChange={() => handleCheckboxChange(slot)} 
-                                            />
-                                            {slot}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="form-group">
-                                <label>Tipo de fecha</label>
-                                <select name="dateType" value={dateType} onChange={(e) => setDateType(e.target.value)} required>
-                                    <option value="specific">Día específico</option>
-                                    <option value="period">Período</option>
-                                </select>
-                            </div>
-                            {dateType === 'specific' ? (
+                    <div className="popup-edit-reserva">
+                        <div className="popup-content">
+                            <button className='close' onClick={() => setShow(false)}>
+                                <img src={CloseIcon} alt="Close" />
+                            </button>
+                            <h2>Crear Reserva y Periodos</h2>
+                            <form onSubmit={editSubmit} className="form-container">
                                 <div className="form-group">
-                                    <label>Fecha</label>
-                                    <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        dateFormat="dd/MM/yyyy"
-                                        className="form-control"
-                                        required
-                                    />
+                                    <label>Hora/s de disponibilidad recurso/s</label>
+                                    <div className="checkbox-actions">
+                                        <button5 type="button" onClick={handleSelectAll}>Seleccionar todas</button5>
+                                        <button5 type="button" onClick={handleDeselectAll}>Eliminar selección</button5>
+                                    </div>
+                                    {timeSlots.map(slot => (
+                                        <div key={slot} className="checkbox-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="horario"
+                                                    value={slot}
+                                                    checked={selectedSlots.includes(slot)}
+                                                    onChange={() => handleCheckboxChange(slot)}
+                                                />
+                                                {slot}
+                                            </label>
+                                        </div>
+                                    ))}
                                 </div>
-                            ) : (
-                                <>
+                                <div className="form-group">
+                                    <label>Tipo de fecha</label>
+                                    <select name="dateType" value={dateType} onChange={(e) => setDateType(e.target.value)} required>
+                                        <option value="specific">Día específico</option>
+                                        <option value="period">Período</option>
+                                    </select>
+                                </div>
+                                {dateType === 'specific' ? (
                                     <div className="form-group">
-                                        <label>Fecha de inicio</label>
+                                        <label>Fecha</label>
                                         <DatePicker
                                             selected={startDate}
                                             onChange={(date) => setStartDate(date)}
@@ -193,20 +182,33 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                                             required
                                         />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Fecha de fin</label>
-                                        <DatePicker
-                                            selected={endDate}
-                                            onChange={(date) => setEndDate(date)}
-                                            dateFormat="dd/MM/yyyy"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-                                </>
-                            )}
-                            <button type="submit">Guardar Cambios</button>
-                        </form>
+                                ) : (
+                                    <>
+                                        <div className="form-group">
+                                            <label>Fecha de inicio</label>
+                                            <DatePicker
+                                                selected={startDate}
+                                                onChange={(date) => setStartDate(date)}
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Fecha de fin</label>
+                                            <DatePicker
+                                                selected={endDate}
+                                                onChange={(date) => setEndDate(date)}
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control"
+                                                required
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                                <button type="submit">Guardar Cambios</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}

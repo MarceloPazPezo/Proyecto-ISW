@@ -89,7 +89,7 @@ export async function updateCourse(req, res) {
         bodyError.message,
       );
 
-    const [course, courseError] = await updateCourseService({ id }, body);
+    const [course, courseError] = await updateCourseService({ nombre }, body);
 
     if (courseError)
       return handleErrorClient(

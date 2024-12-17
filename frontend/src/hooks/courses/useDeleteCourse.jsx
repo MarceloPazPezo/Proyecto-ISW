@@ -12,8 +12,13 @@ const useDeleteCourse = (fetchCourse, setDataCourse) => {
                     return showErrorAlert('Error', response.details);
                 }
                 showSuccessAlert('¡Eliminada!','El curso ha sido eliminado correctamente.');
+                
                 await fetchCourse();
+                
                 setDataCourse([]);
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 1000);
             } else {
                 showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
             }

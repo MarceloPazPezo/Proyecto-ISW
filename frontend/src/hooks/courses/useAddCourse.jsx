@@ -1,73 +1,72 @@
 import { useState, useEffect } from 'react';
 
 const useAddCourse = () => {
+    const [isPopupAddOpen, setIsPopupAddOpen] = useState(false);
+
     const [errorNombre, setErrorNombre] = useState('');
-    const [inputDataNombre, setInputDataNombre] = useState({ nombre: '' });
     const [errorIdBossteacher, setErrorIdBossteacher] = useState('');
-    const [inputDataIdBossteacher, setInputDataIdBossteacher] = useState({ idBossteacher: '' });
     const [errorIdClassroom, setErrorIdClassroom] = useState('');
-    const [inputDataIdClassroom, setInputDataIdClassroom] = useState({ idClassroom: '' });
     const [errorCantidadAlumnos, setErrorCantidadAlumnos] = useState('');
-    const [inputDataCantidadAlumnos, setInputDataCantidadAlumnos] = useState({ cantidadAlumnos: '' });
+    const [inputData, setInputData] = useState({ nombre: ''}, { idBossteacher: ''}, { idClassroom: ''}, { cantidadAlumnos: ''});
 
     useEffect(() => {
-        if (inputDataNombre.nombre) setErrorNombre('');
-        if (inputDataIdBossteacher.idBossteacher) setErrorIdBossteacher('');
-        if (inputDataIdClassroom.idClassroom) setErrorIdClassroom('');
-        if (inputDataCantidadAlumnos.cantidadAlumnos) setErrorCantidadAlumnos('');
-    }, [inputDataNombre, inputDataIdBossteacher, inputDataIdClassroom, inputDataCantidadAlumnos]);
+        if (inputData.nombre) setErrorNombre('');
+        if (inputData.idBossteacher) setErrorIdBossteacher('');
+        if (inputData.idClassroom) setErrorIdClassroom('');
+        if (inputData.cantidadAlumnos) setErrorCantidadAlumnos('');
+    }, [inputData.nombre, inputData.idBossteacher, inputData.idClassroom, inputData.cantidadAlumnos]);
 
     const errorData = (dataMessage) => {
-        if (dataMessage.dataInfo === 'nombre') {
-            setErrorNombre(dataMessage.message);
-        }
-        if (dataMessage.dataInfo === 'idBossteacher') {
-            setErrorIdBossteacher(dataMessage.message);
-        }
-        if (dataMessage.dataInfo === 'idClassroom') {
-            setErrorIdClassroom(dataMessage.message);
-        }
-        if (dataMessage.dataInfo === 'cantidadAlumnos') {
-            setErrorCantidadAlumnos(dataMessage.message);
+        if (typeof dataMessage === "object" && dataMessage.dataInfo) {
+            switch (dataMessage.dataInfo) {
+                case "nombre":
+                    setErrorNombre(dataMessage.message);
+                    break;
+                case "idBossteacher":
+                    setErrorIdBossteacher(dataMessage.message);
+                    break;
+                case "idClassroom":
+                    setErrorIdClassroom(dataMessage.message);
+                    break;
+                case "cantidadAlumnos":
+                    setErrorCantidadAlumnos(dataMessage.message);
+                    break;
+                default:
+                    console.warn("Campo desconocido:", dataMessage.dataInfo);
+            }
+        } else if (typeof dataMessage === "string") {
+            if (/nombre/.test(dataMessage)) setErrorNombre(dataMessage);
+            if (/idBossteacher/.test(dataMessage)) setErrorIdBossteacher(dataMessage);
+            if (/idClassroom/.test(dataMessage)) setErrorIdClassroom(dataMessage);
+            if (/cantidadAlumnos/.test(dataMessage)) setErrorCantidadAlumnos(dataMessage);
+        } else {
+            console.error("Formato de dataMessage no reconocido:", dataMessage);
         }
     };
+    
 
     const handleInputChange = (field, value) => {
-        if (field === 'nombre') {
-            setInputDataNombre(prevState => ({
-                ...prevState,
-                nombre: value
-            }));
-        } else if (field === 'idBossteacher') {
-            setInputDataIdBossteacher(prevState => ({
-                ...prevState,
-                idBossteacher: value
-            }));
-        } else if (field === 'idClassroom') {
-            setInputDataIdClassroom(prevState => ({
-                ...prevState,
-                idClassroom: value
-            }));
-        } else if (field === 'cantidadAlumnos') {
-            setInputDataCantidadAlumnos(prevState => ({
-                ...prevState,
-                cantidadAlumnos: value
-            }));
+        setInputData(prevState => ({
+            ...prevState,
+            [field]: value
+        }));
+    };
 
-        };
+
+    const handleAddCourseClick = () => {
+        setIsPopupAddOpen(true);
     };
 
     return {
         errorNombre,
-        inputDataNombre,
         errorIdBossteacher,
-        inputDataIdBossteacher,
         errorIdClassroom,
-        inputDataIdClassroom,
         errorCantidadAlumnos,
-        inputDataCantidadAlumnos,
         errorData,
         handleInputChange,
+        isPopupAddOpen,
+        setIsPopupAddOpen,
+        handleAddCourseClick
     };
 };
 
