@@ -199,6 +199,7 @@ export async function getSubjectsByTeacherService(rutTeacher) {
         "teacher.nombreCompleto",
         "subject.id",
         "subject.nombre",
+        "subject.departamento"
       ])
       .where("teacher.rut = :rut", { rut: teacher.rut })
       .getMany();
