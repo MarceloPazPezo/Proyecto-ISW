@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import useGetTimeBlocks from '../hooks/timeblocks/useGetTimeBlocks';
 import useGetSubjects from '../hooks/subjects/useGetSubjects';
 import useGetCourses from '../hooks/courses/useGetCourses';
-import '@styles/popupHorario.css';
 import html2canvas from 'html2canvas';
+import '@styles/popupHorario.css';
 
-const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
+const VentanaHorario = ({ isOpen, onClose, teacherID, teacherName }) => {
     const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const diasSinTilde = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
 
@@ -29,6 +29,10 @@ const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
 
     const handleDownload = () => {
         const table = document.querySelector('.ventana-horario table');
+        if (!table) {
+            console.error('Table not found');
+            return;
+        }
         const tfoot = table.querySelector('tfoot');
 
         // Ocultar temporalmente el tfoot
@@ -41,11 +45,17 @@ const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
             // Crear y descargar la imagen
             const a = document.createElement('a');
             a.href = imgData;
-            a.download = 'horario.png';
+            // Obtener solamente el primer nombre y primer apellido
+            const nombreApellido = teacherName.split(' ')[0] + ' ' + teacherName.split(' ')[2];
+            const minusNombreApellido = nombreApellido.toLowerCase();
+            const filename = minusNombreApellido ? `${minusNombreApellido}-horario.png` : 'horario.png';
+            a.download = filename;
             a.click();
 
             // Volver a mostrar el tfoot
             if (tfoot) tfoot.style.display = '';
+        }).catch((error) => {
+            console.error('Error generating image:', error);
         });
     };
 

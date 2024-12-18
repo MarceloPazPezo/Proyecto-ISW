@@ -217,6 +217,7 @@ const Teachers = () => {
         isOpen={isVentanaHorarioOpen}
         onClose={() => setIsVentanaHorarioOpen(false)}
         teacherID={selectedIdTeacher}
+        teacherName={dataTeacher[0]?.nombreCompleto}
       />
       <PopupCopiado
         message={messageCopied}
