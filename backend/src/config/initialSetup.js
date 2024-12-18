@@ -189,7 +189,7 @@ async function createClassrooms() {
       classroomRepository.save(
         classroomRepository.create({
           nombre: "A104AA",
-          estado: "disponible",
+          estado: "ocupada",
           capacidad: 30,
         }),
       ),
@@ -435,6 +435,16 @@ async function createTimeblocks() {
       timeBlocksRepository.save(
         timeBlocksRepository.create({
           idTeacher: "9",
+          idCourse: "3",
+          idSubject: "1",
+          horaInicio: "08:45",
+          horaTermino: "09:30",
+          diaSemana: "Lunes"
+        }),
+      ),
+      timeBlocksRepository.save(
+        timeBlocksRepository.create({
+          idTeacher: "9",
           idCourse: "2",
           idSubject: "4",
           horaInicio: "08:45",
@@ -485,6 +495,69 @@ async function createTeach() {
         teachRepository.create({
           idTeacher: "2",
           idSubject: "3",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "6",
+          idSubject: "1",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "6",
+          idSubject: "2",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "6",
+          idSubject: "3",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "1",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "2",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "3",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "4",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "5",
+          year: "2024",
+        }),
+      ),
+      teachRepository.save(
+        teachRepository.create({
+          idTeacher: "9",
+          idSubject: "6",
           year: "2024",
         }),
       ),

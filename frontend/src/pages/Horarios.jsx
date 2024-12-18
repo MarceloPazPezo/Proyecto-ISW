@@ -9,9 +9,6 @@ import PopupCopiado from '../components/PopupCopiado';
 import PopupAddTimeBlock from '../components/PopupAddTimeBlock';
 import PopupEditTimeBlock from '../components/PopupEditTimeBlock';
 import useGetTimeBlocks from '../hooks/timeblocks/useGetTimeBlocks';
-import useGetSubjects from '../hooks/subjects/useGetSubjects';
-import useGetCourses from '../hooks/courses/useGetCourses';
-import useGetTeachers from '../hooks/users/useGetTeachers';
 import useAddTimeBlock from '../hooks/timeblocks/useAddTimeBlock';
 import useEditTimeBlock from '../hooks/timeblocks/useEditTimeBlock';
 import useDeleteTimeBlock from '../hooks/timeblocks/useDeleteTimeBlock';
@@ -41,32 +38,20 @@ const TimeBlocks = () => {
     setIsPopupEditOpen,
     dataTimeBlock,
     setDataTimeBlock
-  } = useEditTimeBlock(setTimeBlocks);
+  } = useEditTimeBlock(setTimeBlocks, fetchTimeBlocks);
 
   const { handleDelete } = useDeleteTimeBlock(
     fetchTimeBlocks,
     setDataTimeBlock
   );
 
-  const {
-    subjects,
-  } = useGetSubjects();
-
-  const {
-    courses,
-  } = useGetCourses();
-
-  const {
-    teachers,
-  } = useGetTeachers();
-
-  const handleSelectionChange = useCallback(
-    (selectedTimeBlocks) => {
-      setDataTimeBlock(selectedTimeBlocks);
-      console.log(selectedTimeBlocks);
-    },
-    [setDataTimeBlock]
-  );
+  const handleSelectionChange = useCallback((selectedTimeBlock) => {
+    if (selectedTimeBlock.length > 0) {
+      setDataTimeBlock([selectedTimeBlock[0]]);
+    } else {
+      setDataTimeBlock([]);
+    }
+  }, [setDataTimeBlock]);
 
   const handleCellClick = (e, cell) => {
     if (e.ctrlKey) {
@@ -78,42 +63,13 @@ const TimeBlocks = () => {
     }
   };
 
-
-
-  const getTeacherNameById = (id) => {
-    const teacher = teachers.find(t => t.id === id);
-    return teacher ? teacher.nombreCompleto : 'Profesor no encontrado';
-  };
-
-  const getCourseNameById = (id) => {
-    const course = courses.find(c => c.id === id);
-    return course ? course.nombre : 'Curso no encontrado';
-  };
-
-  const getSubjectNameById = (id) => {
-    const subject = subjects.find(s => s.id === id);
-    return subject ? subject.nombre : 'Asignatura no encontrada';
-  };
-
-  const timeBlocksConNombres = timeblocks.map(timeblock => ({
-    ...timeblock,
-    teacherName: getTeacherNameById(timeblock.idTeacher),
-    courseName: getCourseNameById(timeblock.idCourse),
-    subjectName: getSubjectNameById(timeblock.idSubject),
-  }));
-
-  // actualizar la tabla cuando se agrega un nuevo bloque de horario
-  // useEffect(() => {
-  //   fetchTimeBlocks();
-  // }, [isPopupAddOpen]);
-
   const columns = [
-    { title: "Profesor", field: "teacherName", with: 100, responsive: 2, cellClick: handleCellClick },
-    { title: "Curso", field: "courseName", width: 200, responsive: 2, cellClick: handleCellClick },
-    { title: "Asignatura", field: "subjectName", width: 200, responsive: 2, cellClick: handleCellClick },
-    { title: "Hora Inicio", field: "horaInicio", width: 200, responsive: 2, cellClick: handleCellClick },
-    { title: "Hora termino", field: "horaTermino", width: 200, responsive: 2, cellClick: handleCellClick },
-    { title: "Dia Semana", field: "diaSemana", width: 200, responsive: 2, cellClick: handleCellClick },
+    { title: "Profesor", field: "teacherName", responsive: 2, cellClick: handleCellClick },
+    { title: "Curso", field: "courseName", responsive: 0, cellClick: handleCellClick },
+    { title: "Asignatura", field: "subjectName", responsive: 0, cellClick: handleCellClick },
+    { title: "Hora Inicio", field: "horaInicio", responsive: 0, cellClick: handleCellClick },
+    { title: "Hora termino", field: "horaTermino", responsive: 0, cellClick: handleCellClick },
+    { title: "Dia Semana", field: "diaSemana", responsive: 0, cellClick: handleCellClick },
   ];
 
   return (
@@ -161,14 +117,14 @@ const TimeBlocks = () => {
               </button>
             </Tooltip>
             <Tooltip
-              title="Eliminar docente"
+              title="Eliminar horario"
               position="top"
               trigger="mouseenter"
             >
               <button
                 className={`delete-button ${dataTimeBlock.length === 0 ? "button-disabled" : ""
                   }`}
-                onClick={() => handleDelete(dataTimeBlock)}
+                onClick={() => { handleDelete(dataTimeBlock); setDataTimeBlock([]); }}
                 disabled={dataTimeBlock.length === 0}
               >
                 {dataTimeBlock.length === 0 ? (
@@ -181,9 +137,10 @@ const TimeBlocks = () => {
           </div>
         </div>
         <Table
-          data={timeBlocksConNombres}
+          data={timeblocks}
           columns={columns}
           onSelectionChange={handleSelectionChange}
+          initialSortName={'teacherName'}
         />
       </div>
       <PopupCopiado

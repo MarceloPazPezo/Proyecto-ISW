@@ -3,7 +3,7 @@ import useGetTimeBlocks from '../hooks/timeblocks/useGetTimeBlocks';
 import useGetSubjects from '../hooks/subjects/useGetSubjects';
 import useGetCourses from '../hooks/courses/useGetCourses';
 import '@styles/popupHorario.css';
-
+import html2canvas from 'html2canvas';
 
 const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
     const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -29,12 +29,28 @@ const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
 
     const handleDownload = () => {
         const table = document.querySelector('.ventana-horario table');
-        const tableHTML = table.outerHTML.replace(/ /g, '%20');
-        const a = document.createElement('a');
-        a.href = 'data:application/vnd.ms-excel,' + tableHTML;
-        a.download = 'horario.png';
-        a.click();
+        const tfoot = table.querySelector('tfoot');
+
+        // Ocultar temporalmente el tfoot
+        if (tfoot) tfoot.style.display = 'none';
+
+        // Capturar la tabla con html2canvas
+        html2canvas(table).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+
+            // Crear y descargar la imagen
+            const a = document.createElement('a');
+            a.href = imgData;
+            a.download = 'horario.png';
+            a.click();
+
+            // Volver a mostrar el tfoot
+            if (tfoot) tfoot.style.display = '';
+        });
     };
+
+
+
 
     if (!isOpen) return null;
 
@@ -59,7 +75,7 @@ const VentanaHorario = ({ isOpen, onClose, teacherID }) => {
 
     const generateTableRows = () => {
         const teacherTimeblocks = timeblocks.filter(timeblock => timeblock.idTeacher === teacherID);
-        console.log("Bloques de tiempo asociados al docente", teacherTimeblocks);
+        // console.log("Bloques de tiempo asociados al docente", teacherTimeblocks);
 
         const subjectMap = Object.fromEntries(subjects.map(subject => [subject.id, subject.nombre]));
         const courseMap = Object.fromEntries(courses.map(course => [course.id, course.nombre]));

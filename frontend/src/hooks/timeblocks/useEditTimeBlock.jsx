@@ -3,7 +3,7 @@ import { updateTimeBlock } from '@services/timeblock.service.js';
 import { showErrorAlert, showSuccessAlert } from "../../helpers/sweetAlert";
 import { formatPostUpdateTimeBlock } from '@helpers/formatData';
 
-const useEditTimeBlock = (setTimeBlocks) => {
+const useEditTimeBlock = (setTimeBlocks, fetchTimeBlocks) => {
     const [isPopupEditOpen, setIsPopupEditOpen] = useState(false);
     const [dataTimeBlock, setDataTimeBlock] = useState([]);
 
@@ -16,17 +16,19 @@ const useEditTimeBlock = (setTimeBlocks) => {
     const handleUpdate = async (updatedTimeBlockData) => {
         if (updatedTimeBlockData) {
             try {
-                console.log('updatedTimeBlockData:', updatedTimeBlockData);
+                // console.log('updatedTimeBlockData:', updatedTimeBlockData);
                 const updatedTimeBlock = await updateTimeBlock(updatedTimeBlockData);
                 showSuccessAlert('¡Actualizado!', 'El bloque de tiempo ha sido actualizado correctamente.');
                 setIsPopupEditOpen(false);
 
                 const formattedTimeBlock = formatPostUpdateTimeBlock(updatedTimeBlock);
+                // console.log('formattedTimeBlock:', formattedTimeBlock);
 
-                setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(timeBlock => {
-                    return timeBlock.id === formattedTimeBlock.id ? formattedTimeBlock : timeBlock;
-                }));
-                
+                // setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(timeBlock => {
+                //     return timeBlock.id === formattedTimeBlock.id ? formattedTimeBlock : timeBlock;
+                // }));
+                await fetchTimeBlocks();
+
                 console.log('formattedTimeBlock:', formattedTimeBlock);
 
                 setDataTimeBlock([]);

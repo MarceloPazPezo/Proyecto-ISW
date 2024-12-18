@@ -25,10 +25,10 @@ export async function addTimeBlock(data) {
 
 export async function updateTimeBlock(data) {
     try {
-        console.log('data:', data);
+        // console.log('data:', data);
 
         const { id, idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = data;    
-
+        // console.log(diaSemana);
         const response = await axios.patch(`/timeblock/detail/?detail?id=${id}&idTeacher=${parseInt(idTeacher, 10)}&IdCourse=${parseInt(idCourse, 10)}&idSubject=${parseInt(idSubject, 10)}&horaInicio=${horaInicio.split(":").slice(0, 2).join(":")}&horaTermino=${horaTermino.split(":").slice(0, 2).join(":")}&diaSemana=${diaSemana}`,
             {
                 idTeacher: parseInt(idTeacher, 10),
@@ -49,7 +49,7 @@ export async function updateTimeBlock(data) {
 export async function deleteTimeBlock(data) {
     try {
         const { idTeacher, idCourse, idSubject, horaInicio, horaTermino, diaSemana } = data[0];
-        console.log('data:', data);
+        // console.log('data:', data);
 
         const response = await axios.delete(`/timeblock/detail/?detail?idTeacher=${idTeacher}&IdCourse=${idCourse}&idSubject=${idSubject}&horaInicio=${horaInicio.split(":").slice(0, 2).join(":")}&horaTermino=${horaTermino.split(":").slice(0, 2).join(":")}&diaSemana=${diaSemana}`, data);
 

@@ -142,13 +142,13 @@ export default function PopupEditCourse({ show, setShow, data, action }) {
                                         options: [
                                             { value: "Lunes", label: "Lunes" },
                                             { value: "Martes", label: "Martes" },
-                                            { value: "Miércoles", label: "Miércoles" },
+                                            { value: "Miercoles", label: "Miércoles" },
                                             { value: "Jueves", label: "Jueves" },
                                             { value: "Viernes", label: "Viernes" },
-                                            { value: "Sábado", label: "Sábado" },
+                                            { value: "Sabado", label: "Sábado" },
                                         ],
                                         required: true,
-                                        defaultValue: "",
+                                        defaultValue: timeBlockData.diaSemana,
                                     },
                                 ]}
                                 buttonText="Asignar Horario"

@@ -13,7 +13,14 @@ import '@styles/popup.css';
 export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
 
     const {
+        errorDocente,
+        errorAsignatura,
+        errorCurso,
+        errorHoraInicio,
+        errorHoraTermino,
+        errorDiaSemana,
         errorData,
+        handleInputChange
     } = useAddTimeBlock();
 
     const {
@@ -106,6 +113,8 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         options: teacherOptions,
                                         required: true,
                                         defaultValue: "",
+                                        errorMessageData: errorDocente,
+                                        onChange: (e) => handleInputChange("idTeacher", e.target.value),
                                     },
                                     {
                                         label: "Asignatura",
@@ -114,6 +123,8 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         options: subjectOptions,
                                         required: true,
                                         defaultValue: "",
+                                        errorMessageData: errorAsignatura,
+                                        onChange: (e) => handleInputChange("idSubject", e.target.value),
                                     },
                                     {
                                         label: "Curso",
@@ -122,6 +133,8 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         options: courseOptions,
                                         required: true,
                                         defaultValue: "",
+                                        errorMessageData: errorCurso,
+                                        onChange: (e) => handleInputChange("idCourse", e.target.value),
                                     },
                                     {
                                         label: "Hora Inicio",
@@ -150,6 +163,8 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         fieldType: 'select',
                                         options: horaTermino ? [{ value: horaTermino, label: horaTermino }] : [],
                                         required: true,
+                                        errorMessageData: errorHoraTermino,
+                                        onChange: (e) => handleInputChange("horaTermino", e.target.value),
                                     },
                                     {
                                         label: "Día Semana",
@@ -158,13 +173,15 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         options: [
                                             { value: "Lunes", label: "Lunes" },
                                             { value: "Martes", label: "Martes" },
-                                            { value: "Miércoles", label: "Miércoles" },
+                                            { value: "Miercoles", label: "Miércoles" },
                                             { value: "Jueves", label: "Jueves" },
                                             { value: "Viernes", label: "Viernes" },
-                                            { value: "Sábado", label: "Sábado" },
+                                            { value: "Sabado", label: "Sábado" },
                                         ],
                                         required: true,
                                         defaultValue: "",
+                                        errorMessageData: errorDiaSemana,
+                                        onChange: (e) => handleInputChange("diaSemana", e.target.value),
                                     },
                                 ]}
                                 buttonText="Asignar Horario"

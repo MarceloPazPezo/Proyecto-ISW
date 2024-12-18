@@ -122,15 +122,6 @@ export async function deleteTimeBlockService(query) {
 
         const timeBlockDeleted = await timeBlockRepository.remove(timeBlockFound);
 
-        // se busca el timeBlock eliminado
-        const timeBlockData = await timeBlockRepository.findOne({
-            where: { id: timeBlockDeleted.id },
-        });
-
-        if (timeBlockData) {
-            return [null, "Bloque de tiempo encontrado después de eliminar, error al eliminar"];
-        }
-
         return [timeBlockDeleted, null];
     } catch (error) {
         console.error("Error al eliminar el bloque de tiempo:", error);
