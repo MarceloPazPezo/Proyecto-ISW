@@ -331,3 +331,23 @@ input {
 	-webkit-user-drag: none;
     pointer-events: none;
 }
+
+.readonly-field {
+    background-color: #f0f0f0;
+	border: 3px solid #3E3478;
+    cursor: not-allowed;
+}
+.readonly-field:focus {
+    background-color: #f0f0f0;
+}
+
+input[readonly] {
+    background-color: #f0f0f0;
+	border: 3px solid #3E3478;
+    cursor: not-allowed;
+}
+input[readonly]:focus {
+    background-color: #f0f0f0;
+	border: 3px solid #3E3478;
+    cursor: not-allowed;
+}

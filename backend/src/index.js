@@ -8,8 +8,16 @@ import passport from "passport";
 import express, { json, urlencoded } from "express";
 import { cookieKey, HOST, PORT } from "./config/configEnv.js";
 import { connectDB } from "./config/configDb.js";
-import { createClassrooms, createCourses, createResource, createSubject, createTimeblocks, createTeach , createUsers } 
-from "./config/initialSetup.js";
+import {
+  createClassrooms,
+  createCourses,
+  createReservations,
+  createResource,
+  createSubject,
+  createTeach,
+  createTimeblocks,
+  createUsers,
+} from "./config/initialSetup.js";
 import { passportJwtSetup } from "./auth/passport.auth.js";
 
 async function setupServer() {
@@ -79,6 +87,7 @@ async function setupAPI() {
     await createCourses();
     await createSubject();
     await createResource();
+    await createReservations();
     await createTimeblocks();
     await createTeach();
   } catch (error) {

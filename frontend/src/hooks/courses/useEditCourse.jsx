@@ -3,7 +3,6 @@ import { updateCourse } from '@services/course.service.js';
 import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
 import { formatPostUpdateCourse } from '@helpers/formatData.js';
 import { convertirMinusculas } from '@helpers/formatData.js';
-import { quitarAcentos } from '../../helpers/formatData';
 
 const useEditCourse = (setCourses) => {
     const [isPopupEditOpen, setIsPopupEditOpen] = useState(false);
@@ -18,9 +17,7 @@ const useEditCourse = (setCourses) => {
     const handleUpdate = async (updatedCourseData) => {
         if (updatedCourseData) {
             try {
-                console.log(convertirMinusculas(updatedCourseData));
-                console.log(quitarAcentos(dataCourse[0].nombre));
-                const updatedCourse = await updateCourse(convertirMinusculas(updatedCourseData), quitarAcentos(dataCourse[0].nombre));
+                const updatedCourse = await updateCourse(convertirMinusculas(updatedCourseData), updatedCourseData.nombre);
                 showSuccessAlert('¡Actualizado!','El curso ha sido actualizado correctamente.');
                 setIsPopupEditOpen(false);
                 const formattedCourse = formatPostUpdateCourse(updatedCourse);

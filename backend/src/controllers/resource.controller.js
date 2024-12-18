@@ -37,7 +37,7 @@ export async function createResource (req,res){
 
         const [resource, errorResource] = await createResourceService({ nombre, idManager });
 
-        if (errorResource) return handleErrorClient(res , 404 , errorResource)
+        if (errorResource) return handleErrorClient(res , 400, errorResource)
 
         handleSuccess(res, 201, "Asignatura creada", resource);
 
@@ -104,7 +104,7 @@ export async function updateResource (req,res){
 
         const [resource, errorResource] = await updateResourceService(body);
 
-        if (errorResource) return handleErrorClient(res,404,errorResource);
+        if (errorResource) return handleErrorClient(res,400,errorResource);
 
         handleSuccess(res,200,"Recurso actualizado",resource);
     } catch (error) {

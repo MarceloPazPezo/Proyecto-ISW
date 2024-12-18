@@ -13,7 +13,7 @@ const useGetCourses = () => {
                 nombre: course.nombre,
                 idBossTeacher: course.idBossTeacher,
                 rut: course.teacher.rut,
-                nombreCompleto: course.teacher.nombreCompleto,
+                nombreCompleto: course.nombreCompleto,
                 idClassroom: course.idClassroom,
                 nombreSala: course.classroom.nombre,
                 cantidadAlumnos: course.cantidadAlumnos,

@@ -14,6 +14,9 @@ const useDeleteClassroom = (fetchClassrooms, setDataClassroom) => {
                 showSuccessAlert('¡Eliminado!','El aula ha sido eliminado correctamente.');
                 await fetchClassrooms();
                 setDataClassroom([]);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 showErrorAlert('Cancelado', 'La operación ha sido cancelada.');
             }

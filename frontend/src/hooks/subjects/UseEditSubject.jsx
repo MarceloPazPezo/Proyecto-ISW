@@ -18,9 +18,11 @@ const useEditSubject = (setSubjects) => {
     const handleUpdate = async (updatedSubjectData) => {
         if (updatedSubjectData) {
             try {
-                console.log(convertirMinusculas(updatedSubjectData));
-                console.log(quitarAcentos(dataSubject[0].nombre));
-                const updatedSubject = await updateSubject(convertirMinusculas(updatedSubjectData), quitarAcentos(dataSubject[0].nombre));
+                const hola1 = convertirMinusculas(updatedSubjectData);
+                console.log(hola1);
+                const hola2 = quitarAcentos(dataSubject[0].nombre);
+                console.log(hola2);
+                const updatedSubject = await updateSubject(convertirMinusculas(updatedSubjectData), hola2);
                 showSuccessAlert('¡Actualizada!','La asignatura ha sido actualizada correctamente.');
                 setIsPopupEditOpen(false);
                 const formattedSubject = formatPostUpdateSubject(updatedSubject);

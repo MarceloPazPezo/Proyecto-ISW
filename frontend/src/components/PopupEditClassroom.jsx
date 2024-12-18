@@ -28,7 +28,7 @@ export default function PopupEditClassroom({ show, setShow, data, action }) {
                                         placeholder: "A101AA",
                                         fieldType: "input",
                                         type: "text",
-                                        disabled: true,
+                                        readOnly: true,
                                         minLength: 3,
                                         maxLength: 50,
                                         pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\d]+$/,
@@ -46,6 +46,16 @@ export default function PopupEditClassroom({ show, setShow, data, action }) {
                                         required: true,
                                         defaultValue: classroomData.estado || "",
                                     },
+                                    {
+                                        label: "Capacidad",
+                                        name: "capacidad",
+                                        defaultValue: classroomData.capacidad || "",
+                                        fieldType: "input",
+                                        type: "number",
+                                        required: true,
+                                        min: 1,
+                                        max: 500,
+                                    }
                                 ]}
                                 onSubmit={handleSubmit}
                                 buttonText="Editar aula"
