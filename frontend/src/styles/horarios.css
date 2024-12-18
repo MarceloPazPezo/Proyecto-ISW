@@ -1,4 +1,4 @@
-.main-container {
+.main-container-horarios {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.table-container {
+.table-container-horarios {
     width: 90%;
     max-width: 1400px;
     margin: 10px auto;
@@ -18,7 +18,7 @@
     border-radius: 10px;
 }
 
-.top-table {
+.top-table-horarios {
     margin: 20px auto;
     display: flex;
     justify-content: space-between;
@@ -26,11 +26,11 @@
     width: 90%;
 }
 
-.title-table {
+.title-table-horarios {
     color: #FFFFFF;
 }
 
-.filter-actions {
+.filter-actions-horarios {
     display: flex;
     align-items: center;
     gap: 10px;
