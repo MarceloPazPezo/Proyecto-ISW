@@ -1,7 +1,7 @@
 import useAddTimeBlock from '@hooks/timeblocks/useAddTimeBlock';
 import useGetTeachers from '@hooks/users/useGetTeachers';
-import useGetSubjects from '@hooks/subjects/useGetSubjects';
 import useGetCourses from '@hooks/courses/useGetCourses';
+import useTeachesByTeacher from '../hooks/teach/useGetTeachesByTeacher';
 import CloseIcon from '@assets/XIcon.svg';
 import Form from './Form';
 import { useState } from 'react';
@@ -27,9 +27,9 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
         teachers,
     } = useGetTeachers();
 
-    const {
-        subjects,
-    } = useGetSubjects();
+    // const {
+    //     subjects,
+    // } = useGetSubjects();
 
     const {
         courses,
@@ -41,15 +41,15 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
 
     // mapea los docentes para mostrarlos en el select
     const teacherOptions = teachers.map((teacher) => ({
-        value: teacher.id,
+        value: teacher.rut,
         label: teacher.nombreCompleto,
     }));
 
-    // mapea las asignaturas para mostrarlas en el select
-    const subjectOptions = subjects.map((subject) => ({
-        value: subject.id,
-        label: subject.nombre,
-    }));
+    // // mapea las asignaturas para mostrarlas en el select
+    // const subjectOptions = subjects.map((subject) => ({
+    //     value: subject.id,
+    //     label: subject.nombre,
+    // }));
 
     // mapea los cursos para mostrarlos en el select
     const courseOptions = courses.map((course) => ({
@@ -57,8 +57,25 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
         label: course.nombre,
     }));
 
+
     const [horaInicio, setHoraInicio] = useState("");
     const [horaTermino, setHoraTermino] = useState("");
+    const [selectedRut, setSelectedRut] = useState('');
+
+    const handleDocenteChange = (e) => {
+        const selectedRut = e.target.value;
+        setSelectedRut(selectedRut);
+        console.log("Rut seleccionado: ", selectedRut);
+    };
+
+    const {
+        subjectsByTeacher,
+    } = useTeachesByTeacher(selectedRut);
+
+    // console.log("Estas son las asignaturas por docente:", subjectsByTeacher);
+
+    
+
 
     const handleHoraInicioChange = (e) => {
         const selectedHoraInicio = e.target.value;
@@ -67,7 +84,7 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
         const terminoDate = new Date();
         terminoDate.setHours(hours);
         terminoDate.setMinutes(minutes + 45);
-        const newHoraTermino = terminoDate.toTimeString().slice(0,5);
+        const newHoraTermino = terminoDate.toTimeString().slice(0, 5);
         setHoraTermino(newHoraTermino);
     };
 
@@ -92,7 +109,6 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
         }
     };
 
-    
 
     return (
         <div>
@@ -114,13 +130,13 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         required: true,
                                         defaultValue: "",
                                         errorMessageData: errorDocente,
-                                        onChange: (e) => handleInputChange("idTeacher", e.target.value),
+                                        onChange: (e) => handleInputChange("idTeacher", e.target.value) & handleDocenteChange(e), 
                                     },
                                     {
                                         label: "Asignatura",
                                         name: "idSubject",
                                         fieldType: 'select',
-                                        options: subjectOptions,
+                                        options: subjectsByTeacher,
                                         required: true,
                                         defaultValue: "",
                                         errorMessageData: errorAsignatura,
