@@ -5,7 +5,6 @@ import useGetCourses from '../hooks/courses/useGetCourses';
 import html2canvas from 'html2canvas';
 import '@styles/popupHorario.css';
 
-
 const VentanaHorario = ({ isOpen, onClose, teacherID, teacherName }) => {
     const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const diasSinTilde = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
@@ -60,6 +59,9 @@ const VentanaHorario = ({ isOpen, onClose, teacherID, teacherName }) => {
         });
     };
 
+
+
+
     if (!isOpen) return null;
 
     // const teacherTimeblocks = timeblocks.filter(timeblock => timeblock.idTeacher === teacherID);
@@ -83,7 +85,7 @@ const VentanaHorario = ({ isOpen, onClose, teacherID, teacherName }) => {
 
     const generateTableRows = () => {
         const teacherTimeblocks = timeblocks.filter(timeblock => timeblock.idTeacher === teacherID);
-        console.log("Bloques de tiempo asociados al docente", teacherTimeblocks);
+        // console.log("Bloques de tiempo asociados al docente", teacherTimeblocks);
 
         const subjectMap = Object.fromEntries(subjects.map(subject => [subject.id, subject.nombre]));
         const courseMap = Object.fromEntries(courses.map(course => [course.id, course.nombre]));

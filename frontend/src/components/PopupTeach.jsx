@@ -2,7 +2,7 @@ import Form from "./Form";
 import "@styles/popup.css";
 import CloseIcon from "@assets/XIcon.svg";
 import { useState, useEffect } from "react";
-import useSubjects from "@hooks/subjects/useGetSubject";
+import useSubjects from "@hooks/subjects/useGetSubjects";
 import useTeachesByTeacher from "@hooks/teach/useGetTeachesByTeacher";
 import useAddTeachRelation from "@hooks/teach/useAddTeachRelation";
 import useRemoveTeachRelation from "@hooks/teach/useRemoveTeachRelation";

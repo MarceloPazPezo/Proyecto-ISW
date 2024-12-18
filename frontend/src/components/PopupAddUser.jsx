@@ -8,9 +8,12 @@ import { formatPostUpdate } from '@helpers/formatData.js';
 
 export default function PopupAddUser({ show, setShow, dataUsers }) {
   const {
+    errorNombreCompleto,
     errorEmail,
     errorRut,
     errorTelefono,
+    errorRol,
+    errorPassword,
     errorData,
     handleInputChange
   } = useAddUser();
@@ -19,7 +22,6 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
     if (addedUserData) {
       try {
         const response = await addUser(addedUserData);
-        console.log("Usuario registrado: ", response);
         if (response.status === "Client error") {
           errorData(response.details);
         } else {
@@ -53,7 +55,7 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
                   {
                     label: "Nombre completo",
                     name: "nombreCompleto",
-                    placeholder: "Diego Alexis Salazar Jara",
+                    placeholder: "Nombres Apellidos",
                     fieldType: "input",
                     type: "text",
                     required: true,
@@ -61,6 +63,9 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
                     maxLength: 50,
                     pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                     patternMessage: "Debe contener solo letras y espacios",
+                    errorMessageData: errorNombreCompleto,
+                    onChange: (e) =>
+                      handleInputChange("nombreCompleto", e.target.value),
                   },
                   {
                     label: "Correo electrónico",
@@ -83,7 +88,7 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
                   {
                     label: "Rut",
                     name: "rut",
-                    placeholder: "23.770.330-1",
+                    placeholder: "12.345.678-9",
                     fieldType: "input",
                     type: "text",
                     minLength: 9,
@@ -119,9 +124,13 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
                       { value: "docente", label: "Docente" },
                       { value: "encargado", label: "Encargado" },
                       { value: "jefe de utp", label: "Jefe de UTP" },
+                      { value: "usuario", label: "Usuario" },
                     ],
                     required: true,
                     defaultValue: "usuario",
+                    errorMessageData: errorRol,
+                    onChange: (e) =>
+                      handleInputChange("rol", e.target.value),
                   },
                   {
                     label: "Contraseña",
@@ -134,6 +143,9 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
                     maxLength: 26,
                     pattern: /^[a-zA-Z0-9]+$/,
                     patternMessage: "Debe contener solo letras y números",
+                    errorMessageData: errorPassword,
+                    onChange: (e) =>
+                      handleInputChange("password", e.target.value),
                   },
                 ]}
                 buttonText="Crear Usuario"

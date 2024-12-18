@@ -29,7 +29,7 @@ export async function getSubjects() {
 export async function updateSubject(data, nombre) {
     try {
         const response = await axios.patch(`/subject/detail/?nombre=${nombre}`, data);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }

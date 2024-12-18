@@ -44,7 +44,7 @@ export default function PopupEditClassroom({ show, setShow, data, action }) {
                                             { value: "ocupada", label: "Ocupada" },
                                         ],
                                         required: true,
-                                        defaultValue: classroomData.estado || "",
+                                        defaultValue: classroomData.estado.toLowerCase() || "",
                                     },
                                     {
                                         label: "Capacidad",

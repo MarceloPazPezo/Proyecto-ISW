@@ -44,8 +44,12 @@ const Users = () => {
     setFilterRut(formattedRut);
   };
 
-  const handleSelectionChange = useCallback((selectedUsers) => {
-    setDataUser(selectedUsers);
+  const handleSelectionChange = useCallback((selectedUser) => {
+    if (selectedUser.length > 0) {
+      setDataUser([selectedUser[0]]);
+    } else {
+      setDataUser([]);
+    }
   }, [setDataUser]);
 
   const formatRut = (rut) => {
@@ -57,16 +61,7 @@ const Users = () => {
   };
 
   const handleCellClick = (e, cell) => {
-    const row = cell.getRow();
-    if (e.altKey) {
-      if (row.isSelected()) {
-        row.deselect();
-      } else {
-        const tableRows = row.getTable().getRows();
-        tableRows.forEach(r => r.deselect());
-        row.select();
-      }
-    } else if (e.ctrlKey) {
+    if (e.ctrlKey) {
       const cellValue = cell.getValue();
       navigator.clipboard.writeText(cellValue)
         .then(() => setMessageCopied('Copiado'))
@@ -110,7 +105,7 @@ const Users = () => {
               </button>
             </Tooltip>
             <Tooltip title="Eliminar usuario" position="top" trigger="mouseenter">
-              <button className={`delete-user-button ${dataUser.length === 0 ? 'button-disabled' : ''}`} onClick={() => handleDelete(dataUser)} disabled={dataUser.length === 0} >
+              <button className={`delete-user-button ${dataUser.length === 0 ? 'button-disabled' : ''}`} onClick={() => {handleDelete(dataUser); setDataUser([]); }} disabled={dataUser.length === 0} >
                 {dataUser.length === 0 ? (
                   <img src={DeleteIconDisable} alt="delete-disabled" />
                 ) : (

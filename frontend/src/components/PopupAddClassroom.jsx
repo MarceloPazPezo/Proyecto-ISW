@@ -18,9 +18,6 @@ export default function PopupAddClassroom({ show, setShow, dataClassrooms }) {
         try {
             const response = await addClassroom(addedClassroomData);
             if (response.status === "Client error") {
-                if (response.details.includes("capacidad debe")) {
-                    errorData({ dataInfo: 'capacidad', message: response.details });
-                }
                 errorData(response.details);
             } else {
                 const formattedData = formatClassroomData(response.data);

@@ -141,6 +141,7 @@ export function formatPostUpdateResource(resource) {
 
 export function formatPostUpdateTimeBlock(timeblock) {
     return {
+        id: timeblock.id,
         idTeacher: timeblock.idTeacher,
         idCourse: timeblock.idCourse,
         idSubject: timeblock.idSubject,

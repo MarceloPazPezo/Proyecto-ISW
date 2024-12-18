@@ -20,7 +20,7 @@ const Home = () => {
       <div className="main-content">
         <div className="title-box">
           <h1 className="title">
-            Bienvenidos a PGadminE: Programa gestor administrativo Educacional.
+            Bienvenidos a PGAdminE: Programa gestor administrativo Educacional (Grupo 9)
           </h1>
 
         </div>

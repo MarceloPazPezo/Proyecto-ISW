@@ -5,9 +5,7 @@ import Home from '@pages/Home';
 import Users from '@pages/Users';
 import Error404 from '@pages/Error404';
 import Teachers from '@pages/Teachers';
-import AsignarTimeBlock from '@pages/AsignarTimeBlock.jsx';
 import Horarios from '@pages/Horarios';
-// import CopyTeacher from '@pages/TeachersCopy';
 import Root from '@pages/Root';
 import Reservation from './pages/reservas/Reservation';
 import MyReservation from './pages/reservas/MisReservas';
@@ -50,14 +48,6 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
           <Courses />
-        </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/asignarBloque',
-        element: (
-        <ProtectedRoute allowedRoles={['administrador', 'director', 'jefe de utp']}>
-          <AsignarTimeBlock />
         </ProtectedRoute>
         ),
       },

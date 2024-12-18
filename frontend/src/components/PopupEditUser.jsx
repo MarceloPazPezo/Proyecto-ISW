@@ -29,7 +29,7 @@ export default function PopupEditUser({ show, setShow, data, action }) {
                     label: "Nombre completo",
                     name: "nombreCompleto",
                     defaultValue: userData.nombreCompleto || "",
-                    placeholder: "Diego Alexis Salazar Jara",
+                    placeholder: "Nombres Apellidos",
                     fieldType: "input",
                     type: "text",
                     required: true,
@@ -88,7 +88,7 @@ export default function PopupEditUser({ show, setShow, data, action }) {
                       { value: "director", label: "Director" },
                     ],
                     required: true,
-                    defaultValue: userData.rol || "",
+                    defaultValue: userData.rol.toLowerCase() || "",
                   },
                   {
                     label: "Estado",
@@ -99,7 +99,7 @@ export default function PopupEditUser({ show, setShow, data, action }) {
                       { value: "desvinculado", label: "Desvinculado" },
                     ],
                     required: true,
-                    defaultValue: userData.estado || "",
+                    defaultValue: userData.estado.toLowerCase() || "",
                   },
                   {
                     label: (

@@ -44,21 +44,16 @@ const Subjects = () => {
         setFilterDepartamento(value);
     };
 
-    const handleSelectionChange = useCallback((selectedSubjects) => {
-        setDataSubject(selectedSubjects);
+    const handleSelectionChange = useCallback((selectedSubject) => {
+        if (selectedSubject.length > 0) {
+            setDataSubject([selectedSubject[0]]);
+        } else {
+            setDataSubject([]);
+        }
     }, [setDataSubject]);
 
     const handleCellClick = (e, cell) => {
-        const row = cell.getRow();
-        if (e.altKey) {
-            if (row.isSelected()) {
-                row.deselect();
-            } else {
-                const tableRows = row.getTable().getRows();
-                tableRows.forEach((r) => r.deselect());
-                row.select();
-            }
-        } else if (e.ctrlKey) {
+        if (e.ctrlKey) {
             const cellValue = cell.getValue();
             navigator.clipboard
                 .writeText(cellValue)
@@ -99,7 +94,7 @@ const Subjects = () => {
                             </button>
                         </Tooltip>
                         <Tooltip title="Eliminar asignatura" position="top" trigger="mouseenter">
-                            <button className={`delete-user-button ${dataSubject.length === 0 ? 'button-disabled' : ''}`} onClick={() => handleDelete(dataSubject)} disabled={dataSubject.length === 0}>
+                            <button className={`delete-user-button ${dataSubject.length === 0 ? 'button-disabled' : ''}`} onClick={() => {handleDelete(dataSubject); setDataSubject([]); }} disabled={dataSubject.length === 0}>
                                 {dataSubject.length === 0 ? (
                                     <img src={DeleteIconDisable} alt="delete-disabled" />
                                 ) : (
