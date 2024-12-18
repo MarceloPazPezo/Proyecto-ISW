@@ -1,5 +1,5 @@
 import PopupAddTimeBlock from '../components/PopupAddTimeBlock';
-import '../styles/asignarHorario.css';
+// import '../styles/asignarHorario.css';
 
 const AsignarHorario = () => {
     const handleSave = (data) => {
