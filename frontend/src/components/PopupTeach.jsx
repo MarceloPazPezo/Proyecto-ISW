@@ -77,7 +77,7 @@ export default function PopupTeach({ show, setShow, data }) {
                 maxLength: 50,
                 pattern: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                 patternMessage: "Debe contener solo letras y espacios",
-                disabled: true,
+                readOnly: true,
               },
               {
                 label: "Rut",
@@ -89,7 +89,7 @@ export default function PopupTeach({ show, setShow, data }) {
                 minLength: 9,
                 maxLength: 12,
                 patternMessage: "Debe ser xx.xxx.xxx-x o xxxxxxxx-x",
-                disabled: true,
+                readOnly: true,
               },
               {
                 label: "Asignaturas",

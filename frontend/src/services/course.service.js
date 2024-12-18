@@ -4,13 +4,13 @@ import { convertirMinusculas , formatCourseData } from '@helpers/formatData.js';
 
 export async function addCourse(data) {
     try {
-        const dataRegister = quitarAcentos(convertirMinusculas(data));
-        const { nombre, idBossTeacher, idClassrom, cantidadAlumnos } = dataRegister;
+        const dataFormatted = quitarAcentos(convertirMinusculas(data));
+        const { nombre, idBossTeacher, idClassroom, cantidadAlumnos } = dataFormatted;
 
         const response = await axios.post('/course/', {
             nombre,
             idBossTeacher,
-            idClassrom,
+            idClassroom,
             cantidadAlumnos
         });
         return response.data;
@@ -19,10 +19,16 @@ export async function addCourse(data) {
     }
 }
 
-export async function updateCourse(data, nombre) {
+export async function updateCourse(data, nombreActual) {
     try {
-        const response = await axios.patch(`/course/detail/?nombre=${nombre}`, data);
-        return response.data;
+        const { nombre, idBossTeacher, idClassroom, cantidadAlumnos } = data;
+        const response = await axios.patch(`/course/detail/?nombre=${nombreActual}`, {
+            nombre,
+            idBossTeacher,
+            idClassroom,
+            cantidadAlumnos
+        });
+        return response.data.data;
     } catch (error) {
         return error.response.data;
     }

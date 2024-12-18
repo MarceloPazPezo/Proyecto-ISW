@@ -15,7 +15,6 @@ import Classrooms from '@pages/Classrooms';
 import Subjects from '@pages/Subjects';
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
-// import About from '@pages/About';
 import Courses from '@pages/Courses';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';

@@ -19,6 +19,7 @@ export default function PopupAddUser({ show, setShow, dataUsers }) {
     if (addedUserData) {
       try {
         const response = await addUser(addedUserData);
+        console.log("Usuario registrado: ", response);
         if (response.status === "Client error") {
           errorData(response.details);
         } else {

@@ -13,12 +13,12 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
     const [endDate, setEndDate] = useState(new Date());
     const [selectedSlots, setSelectedSlots] = useState([]);
 
-    const { 
+    const {
         // errorFecha, 
         // errorHoraIngreso, 
         // errorHoraSalida, 
         // inputData, 
-        errorData, 
+        errorData,
         // handleInputChange 
     } = useAddReservation();
 
@@ -54,20 +54,23 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
         e.preventDefault();
         try {
             const recopilaciones = [];
-            // console.log('Selected slots:', selectedSlots.length);
-
+    
             if (selectedSlots.length === 0) {
                 showErrorAlert('Error', 'Debe seleccionar al menos un horario.');
                 return;
             }
-
+    
             for (let i = 0; i < selectedSlots.length; i += 1) {
                 const horaInicio = selectedSlots[i].slice(0, 5);
                 const horaFin = selectedSlots[i].slice(-5);
-                // console.log('Hora inicio:', horaInicio);
-                // console.log('Hora fin:', horaFin);
+    
                 if (horaInicio && horaFin) {
                     if (dateType === 'specific') {
+                        const dayOfWeek = new Date(startDate).getDay();
+                        if (dayOfWeek === 0 || dayOfWeek === 6) {
+                            showErrorAlert('Error', 'No se pueden realizar reservas los fines de semana.');
+                            return;
+                        }
                         const recopilacion = {
                             idResource: resourceId,
                             horaInicio,
@@ -76,14 +79,17 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                         };
                         recopilaciones.push(recopilacion);
                     } else {
-
                         if (startDate > endDate) {
                             showErrorAlert('Error', 'La fecha de inicio no puede ser mayor a la fecha de fin.');
                             return;
                         }
-
+    
                         const dates = generateDateRange(startDate, endDate);
                         for (const date of dates) {
+                            const dayOfWeek = new Date(date).getDay();
+                            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                                continue; // Salta sábados y domingos
+                            }
                             const recopilacion = {
                                 idResource: resourceId,
                                 horaInicio,
@@ -96,21 +102,30 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                 }
             }
 
+            if (recopilaciones.length === 0) {
+                showErrorAlert('Error', 'No se han seleccionado horarios válidos.');
+                return;
+            }
+    
             for (const recopilacion of recopilaciones) {
-                // console.log('RecopilaciónPOPU:', recopilacion);
                 const response = await createReservation(recopilacion);
+                if (response.status === 'Error') {
+                    errorData('Error', response.details);
+                    break;
+                } 
                 if (response.status !== 'Success') {
                     errorData('Error', response.details);
                     break;
                 }
             }
-
+    
             showSuccessAlert('¡Agregado!', 'El recurso ha sido agregado correctamente.');
         } catch (error) {
             console.error('Error al agregar el recurso:', error);
             showErrorAlert('Cancelado', 'Ocurrió un error al agregar el recurso.');
         }
     };
+    
 
     const timeSlots = [
         '08:00 - 08:45',
@@ -136,55 +151,44 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
         <div>
             {show && (
                 <div className="bg">
-                    <div className="popup">
-                        <button className='close' onClick={() => setShow(false)}>
-                            <img src={CloseIcon} alt="Close" />
-                        </button>
-                        <h2>Crear Reserva y Periodos</h2>
-                        <form onSubmit={editSubmit}>
-                            <div className="form-group">
-                                <label>Hora/s de disponibilidad recurso/s</label>
-                                <div className="checkbox-actions">
-                                    <button5 type="button" onClick={handleSelectAll}>Seleccionar todas</button5>
-                                    <button5 type="button" onClick={handleDeselectAll}>Eliminar selección</button5>
-                                </div>
-                                {timeSlots.map(slot => (
-                                    <div key={slot} className="checkbox-item">
-                                        <label>
-                                            <input 
-                                                type="checkbox" 
-                                                name="horario" 
-                                                value={slot} 
-                                                checked={selectedSlots.includes(slot)}
-                                                onChange={() => handleCheckboxChange(slot)} 
-                                            />
-                                            {slot}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="form-group">
-                                <label>Tipo de fecha</label>
-                                <select name="dateType" value={dateType} onChange={(e) => setDateType(e.target.value)} required>
-                                    <option value="specific">Día específico</option>
-                                    <option value="period">Período</option>
-                                </select>
-                            </div>
-                            {dateType === 'specific' ? (
+                    <div className="popup-edit-reserva">
+                        <div className="popup-content">
+                            <button className='close' onClick={() => setShow(false)}>
+                                <img src={CloseIcon} alt="Close" />
+                            </button>
+                            <h2>Crear Reserva y Periodos</h2>
+                            <form onSubmit={editSubmit} className="form-container">
                                 <div className="form-group">
-                                    <label>Fecha</label>
-                                    <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        dateFormat="dd/MM/yyyy"
-                                        className="form-control"
-                                        required
-                                    />
+                                    <label>Hora/s de disponibilidad recurso/s</label>
+                                    <div className="checkbox-actions">
+                                        <button5 type="button" onClick={handleSelectAll}>Seleccionar todas</button5>
+                                        <button5 type="button" onClick={handleDeselectAll}>Eliminar selección</button5>
+                                    </div>
+                                    {timeSlots.map(slot => (
+                                        <div key={slot} className="checkbox-item">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="horario"
+                                                    value={slot}
+                                                    checked={selectedSlots.includes(slot)}
+                                                    onChange={() => handleCheckboxChange(slot)}
+                                                />
+                                                {slot}
+                                            </label>
+                                        </div>
+                                    ))}
                                 </div>
-                            ) : (
-                                <>
+                                <div className="form-group">
+                                    <label>Tipo de fecha</label>
+                                    <select name="dateType" value={dateType} onChange={(e) => setDateType(e.target.value)} required>
+                                        <option value="specific">Día específico</option>
+                                        <option value="period">Período</option>
+                                    </select>
+                                </div>
+                                {dateType === 'specific' ? (
                                     <div className="form-group">
-                                        <label>Fecha de inicio</label>
+                                        <label>Fecha</label>
                                         <DatePicker
                                             selected={startDate}
                                             onChange={(date) => setStartDate(date)}
@@ -193,20 +197,33 @@ export default function PopupEditReserva({ show, setShow, resourceId }) {
                                             required
                                         />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Fecha de fin</label>
-                                        <DatePicker
-                                            selected={endDate}
-                                            onChange={(date) => setEndDate(date)}
-                                            dateFormat="dd/MM/yyyy"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-                                </>
-                            )}
-                            <button type="submit">Guardar Cambios</button>
-                        </form>
+                                ) : (
+                                    <>
+                                        <div className="form-group">
+                                            <label>Fecha de inicio</label>
+                                            <DatePicker
+                                                selected={startDate}
+                                                onChange={(date) => setStartDate(date)}
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Fecha de fin</label>
+                                            <DatePicker
+                                                selected={endDate}
+                                                onChange={(date) => setEndDate(date)}
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control"
+                                                required
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                                <button type="submit">Guardar Cambios</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}

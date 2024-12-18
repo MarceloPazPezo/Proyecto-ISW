@@ -4,6 +4,7 @@ import Classroom from "../entity/classroom.entity.js";
 import Course from "../entity/course.entity.js";
 import Subject from "../entity/subject.entity.js";
 import Resource from "../entity/resource.entity.js";
+import Reservation from "../entity/reservation.entity.js";
 import TimeBlock from "../entity/timeblock.entity.js";
 import Teach from "../entity/teach.entity.js";
 import { AppDataSource } from "./configDb.js";
@@ -285,7 +286,7 @@ async function createSubject() {
       subjectRepository.save(
         subjectRepository.create({
           nombre: "matematicas",
-          departamento: "matematica",
+          departamento: "ciencias",
         }),
       ),
       subjectRepository.save(
@@ -297,6 +298,12 @@ async function createSubject() {
       subjectRepository.save(
         subjectRepository.create({
           nombre: "historia",
+          departamento: "humanista",
+        }),
+      ),
+      subjectRepository.save(
+        subjectRepository.create({
+          nombre: "filosofia",
           departamento: "humanista",
         }),
       ),
@@ -362,7 +369,7 @@ async function createResource() {
           idManager: 8,
         }),
         resourceRepository.create({
-          nombre: "Auditorio",
+          nombre: "auditorio",
           estado: "disponible",
           idManager: 8,
         }),
@@ -371,6 +378,39 @@ async function createResource() {
     console.log("* => Recursos creadas exitosamente");
   } catch (error) {
     console.error("Error al crear recursos:", error);
+  }
+}
+
+async function createReservations() {
+  try {
+    const reservationRepository = AppDataSource.getRepository(Reservation);
+
+    const count = await reservationRepository.count();
+    if (count > 0) return;
+
+    await Promise.all([
+      reservationRepository.save(
+        reservationRepository.create({
+          horaInicio: "08:00",
+          horaFin: "08:45",
+          fecha: "16-12-2024",
+          idTeacher: "2",
+          idResource: "1",
+        }),
+      ),
+      reservationRepository.save(
+        reservationRepository.create({
+          horaInicio: "08:45",
+          horaFin: "09:30",
+          fecha: "16-12-2024",
+          idTeacher: "2",
+          idResource: "1",
+        }),
+      ),
+    ]);
+    console.log("* => Reservaciones de recursos creadas exitosamente");
+  } catch (error) {
+    console.error("Error al crear las reservaciones:", error);
   }
 }
 
@@ -453,7 +493,7 @@ async function createTeach() {
       "* => Relaciones entre docente y asignaturas creados exitosamente",
     );
   } catch (error) {
-    console.error("Error al crear el bloque de tiempo:", error);
+    console.error("Error al crear las relaciones entre docente y asignaturas:", error);
   }
 }
 
@@ -462,6 +502,7 @@ export {
   createClassrooms,
   createSubject,
   createResource,
+  createReservations,
   createCourses,
   createTimeblocks,
   createTeach,

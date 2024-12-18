@@ -4,32 +4,33 @@ import { AppDataSource } from "../config/configDb.js";
 
 export async function createClassroomService(dataClassroom) {
   try {
-      const classroomRepository = AppDataSource.getRepository(Classroom);
+    const classroomRepository = AppDataSource.getRepository(Classroom);
 
-      const { nombre } = dataClassroom;
+    const { nombre } = dataClassroom;
 
-      const createErrorMessage = (dataInfo, message) => ({
-        dataInfo,
-        message
-      });
+    const createErrorMessage = (dataInfo, message) => ({
+      dataInfo,
+      message,
+    });
 
-      const existingNombreClassroom = await classroomRepository.findOne({
-        where: {
-          nombre,
-        },
-      });
-      
-      if (existingNombreClassroom) return [null, createErrorMessage("nombre", "Nombre en uso")];
+    const existingNombreClassroom = await classroomRepository.findOne({
+      where: {
+        nombre,
+      },
+    });
 
-      const newClassroom = classroomRepository.create({
-          nombre: dataClassroom.nombre,
-          estado: dataClassroom.estado,
-          capacidad: dataClassroom.capacidad,
-      });
+    if (existingNombreClassroom)
+      return [null, createErrorMessage("nombre", "Nombre en uso")];
 
-      const classroomSaved = await classroomRepository.save(newClassroom);
+    const newClassroom = classroomRepository.create({
+      nombre: dataClassroom.nombre,
+      estado: dataClassroom.estado,
+      capacidad: dataClassroom.capacidad,
+    });
 
-      return [classroomSaved, null];
+    const classroomSaved = await classroomRepository.save(newClassroom);
+
+    return [classroomSaved, null];
   } catch (error) {
     console.error("Error al registrar un aula", error);
     return [null, "Error interno del servidor"];
@@ -47,7 +48,7 @@ export async function getClassroomService(query) {
     });
 
     if (!classroomFound) return [null, "Aula no encontrada"];
-    
+
     return [classroomFound, null];
   } catch (error) {
     console.error("Error obtener el aula:", error);
@@ -82,12 +83,14 @@ export async function updateClassroomService(query, body) {
 
     if (!classroomFound) return [null, "Aula no encontrada"];
 
-    const existingClassroom = await classroomRepository.findOne({
-      where: [ { nombre: body.nombre }],
-    });
+    if (nombre !== body.nombre) {
+      const existingClassroom = await classroomRepository.findOne({
+        where: [{ nombre: body.nombre }],
+      });
 
-    if (existingClassroom && existingClassroom.id !== classroomFound.id) {
-      return [null, "Ya existe un aula con el mismo nombre"];
+      if (existingClassroom && existingClassroom.id !== classroomFound.id) {
+        return [null, "Ya existe un aula con el mismo nombre"];
+      }
     }
 
     const dataClassroomUpdate = {
@@ -97,7 +100,10 @@ export async function updateClassroomService(query, body) {
       updatedAt: new Date(),
     };
 
-    await classroomRepository.update({ id: classroomFound.id }, dataClassroomUpdate);
+    await classroomRepository.update(
+      { id: classroomFound.id },
+      dataClassroomUpdate,
+    );
 
     const classroomData = await classroomRepository.findOne({
       where: { id: classroomFound.id },
