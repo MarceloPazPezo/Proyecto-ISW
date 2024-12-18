@@ -1,30 +1,38 @@
 import { useState } from "react";
 import { updateTimeBlock } from '@services/timeblock.service.js';
 import { showErrorAlert, showSuccessAlert } from "../../helpers/sweetAlert";
+import { formatPostUpdateTimeBlock } from '@helpers/formatData';
 
 const useEditTimeBlock = (setTimeBlocks) => {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isPopupEditOpen, setIsPopupEditOpen] = useState(false);
     const [dataTimeBlock, setDataTimeBlock] = useState([]);
 
     const handleClickUpdate = () => {
         if (dataTimeBlock.length > 0) {
-            setIsPopupOpen(true);
+            setIsPopupEditOpen(true);
         }
     };
 
-    const handleUpdate = async (updateTimeBlockData) => {
-        if (updateTimeBlockData) {
+    const handleUpdate = async (updatedTimeBlockData) => {
+        if (updatedTimeBlockData) {
             try {
-                // console.log("DataTimeBlock: ", updateTimeBlockData);
-                const updatedTimeBlock = await updateTimeBlock(updateTimeBlockData); 
-                showSuccessAlert('¡Actualizado!','El bloque de tiempo ha sido actualizado correctamente.');
-                // console.log('Bloque de tiempo actualizado:', updatedTimeBlock);
-                setIsPopupOpen(false);
-                setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(timeblock => timeblock.id === updatedTimeBlock.id ? updatedTimeBlock : timeblock));
+                console.log('updatedTimeBlockData:', updatedTimeBlockData);
+                const updatedTimeBlock = await updateTimeBlock(updatedTimeBlockData);
+                showSuccessAlert('¡Actualizado!', 'El bloque de tiempo ha sido actualizado correctamente.');
+                setIsPopupEditOpen(false);
+
+                const formattedTimeBlock = formatPostUpdateTimeBlock(updatedTimeBlock);
+
+                setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(timeBlock => {
+                    return timeBlock.id === formattedTimeBlock.id ? formattedTimeBlock : timeBlock;
+                }));
+                
+                console.log('formattedTimeBlock:', formattedTimeBlock);
+
                 setDataTimeBlock([]);
             } catch (error) {
-                console.error('Error al actualizar elm bloque de tiempo:', error);
-                showErrorAlert('Cancelado','Ocurrió un error al actualizar el bloque de tiempo.');
+                console.error('Error al actualizar el docente:', error);
+                showErrorAlert('Cancelado', 'Ocurrió un error al actualizar el docente.');
             }
         }
     };
@@ -32,8 +40,8 @@ const useEditTimeBlock = (setTimeBlocks) => {
     return {
         handleClickUpdate,
         handleUpdate,
-        isPopupOpen,
-        setIsPopupOpen,
+        isPopupEditOpen,
+        setIsPopupEditOpen,
         dataTimeBlock,
         setDataTimeBlock
     };

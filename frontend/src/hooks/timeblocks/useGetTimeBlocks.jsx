@@ -9,6 +9,7 @@ const useGetTimeBlocks = () => {
             const response = await getTimeBlocks();
             // console.log(response);
             const formattedData = response.map(timeblock => ({
+                id: timeblock.id,
                 idTeacher: timeblock.idTeacher,
                 idCourse: timeblock.idCourse,
                 idSubject: timeblock.idSubject,

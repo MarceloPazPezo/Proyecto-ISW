@@ -3,11 +3,12 @@ import { deleteDataAlert, showErrorAlert, showSuccessAlert } from '@helpers/swee
 
 const useDeleteTimeBlock = (fetchTimeBlocks, setDataTimeBlock) => {
     const handleDelete = async (dataTimeBlock) => {
+        console.log('dataTimeBlock:', dataTimeBlock);
         if (dataTimeBlock.length > 0) {
             try {
                 const result = await deleteDataAlert();
             if (result.isConfirmed) {
-                const response = await deleteTimeBlock(dataTimeBlock[0].id);
+                const response = await deleteTimeBlock(dataTimeBlock);
                 if(response.status === 'Client error') {
                     return showErrorAlert('Error', response.details);
                 }

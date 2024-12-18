@@ -1,20 +1,13 @@
-import useAddTimeBlock from '@hooks/timeblocks/useAddTimeBlock';
+import Form from './Form';
+import '@styles/popup.css';
+import CloseIcon from '@assets/XIcon.svg';
 import useGetTeachers from '@hooks/users/useGetTeachers';
 import useGetSubjects from '@hooks/subjects/useGetSubjects';
 import useGetCourses from '@hooks/courses/useGetCourses';
-import CloseIcon from '@assets/XIcon.svg';
-import Form from './Form';
 import { useState } from 'react';
-import { addTimeBlock } from '@services/timeblock.service.js';
-import { showErrorAlert, showSuccessAlert } from '@helpers/sweetAlert.js';
-import { formatPostUpdateTimeBlock } from '../helpers/formatData';
-import '@styles/popup.css';
 
-export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
-
-    const {
-        errorData,
-    } = useAddTimeBlock();
+export default function PopupEditCourse({ show, setShow, data, action }) {
+    const timeBlockData = data && data.length > 0 ? data[0] : {};
 
     const {
         teachers,
@@ -26,8 +19,22 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
 
     const {
         courses,
-    } = useGetCourses();
+    } = useGetCourses(); 
 
+    // const { teachers } = useTeachers();
+
+    // const defaultTeacher = teachers.find(teacher => teacher.id === courseData.idBossTeacher) || null;
+
+
+    const handleSubmit = (formData) => {
+        const fullData = {
+            ...formData,
+            id: timeBlockData.id,
+        };
+        action(fullData);
+    };
+
+    
     // console.log("Estos son Docentes:", teachers);
     // console.log("Estos son Asignaturas:", subjects);
     // console.log("Estos son Cursos:", courses);
@@ -60,32 +67,9 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
         const terminoDate = new Date();
         terminoDate.setHours(hours);
         terminoDate.setMinutes(minutes + 45);
-        const newHoraTermino = terminoDate.toTimeString().slice(0,5);
+        const newHoraTermino = terminoDate.toTimeString().slice(0, 5);
         setHoraTermino(newHoraTermino);
     };
-
-
-    const handleSubmit = async (addedTimeBlockData) => {
-        if (addedTimeBlockData) {
-            try {
-                const response = await addTimeBlock(addedTimeBlockData);
-
-                if (response.status === 'Client error') {
-                    errorData(response.details);
-                } else {
-                    const formattedTimeBlock = formatPostUpdateTimeBlock(response.data);
-                    showSuccessAlert('¡Registrado!', 'Bloque de tiempo registrado exitosamente.');
-                    setShow(false);
-                    dataTimeBlocks(prevTimeBlocks => [...prevTimeBlocks, formattedTimeBlock]);
-                }
-            } catch (error) {
-                console.error("Error al registrar el bloque de tiempo: ", error);
-                showErrorAlert('Cancelado', 'Ocurrió un error al registrar un bloque de tiempo.');
-            }
-        }
-    };
-
-    
 
     return (
         <div>
@@ -105,7 +89,7 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         fieldType: 'select',
                                         options: teacherOptions,
                                         required: true,
-                                        defaultValue: "",
+                                        defaultValue: timeBlockData.idTeacher,
                                     },
                                     {
                                         label: "Asignatura",
@@ -113,7 +97,7 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         fieldType: 'select',
                                         options: subjectOptions,
                                         required: true,
-                                        defaultValue: "",
+                                        defaultValue: timeBlockData.idSubject,
                                     },
                                     {
                                         label: "Curso",
@@ -121,7 +105,7 @@ export default function PopupAddTimeBlock({ show, setShow, dataTimeBlocks }) {
                                         fieldType: 'select',
                                         options: courseOptions,
                                         required: true,
-                                        defaultValue: "",
+                                        defaultValue: timeBlockData.idCourse,
                                     },
                                     {
                                         label: "Hora Inicio",
