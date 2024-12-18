@@ -14,6 +14,7 @@ import Subjects from '@pages/Subjects';
 import Schedule from '@pages/Schedule';
 import Permisos from '@pages/Permisos';
 import Courses from '@pages/Courses';
+import MySubjects from '@pages/MySubjects';
 import ProtectedRoute from '@components/ProtectedRoute';
 import '@styles/styles.css';
 
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute allowedRoles={['docente']}>
             <MyReservation />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/mysubjects',
+        element: (
+          <ProtectedRoute allowedRoles={['docente']}>
+            <MySubjects />
           </ProtectedRoute>
         )
       },

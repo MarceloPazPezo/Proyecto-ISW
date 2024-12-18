@@ -21,6 +21,7 @@ const useTeachesByTeacher = (rut) => {
                         value: item.subject.id,
                         label: startCase(item.subject.nombre),
                         relationId: item.id,
+                        departamento:  startCase(item.subject.departamento),
                     }));
                     const id = response.data[0]?.teacher?.id || null;
                     setIdTeacher(id);

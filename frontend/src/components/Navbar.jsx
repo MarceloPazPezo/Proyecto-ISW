@@ -161,19 +161,28 @@ const Navbar = () => {
                                         Mis Reservas
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink
+                                        to="/mysubjects"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                        onClick={handleLinkClick}
+                                    >
+                                        Mis Asignaturas
+                                    </NavLink>
+                                </li>
                             </ul>
                         </li>
                     )}
                     {(userRole === 'encargado') && (
-                    <li>
-                        <NavLink
-                            to="/reservation"
-                            onClick={handleLinkClick}
-                            activeClassName="active"
-                        >
-                            <FontAwesomeIcon icon={faClipboardList} /> Reserva
-                        </NavLink>
-                    </li>
+                        <li>
+                            <NavLink
+                                to="/reservation"
+                                onClick={handleLinkClick}
+                                activeClassName="active"
+                            >
+                                <FontAwesomeIcon icon={faClipboardList} /> Reserva
+                            </NavLink>
+                        </li>
                     )}
                     {userRole === 'docente' && (
                         <li>
