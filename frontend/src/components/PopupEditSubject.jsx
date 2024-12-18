@@ -1,14 +1,14 @@
 import Form from './Form';
 import '@styles/popup.css';
 import CloseIcon from '@assets/XIcon.svg';
-
+//popup en formato de formulario para editar asignatura
 export default function PopupEditSubject({ show, setShow, data, action }) {
     const subjectData = data && data.length > 0 ? data[0] : {};
-
+//Envio de formulario
     const handleSubmit = (formData) => {
         action(formData);
     };
-
+// Muestra los elementos del formulario donde podemos editar la asignatura
     return (
         <div>
             { show && (
@@ -33,6 +33,7 @@ export default function PopupEditSubject({ show, setShow, data, action }) {
                                 patternMessage: "Debe contener solo letras, espacios y números.",
                                 readOnly: true,
                             },
+//campo de departamento modificable
                             {
                                 label: "Departamento",
                                 name: "departamento",
